@@ -661,18 +661,26 @@ def main():
             # Get all dramas first
             logger.info("Fetching drama list...")
             dramas = scraper.api.get_all_dramas()
-            drama_ids = list(dramas.keys())
+            all_drama_ids = list(dramas.keys())
+            logger.info(f"Total dramas found: {len(all_drama_ids)}")
             
             # Apply batch filter if specified
             if args.batch:
-                drama_ids = get_batch_drama_ids(drama_ids, args.batch)
-                logger.info(f"BATCH {args.batch}: Processing {len(drama_ids)} dramas")
+                drama_ids = get_batch_drama_ids(all_drama_ids, args.batch)
+                logger.info(f"=== BATCH {args.batch} MODE ===")
+                logger.info(f"Processing {len(drama_ids)} dramas (out of {len(all_drama_ids)} total)")
+            else:
+                drama_ids = all_drama_ids
+                logger.info("=== FULL MODE (no batch) ===")
             
             # Apply limit if specified
             if args.limit:
                 drama_ids = drama_ids[:args.limit]
+                logger.info(f"Limited to {len(drama_ids)} dramas")
         
+        logger.info(f"Starting scrape of {len(drama_ids)} dramas...")
         scraper.scrape_full(drama_ids)
 
 if __name__ == "__main__":
     main()
+

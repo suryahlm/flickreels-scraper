@@ -1,0 +1,10 @@
+# Ignore large files for Railway deployment
+*.apk
+*.har
+API/
+App/
+frida/
+*.log
+*.json
+__pycache__/
+.git/
