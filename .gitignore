@@ -36,3 +36,8 @@ API/*.har
 
 # Frida scripts (not needed for production)
 frida/
+
+# Large binary files
+*.jar
+jadx-gui*
+github/
