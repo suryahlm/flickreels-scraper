@@ -4,8 +4,7 @@
         "builder": "NIXPACKS"
     },
     "deploy": {
-        "startCommand": "python flickreels_r2_scraper.py --mode=full",
-        "restartPolicyType": "ON_FAILURE",
-        "restartPolicyMaxRetries": 3
+        "startCommand": "python railway_scraper.py --scan=200",
+        "restartPolicyType": "NEVER"
     }
 }

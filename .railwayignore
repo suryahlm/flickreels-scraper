@@ -5,6 +5,11 @@ API/
 App/
 frida/
 *.log
-*.json
+all_dramas.json
+dramas_indonesia.json
+extracted_*.json
+__pycache__/
+.git/
+
 __pycache__/
 .git/
