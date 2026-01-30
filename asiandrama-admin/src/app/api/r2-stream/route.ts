@@ -112,8 +112,13 @@ export async function GET(request: NextRequest) {
             // Get base path (directory of the m3u8 file)
             const basePath = path.substring(0, path.lastIndexOf('/') + 1);
 
-            // Get the base URL for the API
-            const baseUrl = request.nextUrl.origin;
+            // Get the base URL for the API - use Railway domain or request host
+            const railwayDomain = process.env.RAILWAY_PUBLIC_DOMAIN;
+            const host = request.headers.get('host');
+            const protocol = request.headers.get('x-forwarded-proto') || 'https';
+            const baseUrl = railwayDomain
+                ? `https://${railwayDomain}`
+                : `${protocol}://${host}`;
 
             // Rewrite .ts segment references to absolute URLs
             content = content.replace(/^([^#\n][^\n]*\.ts)$/gm, (match, filename) => {
