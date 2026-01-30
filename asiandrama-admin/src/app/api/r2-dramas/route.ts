@@ -60,7 +60,7 @@ export async function GET() {
         // List all folders in dramas/ prefix
         const listCommand = new ListObjectsV2Command({
             Bucket: R2_CONFIG.bucketName,
-            Prefix: 'dramas/',
+            Prefix: 'flickreels/',
             Delimiter: '/',
         });
 
@@ -75,14 +75,14 @@ export async function GET() {
         for (const folder of folders) {
             if (!folder.Prefix) continue;
 
-            const folderName = folder.Prefix.replace('dramas/', '').replace('/', '');
+            const folderName = folder.Prefix.replace('flickreels/', '').replace('/', '');
             if (!folderName) continue;
 
             try {
                 // Read metadata.json from folder
                 const metaCommand = new GetObjectCommand({
                     Bucket: R2_CONFIG.bucketName,
-                    Key: `dramas/${folderName}/metadata.json`,
+                    Key: `flickreels/${folderName}/metadata.json`,
                 });
 
                 const metaResult = await s3.send(metaCommand);
@@ -96,8 +96,8 @@ export async function GET() {
                         id: metadata.id || extractIdFromFolder(folderName),
                         title: metadata.title || folderName,
                         synopsis: metadata.synopsis || '',
-                        cover_url: `/api/stream/dramas/${encodeURIComponent(folderName)}/cover.jpg`,
-                        thumbnail_url: `/api/stream/dramas/${encodeURIComponent(folderName)}/cover.jpg`,
+                        cover_url: `/api/stream/flickreels/${encodeURIComponent(folderName)}/cover.jpg`,
+                        thumbnail_url: `/api/stream/flickreels/${encodeURIComponent(folderName)}/cover.jpg`,
                         total_episodes: metadata.total_episodes || metadata.chapter_total || 0,
                         language_id: metadata.language_id || 6,
                         folder_name: folderName,
