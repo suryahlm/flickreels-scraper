@@ -109,6 +109,9 @@ export async function GET(request: NextRequest) {
         if (path.endsWith('.m3u8')) {
             let content = buffer.toString('utf-8');
 
+            // CRITICAL: Normalize line endings to LF only (Android ExoPlayer requires this)
+            content = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
             // Get base path (directory of the m3u8 file)
             const basePath = path.substring(0, path.lastIndexOf('/') + 1);
 
