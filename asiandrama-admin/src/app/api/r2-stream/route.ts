@@ -102,8 +102,28 @@ export async function GET(request: NextRequest) {
             chunks.push(value);
         }
 
-        const buffer = Buffer.concat(chunks);
+        let buffer = Buffer.concat(chunks);
         const contentType = getContentType(path);
+
+        // For m3u8 files: rewrite relative paths to absolute URLs
+        if (path.endsWith('.m3u8')) {
+            let content = buffer.toString('utf-8');
+
+            // Get base path (directory of the m3u8 file)
+            const basePath = path.substring(0, path.lastIndexOf('/') + 1);
+
+            // Get the base URL for the API
+            const baseUrl = request.nextUrl.origin;
+
+            // Rewrite .ts segment references to absolute URLs
+            content = content.replace(/^([^#\n][^\n]*\.ts)$/gm, (match, filename) => {
+                const segmentPath = basePath + filename;
+                return `${baseUrl}/api/r2-stream?path=${encodeURIComponent(segmentPath)}`;
+            });
+
+            buffer = Buffer.from(content, 'utf-8');
+            console.log(`[R2 Stream] Rewrote m3u8 with absolute URLs for: ${path}`);
+        }
 
         console.log(`[R2 Stream] Success: ${path} (${buffer.length} bytes)`);
 
