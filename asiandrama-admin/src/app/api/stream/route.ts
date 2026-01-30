@@ -20,15 +20,15 @@ const FLICKREELS_CONFIG = {
 
 const DEFAULT_DEVICE_PARAMS = {
     main_package_id: 100,
-    googleAdId: "",
+    googleAdId: "783978b6-0d30-438d-a58d-faf171eed978",
     device_id: "0d209b4d4009b44c",
-    device_sign: "3af3b323830984d797d4d623af999126f3ec0d3071f69532c2c4a27b67b89e74",
+    device_sign: "9c9ac800ed0e04784ea08c32fdff1406b81400962db3690c6e917bbf4cd361f0",
     apps_flyer_uid: "1769621528308-5741215934785896746",
     os: "android",
     device_brand: "samsung",
     device_number: "9",
     device_model: "SM-X710N",
-    language_id: "6",
+    language_id: "6", // 6 = Indonesian (ID), 1 = English
     countryCode: "ID"
 };
 
@@ -41,8 +41,16 @@ function generateNonce(length: number = 32): string {
     return result;
 }
 
+/**
+ * Port of Python _method_d function
+ * Converts body dict to sorted key_value string
+ */
 function methodD(body: Record<string, any>): string {
-    // Sort keys and create underscore-separated string
+    if (!body || Object.keys(body).length === 0) {
+        return "";
+    }
+
+    // Sort keys alphabetically
     const sortedKeys = Object.keys(body).sort();
     const parts: string[] = [];
 
@@ -51,8 +59,10 @@ function methodD(body: Record<string, any>): string {
         if (value !== null && value !== undefined) {
             let valueStr: string;
             if (typeof value === 'boolean') {
+                // Java uses lowercase true/false
                 valueStr = value ? 'true' : 'false';
             } else if (typeof value === 'object') {
+                // Nested objects as JSON
                 valueStr = JSON.stringify(value);
             } else {
                 valueStr = String(value);
@@ -64,11 +74,22 @@ function methodD(body: Record<string, any>): string {
     return parts.join('_');
 }
 
+/**
+ * Generate sign for FlickReels API
+ * Algorithm from APK class sb.b method f:
+ * sign = HmacSHA256(d(body) + "_" + timestamp + "_" + nonce + "_" + md5(d(body)), secret_key)
+ */
 function generateSign(body: Record<string, any>, timestamp: string, nonce: string): string {
+    // Method d: process body to sorted string
     const strD = methodD(body);
+
+    // Method b: MD5 hash of d(body)
     const strB = crypto.createHash('md5').update(strD).digest('hex');
+
+    // Build message: d(body) + "_" + timestamp + "_" + nonce + "_" + md5(d(body))
     const message = `${strD}_${timestamp}_${nonce}_${strB}`;
 
+    // Generate HMAC-SHA256
     const sign = crypto
         .createHmac('sha256', FLICKREELS_CONFIG.secret_key)
         .update(message)
@@ -77,15 +98,16 @@ function generateSign(body: Record<string, any>, timestamp: string, nonce: strin
     return sign;
 }
 
-async function flickreelsRequest(endpoint: string, extraBody: Record<string, any> = {}): Promise<any> {
-    const body = { ...DEFAULT_DEVICE_PARAMS, ...extraBody };
+async function flickreelsRequest(endpoint: string, extraBody: Record<string, any> = {}, languageId: string = '6'): Promise<any> {
+    // IMPORTANT: language_id must be set LAST to override any value from DEFAULT_DEVICE_PARAMS
+    const body = { ...DEFAULT_DEVICE_PARAMS, ...extraBody, language_id: languageId };
     const timestamp = String(Math.floor(Date.now() / 1000));
     const nonce = generateNonce(32);
     const sign = generateSign(body, timestamp, nonce);
 
     const url = `${FLICKREELS_CONFIG.base_url}${endpoint}`;
 
-    console.log(`[FlickReels] POST ${endpoint}`);
+    console.log(`[FlickReels] POST ${endpoint}, language_id=${languageId}`);
 
     const response = await fetch(url, {
         method: 'POST',
@@ -93,6 +115,7 @@ async function flickreelsRequest(endpoint: string, extraBody: Record<string, any
             'Content-Type': 'application/json; charset=UTF-8',
             'Accept-Encoding': 'gzip',
             'User-Agent': FLICKREELS_CONFIG.user_agent,
+            'Cache-Control': 'no-cache',
             'version': FLICKREELS_CONFIG.version,
             'token': FLICKREELS_CONFIG.token,
             'sign': sign,
@@ -102,38 +125,49 @@ async function flickreelsRequest(endpoint: string, extraBody: Record<string, any
         body: JSON.stringify(body),
     });
 
-    const data = await response.json();
-    console.log(`[FlickReels] Response:`, data?.status_code, data?.msg);
+    const responseText = await response.text();
 
-    return data;
+    try {
+        const data = JSON.parse(responseText);
+        console.log(`[FlickReels] Response:`, data?.status_code, data?.msg);
+        return data;
+    } catch {
+        console.log(`[FlickReels] Failed to parse response:`, responseText.substring(0, 200));
+        return { status_code: -1, msg: 'Invalid JSON response' };
+    }
 }
 
-async function getEpisodeStream(dramaId: string, episodeNum: number): Promise<{
+async function getEpisodeStream(dramaId: string, episodeNum: number, languageId: string = '6'): Promise<{
     hls_url: string;
     cover_url: string;
     duration: number;
     title: string;
 } | null> {
     try {
-        // Get episodes list
-        console.log(`[Stream] Getting chapters for drama ${dramaId}...`);
-        const chaptersData = await flickreelsRequest('/app/chapter/catalog', {
-            playlet_id: parseInt(dramaId),
-        });
+        // Get episodes list using correct endpoint
+        console.log(`[Stream] Getting episodes for drama ${dramaId}, lang=${languageId}...`);
+        const chaptersData = await flickreelsRequest('/app/playlet/chapterList', {
+            playlet_id: String(dramaId),
+            chapter_type: -1,
+            auto_unlock: false,
+            fragmentPosition: 0,
+            show_type: 0,
+            source: 1,
+            vip_btn_scene: '{"scene_type":[1,3],"play_type":1,"collection_status":0}'
+        }, languageId);
 
-        if (chaptersData?.status_code !== 0 || !chaptersData?.data?.list) {
+        if (chaptersData?.status_code !== 1 || !chaptersData?.data) {
             console.error('[Stream] Failed to get chapters:', chaptersData);
             return null;
         }
 
-        const episodes = chaptersData.data.list;
+        const episodes = chaptersData.data.list || chaptersData.data || [];
         console.log(`[Stream] Found ${episodes.length} episodes`);
 
-        // Find the episode
+        // Find the episode by number
         const episode = episodes.find((ep: any) =>
-            ep.sort === episodeNum ||
-            ep.chapter_number === episodeNum ||
-            ep.number === episodeNum
+            ep.chapter_num === episodeNum ||
+            ep.chapter_number === episodeNum
         );
 
         if (!episode) {
@@ -141,30 +175,40 @@ async function getEpisodeStream(dramaId: string, episodeNum: number): Promise<{
             return null;
         }
 
-        console.log(`[Stream] Found episode:`, episode.id || episode.chapter_id);
+        const chapterId = episode.chapter_id;
+        console.log(`[Stream] Found episode:`, chapterId);
 
-        // Get fresh HLS URL for this episode
-        const streamData = await flickreelsRequest('/app/chapter/video', {
-            chapter_id: episode.id || episode.chapter_id,
-        });
+        // Get stream URL using correct endpoint
+        const streamData = await flickreelsRequest('/app/playlet/play', {
+            playlet_id: String(dramaId),
+            chapter_id: String(chapterId),
+            chapter_type: 0,
+            auto_unlock: false,
+            fragmentPosition: 0,
+            show_type: 0,
+            source: 1,
+            vip_btn_scene: '{"scene_type":[1,3],"play_type":1,"collection_status":0}'
+        }, languageId);
 
-        if (streamData?.status_code !== 0 || !streamData?.data) {
+        if (streamData?.status_code !== 1 || !streamData?.data) {
             console.error('[Stream] Failed to get stream URL:', streamData);
             return null;
         }
 
-        const hlsUrl = streamData.data.filepath ||
-            streamData.data.auto_filepath ||
-            streamData.data.hls_url ||
-            streamData.data.url;
+        const hlsUrl = streamData.data.hls_url || streamData.data.hls;
 
-        console.log(`[Stream] Got HLS URL: ${hlsUrl?.substring(0, 50)}...`);
+        if (!hlsUrl) {
+            console.error('[Stream] No HLS URL in response');
+            return null;
+        }
+
+        console.log(`[Stream] Got HLS URL: ${hlsUrl.substring(0, 60)}...`);
 
         return {
             hls_url: hlsUrl,
-            cover_url: episode.snapshot_url || episode.cover_url || '',
-            duration: episode.duration || 0,
-            title: episode.name || `Episode ${episodeNum}`
+            cover_url: episode.chapter_cover || episode.cover_url || '',
+            duration: episode.chapter_duration || episode.duration || 0,
+            title: episode.chapter_title || episode.title || `Episode ${episodeNum}`
         };
     } catch (error) {
         console.error('[Stream] Error:', error);
@@ -183,6 +227,7 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const dramaId = searchParams.get('drama_id');
     const episodeNum = parseInt(searchParams.get('episode') || '1');
+    const languageId = searchParams.get('language_id') || '6'; // Default: Indonesian (6)
 
     if (!dramaId) {
         return NextResponse.json(
@@ -192,9 +237,9 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-        console.log(`[API] Stream request: drama=${dramaId}, episode=${episodeNum}`);
+        console.log(`[API] Stream request: drama=${dramaId}, episode=${episodeNum}, lang=${languageId}`);
 
-        const streamData = await getEpisodeStream(dramaId, episodeNum);
+        const streamData = await getEpisodeStream(dramaId, episodeNum, languageId);
 
         if (!streamData || !streamData.hls_url) {
             return NextResponse.json(
