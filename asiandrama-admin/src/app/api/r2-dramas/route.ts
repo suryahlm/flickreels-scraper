@@ -21,7 +21,7 @@ const R2_CONFIG = {
 // Cache
 let cachedDramas: any = null;
 let cacheTime = 0;
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 60 * 60 * 1000; // 1 hour (dramas rarely change)
 
 // CORS headers
 const corsHeaders = {
@@ -96,8 +96,8 @@ export async function GET() {
                         id: metadata.id || extractIdFromFolder(folderName),
                         title: metadata.title || folderName,
                         synopsis: metadata.synopsis || '',
-                        cover_url: `/api/r2-stream?path=dramas/${encodeURIComponent(folderName)}/cover.jpg`,
-                        thumbnail_url: `/api/r2-stream?path=dramas/${encodeURIComponent(folderName)}/cover.jpg`,
+                        cover_url: `/api/stream/dramas/${encodeURIComponent(folderName)}/cover.jpg`,
+                        thumbnail_url: `/api/stream/dramas/${encodeURIComponent(folderName)}/cover.jpg`,
                         total_episodes: metadata.total_episodes || metadata.chapter_total || 0,
                         language_id: metadata.language_id || 6,
                         folder_name: folderName,

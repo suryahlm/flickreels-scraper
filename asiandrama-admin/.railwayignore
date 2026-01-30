@@ -1,0 +1,11 @@
+# Ignore large folders and files not needed for deployment
+node_modules/
+.next/
+*.log
+
+# Parent directory files (if accidentally included)
+../Video Drama TS/
+../Scraping 01/
+../App/
+../*.py
+../*.json
