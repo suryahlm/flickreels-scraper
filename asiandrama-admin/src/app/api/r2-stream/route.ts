@@ -121,10 +121,18 @@ export async function GET(request: NextRequest) {
                 : `${protocol}://${host}`;
 
             // Rewrite .ts segment references to absolute URLs
-            content = content.replace(/^([^#\n][^\n]*\.ts)$/gm, (match, filename) => {
-                const segmentPath = basePath + filename;
-                return `${baseUrl}/api/r2-stream?path=${encodeURIComponent(segmentPath)}`;
+            // Use line-by-line processing instead of regex to avoid issues
+            const lines = content.split('\n');
+            const rewrittenLines = lines.map(line => {
+                const trimmed = line.trim();
+                // If line ends with .ts and doesn't start with #, it's a segment file
+                if (trimmed.endsWith('.ts') && !trimmed.startsWith('#')) {
+                    const segmentPath = basePath + trimmed;
+                    return `${baseUrl}/api/r2-stream?path=${encodeURIComponent(segmentPath)}`;
+                }
+                return line;
             });
+            content = rewrittenLines.join('\n');
 
             buffer = Buffer.from(content, 'utf-8');
             console.log(`[R2 Stream] Rewrote m3u8 with absolute URLs for: ${path}`);
