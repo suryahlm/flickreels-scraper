@@ -91,13 +91,19 @@ export async function GET() {
                     const bodyText = await metaResult.Body.transformToString();
                     const metadata = JSON.parse(bodyText);
 
-                    // Build drama object with R2 stream URLs
+                    // Get base URL (Railway deployment URL or localhost)
+                    const baseUrl = process.env.NEXT_PUBLIC_API_URL ||
+                        process.env.RAILWAY_PUBLIC_DOMAIN
+                        ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
+                        : 'https://tender-connection-production-246f.up.railway.app';
+
+                    // Build drama object with R2 stream URLs (ABSOLUTE URLs for mobile)
                     dramas.push({
                         id: metadata.id || extractIdFromFolder(folderName),
                         title: metadata.title || folderName,
                         synopsis: metadata.synopsis || '',
-                        cover_url: `/api/stream/flickreels/${encodeURIComponent(folderName)}/cover.jpg`,
-                        thumbnail_url: `/api/stream/flickreels/${encodeURIComponent(folderName)}/cover.jpg`,
+                        cover_url: `${baseUrl}/api/stream/flickreels/${encodeURIComponent(folderName)}/cover.jpg`,
+                        thumbnail_url: `${baseUrl}/api/stream/flickreels/${encodeURIComponent(folderName)}/cover.jpg`,
                         total_episodes: metadata.total_episodes || metadata.chapter_total || 0,
                         language_id: metadata.language_id || 6,
                         folder_name: folderName,
