@@ -21,7 +21,7 @@ const R2_CONFIG = {
 // Cache
 let cachedDramas: any = null;
 let cacheTime = 0;
-const CACHE_DURATION = 60 * 60 * 1000; // 1 hour (dramas rarely change)
+const CACHE_DURATION = 0; // TEMPORARILY DISABLED - set back to 60*60*1000 after drama count stabilizes
 
 // CORS headers
 const corsHeaders = {
