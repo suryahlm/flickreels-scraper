@@ -548,24 +548,28 @@ class BatchScraper:
         
         # 4. Scan ID ranges if still need more (most dramas are 1000-6000)
         if len(collected) < max_count:
-            logger.info("Scanning ID ranges for more dramas...")
-            for start_id in range(5000, 1000, -100):  # Start from recent
+            logger.info("Scanning ID ranges for Indonesian dramas...")
+            for scan_id in range(5500, 1000, -1):  # Start from recent, go backwards
                 if len(collected) >= max_count:
                     break
-                for drama_id in range(start_id, start_id + 100):
-                    drama_id = str(drama_id)
-                    if drama_id in existing_ids or drama_id in collected:
-                        continue
-                    # Quick check if drama exists (title only, not full details)
-                    detail = self.api.get_drama_detail(drama_id)
-                    if detail:
-                        title = detail.get("title", "")
-                        # Only include if looks Indonesian
-                        if title and len(detail.get("chapter_list", [])) > 0:
-                            collected[drama_id] = title
-                            logger.info(f"  Found: {drama_id} - {title}")
-                            if len(collected) >= max_count:
-                                break
+                scan_id = str(scan_id)
+                if scan_id in existing_ids or scan_id in collected:
+                    continue
+                
+                # Get drama details and check language
+                detail = self.api.get_drama_detail(scan_id)
+                if detail:
+                    title = detail.get("title", "")
+                    language = detail.get("language_name", "").lower()
+                    chapters = detail.get("chapter_list", [])
+                    
+                    # Only include INDONESIAN dramas
+                    if title and len(chapters) > 0 and "indonesian" in language:
+                        collected[scan_id] = title
+                        logger.info(f"  Found ID {scan_id}: {title} ({len(chapters)} eps)")
+                        
+                        if len(collected) >= max_count:
+                            break
         
         return collected
     
@@ -608,20 +612,24 @@ class BatchScraper:
                 drama_id, title = drama_queue[queue_index]
                 queue_index += 1
             else:
-                # Queue exhausted, try scanning more IDs
-                logger.info("Queue exhausted, scanning for more dramas...")
+                # Queue exhausted, try scanning more IDs for Indonesian dramas
+                logger.info("Queue exhausted, scanning for more Indonesian dramas...")
                 for scan_id in range(6000, 500, -1):
                     scan_id = str(scan_id)
                     if scan_id in existing_ids or scan_id in attempted_ids:
                         continue
                     detail = self.api.get_drama_detail(scan_id)
-                    if detail and detail.get("title") and len(detail.get("chapter_list", [])) > 0:
-                        drama_id = scan_id
+                    if detail:
                         title = detail.get("title", "")
-                        logger.info(f"Found via scan: {drama_id} - {title}")
-                        break
+                        language = detail.get("language_name", "").lower()
+                        chapters = detail.get("chapter_list", [])
+                        # Only INDONESIAN dramas
+                        if title and len(chapters) > 0 and "indonesian" in language:
+                            drama_id = scan_id
+                            logger.info(f"Found Indonesian via scan: {drama_id} - {title}")
+                            break
                 else:
-                    logger.error("No more dramas available to scan!")
+                    logger.error("No more Indonesian dramas available to scan!")
                     break
             
             # Skip if already attempted
