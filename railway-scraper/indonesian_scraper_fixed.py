@@ -52,7 +52,7 @@ FLICKREELS_CONFIG = {
 DEFAULT_BODY_PARAMS = {
     "main_package_id": 100,
     "device_id": "0d209b4d4009b44c",
-    "device_sign": "9c9ac800ed0e04784ea08c32fdff1406b81400962db3690c6e917bbf4cd361f0",
+    "device_sign": "54635c70fbd4b9ece7bcac55af30c6a48a63a8fedcf7f61c4a54cd8604ab4851",
     "os": "android",
     "device_brand": "samsung",
     "device_number": "9",
