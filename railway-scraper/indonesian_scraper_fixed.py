@@ -325,14 +325,14 @@ class IndonesianScraper:
             logger.error(f"Cover download failed: {e}")
             return False
     
-    def scrape_episode(self, drama_id, episode_num, chapter_id, r2_path):
+    def scrape_episode(self, drama_id, episode_num, hls_url, r2_path):
         """FIX #1: Store episodes at ROOT level (no /episodes/ subdir)"""
         try:
             logger.info(f"[EP {episode_num}] Starting...")
             
-            hls_url = self.api.get_stream_url(drama_id, chapter_id)
+            # HLS URL is passed directly from chapterList response
             if not hls_url:
-                logger.error(f"[EP {episode_num}] Failed to get HLS URL")
+                logger.error(f"[EP {episode_num}] No HLS URL provided")
                 return False
             
             # Download manifest
@@ -447,13 +447,16 @@ class IndonesianScraper:
         with ThreadPoolExecutor(max_workers=CONCURRENT_CONFIG["max_concurrent_episodes"]) as executor:
             futures = []
             for i, chapter in enumerate(episodes_to_scrape, 1):
-                chapter_id = str(chapter.get("id", ""))
-                if chapter_id:
+                # Use hls_url directly from chapterList response
+                hls_url = chapter.get("hls_url", "")
+                if hls_url:
                     future = executor.submit(
                         self.scrape_episode,
-                        drama_id, i, chapter_id, r2_path
+                        drama_id, i, hls_url, r2_path
                     )
                     futures.append(future)
+                else:
+                    logger.warning(f"[EP {i}] No HLS URL in chapter data")
             
             # Wait for all
             for f in futures:
