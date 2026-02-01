@@ -179,15 +179,25 @@ class FlickReelsAPI:
         return None
     
     def get_drama_detail(self, drama_id):
-        result = self._request("/v1/video/playletDetail", {"playlet_id": drama_id})
+        # FIXED: Use /app/playlet/chapterList instead of broken /v1/video/playletDetail
+        result = self._request("/app/playlet/chapterList", {"playlet_id": str(drama_id)})
         if not result or result.get("status_code") != 1:
             return None
-        return result.get("data", {})
+        data = result.get("data", {})
+        # Map response fields for compatibility
+        return {
+            "title": data.get("title", f"Drama {drama_id}"),
+            "cover_url": data.get("cover"),
+            "thumbnail_url": data.get("cover"),
+            "chapter_list": data.get("list", []),
+            "language_name": data.get("language_name", ""),
+        }
     
     def get_stream_url(self, drama_id, chapter_id):
-        result = self._request("/v2/video/getVideoPlayUrl", {
-            "playlet_id": drama_id,
-            "chapter_id": chapter_id
+        # FIXED: Use /app/playlet/play instead of broken /v2/video/getVideoPlayUrl
+        result = self._request("/app/playlet/play", {
+            "playlet_id": str(drama_id),
+            "chapter_id": str(chapter_id)
         })
         if not result or result.get("status_code") != 1:
             return None
