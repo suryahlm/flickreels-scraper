@@ -569,10 +569,10 @@ class BatchScraper:
         
         return collected
     
-    def run(self, start_page=1, max_dramas=300):
-        """Run batch scraping"""
+    def run(self, start_page=1, target_total=300):
+        """Run batch scraping until reaching target TOTAL dramas in R2"""
         logger.info(f"{'='*60}")
-        logger.info(f"BATCH SCRAPER - {max_dramas} INDONESIAN DRAMAS")
+        logger.info(f"BATCH SCRAPER - TARGET: {target_total} TOTAL DRAMAS IN R2")
         logger.info(f"{'='*60}")
         
         if not FLICKREELS_CONFIG["token"]:
@@ -581,34 +581,75 @@ class BatchScraper:
         
         # Get existing dramas
         existing_ids = self.get_existing_drama_ids()
-        logger.info(f"Existing dramas in R2: {len(existing_ids)}")
+        current_total = len(existing_ids)
+        logger.info(f"Current dramas in R2: {current_total}")
         
-        # Collect drama IDs from all sources
-        collected = self.collect_drama_ids(existing_ids, max_dramas)
-        dramas_to_scrape = [{"id": k, "title": v} for k, v in collected.items()]
-        
-        logger.info(f"Found {len(dramas_to_scrape)} new dramas to scrape")
-        
-        if not dramas_to_scrape:
-            logger.info("No new dramas found!")
+        if current_total >= target_total:
+            logger.info(f"Target already reached! ({current_total}/{target_total})")
             return
         
-        # Scrape each drama
-        for i, drama in enumerate(dramas_to_scrape, 1):
-            logger.info(f"\n[{i}/{len(dramas_to_scrape)}] Starting {drama['title']}")
-            self.scrape_drama(drama["id"], drama["title"])
+        needed = target_total - current_total
+        logger.info(f"Need to scrape: {needed} new dramas")
+        
+        # Collect drama IDs from all sources
+        collected = self.collect_drama_ids(existing_ids, needed + 50)  # Get extra for failures
+        drama_queue = list(collected.items())  # [(id, title), ...]
+        logger.info(f"Found {len(drama_queue)} candidate dramas")
+        
+        # Track IDs we've already attempted
+        attempted_ids = set()
+        scraped_successfully = 0
+        queue_index = 0
+        
+        # Keep scraping until we reach target
+        while scraped_successfully < needed:
+            # Get next drama from queue
+            if queue_index < len(drama_queue):
+                drama_id, title = drama_queue[queue_index]
+                queue_index += 1
+            else:
+                # Queue exhausted, try scanning more IDs
+                logger.info("Queue exhausted, scanning for more dramas...")
+                for scan_id in range(6000, 500, -1):
+                    scan_id = str(scan_id)
+                    if scan_id in existing_ids or scan_id in attempted_ids:
+                        continue
+                    detail = self.api.get_drama_detail(scan_id)
+                    if detail and detail.get("title") and len(detail.get("chapter_list", [])) > 0:
+                        drama_id = scan_id
+                        title = detail.get("title", "")
+                        logger.info(f"Found via scan: {drama_id} - {title}")
+                        break
+                else:
+                    logger.error("No more dramas available to scan!")
+                    break
             
-            # Log progress
-            logger.info(f"PROGRESS: {self.stats['dramas_done']}/{len(dramas_to_scrape)} dramas done, "
-                       f"{self.stats['episodes_done']} episodes, "
-                       f"{self.stats['segments_uploaded']} segments")
+            # Skip if already attempted
+            if drama_id in attempted_ids:
+                continue
+            attempted_ids.add(drama_id)
+            
+            # Attempt to scrape
+            progress = f"[{scraped_successfully + 1 + current_total}/{target_total}]"
+            logger.info(f"\n{progress} Scraping: {title} (ID: {drama_id})")
+            
+            success = self.scrape_drama(drama_id, title)
+            
+            if success:
+                scraped_successfully += 1
+                logger.info(f"PROGRESS: {scraped_successfully}/{needed} new dramas done, "
+                           f"Total in R2: {current_total + scraped_successfully}/{target_total}")
+            else:
+                logger.warning(f"Failed {drama_id}, will find replacement...")
         
         # Final stats
+        final_total = current_total + scraped_successfully
         logger.info(f"\n{'='*60}")
         logger.info("BATCH SCRAPING COMPLETE!")
-        logger.info(f"  Dramas completed: {self.stats['dramas_done']}")
-        logger.info(f"  Dramas failed: {self.stats['dramas_failed']}")
-        logger.info(f"  Dramas skipped: {self.stats['dramas_skipped']}")
+        logger.info(f"  Started with: {current_total} dramas")
+        logger.info(f"  Successfully scraped: {self.stats['dramas_done']}")
+        logger.info(f"  Failed (replaced): {self.stats['dramas_failed']}")
+        logger.info(f"  Final total in R2: {final_total}/{target_total}")
         logger.info(f"  Episodes done: {self.stats['episodes_done']}")
         logger.info(f"  Segments uploaded: {self.stats['segments_uploaded']}")
         logger.info(f"{'='*60}")
@@ -618,13 +659,12 @@ class BatchScraper:
 # ============================================================================
 
 def main():
-    parser = argparse.ArgumentParser(description='Batch Scraper for 300 Indonesian Dramas')
-    parser.add_argument('--start', type=int, default=1, help='Starting page')
-    parser.add_argument('--count', type=int, default=300, help='Max dramas to scrape')
+    parser = argparse.ArgumentParser(description='Batch Scraper - Target 300 TOTAL Indonesian Dramas in R2')
+    parser.add_argument('--target', type=int, default=300, help='Target TOTAL dramas in R2 (existing + new)')
     args = parser.parse_args()
     
     scraper = BatchScraper()
-    scraper.run(start_page=args.start, max_dramas=args.count)
+    scraper.run(target_total=args.target)
 
 if __name__ == "__main__":
     main()
