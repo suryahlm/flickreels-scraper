@@ -88,6 +88,7 @@ export async function POST() {
         let skipped = 0;
         let failed = 0;
         const syncedDramas: string[] = [];
+        const errors: Array<{ folder: string, error: string }> = [];
 
         // Process each folder
         for (const folder of folders) {
@@ -159,6 +160,7 @@ export async function POST() {
 
                 if (insertError) {
                     console.error(`[Sync R2] Failed to insert ${title}:`, insertError);
+                    errors.push({ folder: folderName, error: insertError.message || JSON.stringify(insertError) });
                     failed++;
                 } else {
                     console.log(`[Sync R2] Synced: ${title} (${episodeCount} eps)`);
@@ -180,6 +182,7 @@ export async function POST() {
             failed,
             total: existingTitles.size + synced,
             syncedDramas,
+            errors: errors.slice(0, 5), // Show first 5 errors
         }, { headers: corsHeaders });
 
     } catch (error) {
