@@ -484,17 +484,47 @@ class IndonesianBatchScraper:
         
         logger.info(f"Uploaded {success}/{len(episodes)} episodes")
         
+        # Download and upload cover image
+        cover_url = drama.get("cover") or detail.get("cover", "")
+        r2_cover_path = ""
+        if cover_url:
+            logger.info(f"Downloading cover image...")
+            try:
+                cover_response = requests.get(cover_url, timeout=30)
+                if cover_response.status_code == 200:
+                    # Determine extension
+                    ext = "jpg"
+                    if "png" in cover_url.lower():
+                        ext = "png"
+                    elif "webp" in cover_url.lower():
+                        ext = "webp"
+                    
+                    r2_cover_key = f"{r2_base}/cover.{ext}"
+                    if self.uploader.upload_bytes(cover_response.content, r2_cover_key, f"image/{ext}"):
+                        r2_cover_path = r2_cover_key
+                        logger.info(f"✅ Cover uploaded: {r2_cover_key}")
+                    else:
+                        logger.warning(f"Failed to upload cover")
+                else:
+                    logger.warning(f"Cover download failed: {cover_response.status_code}")
+            except Exception as e:
+                logger.warning(f"Cover error: {e}")
+        
         # Upload metadata
         metadata = {
             "id": drama_id,
             "title": title,
-            "cover": drama.get("cover", ""),
+            "cover": cover_url,
+            "cover_r2": r2_cover_path,
             "description": drama.get("description", ""),
             "total_episodes": len(episodes),
             "genres": drama.get("tags", []),
             "scraped_at": datetime.now().isoformat()
         }
-        self.uploader.upload_json(metadata, f"{r2_base}/metadata.json")
+        if self.uploader.upload_json(metadata, f"{r2_base}/metadata.json"):
+            logger.info(f"✅ Metadata uploaded")
+        else:
+            logger.error(f"❌ Metadata upload failed!")
         
         # Mark complete
         self.uploader.upload_json(
