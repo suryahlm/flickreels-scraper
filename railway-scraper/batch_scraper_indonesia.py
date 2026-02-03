@@ -211,7 +211,7 @@ class IndonesianAPI:
                     "id": str(item.get("playlet_id")),
                     "title": item.get("title"),
                     "cover": item.get("cover"),
-                    "total_episodes": int(item.get("upload_num", 0)),
+                    "total_episodes": int(item.get("upload_num") or 0),
                     "description": item.get("introduce", ""),
                     "tags": item.get("playlet_tag_name", [])
                 })
