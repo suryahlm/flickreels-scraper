@@ -568,7 +568,11 @@ class IndonesianBatchScraper:
         # Save to Supabase - use correct schema!
         # thumbnail_url uses Railway stream API for proper CORS headers
         stream_base = "https://tender-connection-production-246f.up.railway.app/api/stream"
-        thumbnail_url = f"{stream_base}/{r2_base}/cover.jpg"
+        # Use actual cover path if available, otherwise default to jpg
+        if r2_cover_path:
+            thumbnail_url = f"{stream_base}/{r2_cover_path}"
+        else:
+            thumbnail_url = f"{stream_base}/{r2_base}/cover.jpg"
         
         db_data = {
             "flickreels_id": drama_id,
