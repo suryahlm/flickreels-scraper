@@ -1,1 +1,1 @@
-worker: python batch_scraper_railway.py
+worker: python batch_scraper_indonesia.py --limit=5 --fresh
