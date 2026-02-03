@@ -1,1 +1,1 @@
-worker: python batch_scraper_supabase.py --fresh
+worker: python batch_scraper_railway.py --clear
