@@ -373,10 +373,21 @@ class IndonesianBatchScraper:
         self._load_progress()
     
     def _load_progress(self):
-        if os.path.exists("scraped_ids.txt"):
-            with open("scraped_ids.txt", "r") as f:
-                self.scraped_ids = set(f.read().strip().split("\n"))
-            logger.info(f"Loaded {len(self.scraped_ids)} already scraped IDs")
+        """Load already scraped IDs from Supabase (persistent across deploys)"""
+        try:
+            resp = requests.get(
+                f"{SUPABASE_CONFIG['url']}/rest/v1/dramas?select=flickreels_id",
+                headers={"apikey": SUPABASE_CONFIG["key"]}
+            )
+            if resp.status_code == 200:
+                for d in resp.json():
+                    if d.get('flickreels_id'):
+                        self.scraped_ids.add(str(d['flickreels_id']))
+                logger.info(f"Loaded {len(self.scraped_ids)} already scraped IDs from Supabase")
+            else:
+                logger.warning(f"Could not load progress from Supabase: {resp.status_code}")
+        except Exception as e:
+            logger.warning(f"Error loading progress: {e}")
     
     def _save_progress(self, drama_id):
         self.scraped_ids.add(drama_id)
