@@ -321,14 +321,35 @@ class SupabaseClient:
         }
     
     def insert_drama(self, drama_data):
-        """Insert or update drama in database"""
+        """Insert or update drama in database (upsert by flickreels_id)"""
         try:
-            response = requests.post(
-                f"{self.base_url}/rest/v1/dramas",
-                headers={**self.headers, "Prefer": "resolution=merge-duplicates"},
-                json=drama_data
+            fid = drama_data.get('flickreels_id')
+            
+            # Check if exists
+            check_resp = requests.get(
+                f"{self.base_url}/rest/v1/dramas?flickreels_id=eq.{fid}&select=id",
+                headers={"apikey": SUPABASE_CONFIG["key"]}
             )
-            return response.status_code in [200, 201]
+            existing = check_resp.json() if check_resp.status_code == 200 else []
+            
+            if existing:
+                # UPDATE existing
+                response = requests.patch(
+                    f"{self.base_url}/rest/v1/dramas?flickreels_id=eq.{fid}",
+                    headers=self.headers,
+                    json=drama_data
+                )
+                logger.info(f"Updated drama {fid} in Supabase")
+            else:
+                # INSERT new
+                response = requests.post(
+                    f"{self.base_url}/rest/v1/dramas",
+                    headers=self.headers,
+                    json=drama_data
+                )
+                logger.info(f"Inserted drama {fid} in Supabase")
+            
+            return response.status_code in [200, 201, 204]
         except Exception as e:
             logger.error(f"Supabase error: {e}")
             return False
