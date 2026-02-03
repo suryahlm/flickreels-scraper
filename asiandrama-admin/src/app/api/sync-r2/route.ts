@@ -29,9 +29,14 @@ function getS3Client() {
 }
 
 function getSupabaseClient() {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://wgmhfsvthqsnxqodwocx.supabase.co';
-    const key = process.env.SUPABASE_SERVICE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnbWhmc3Z0aHFzbnhxb2R3b2N4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc5NDg2NDgsImV4cCI6MjA1MzUyNDY0OH0.WKVn-Ri3I_7_Shg7zJtZxfB7sLNdcDnqMgKQIc5KzYk';
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+
+    if (!url || !key) {
+        console.error('[Sync R2] Missing Supabase environment variables');
+        throw new Error('Supabase not configured');
+    }
+
     return createClient(url, key);
 }
 
@@ -47,23 +52,26 @@ export async function POST() {
         const supabase = getSupabaseClient();
 
         // Get base URL for cover images
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL ||
-            process.env.RAILWAY_PUBLIC_DOMAIN
+        const baseUrl = process.env.RAILWAY_PUBLIC_DOMAIN
             ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
             : 'https://tender-connection-production-246f.up.railway.app';
 
-        // Get existing dramas from Supabase
-        const { data: existingDramas, error: fetchError } = await supabase
-            .from('dramas')
-            .select('flickreels_id');
+        // Get existing dramas from Supabase (continue even if fails)
+        let existingIds = new Set<string>();
+        try {
+            const { data: existingDramas, error: fetchError } = await supabase
+                .from('dramas')
+                .select('flickreels_id');
 
-        if (fetchError) {
-            console.error('[Sync R2] Failed to fetch existing dramas:', fetchError);
-            return NextResponse.json({ error: 'Failed to fetch existing dramas' }, { status: 500, headers: corsHeaders });
+            if (!fetchError && existingDramas) {
+                existingIds = new Set(existingDramas.map(d => d.flickreels_id?.toString()));
+                console.log(`[Sync R2] Found ${existingIds.size} existing dramas in Supabase`);
+            } else {
+                console.warn('[Sync R2] Could not fetch existing dramas, will try to insert all');
+            }
+        } catch (err) {
+            console.warn('[Sync R2] Error fetching existing dramas:', err);
         }
-
-        const existingIds = new Set((existingDramas || []).map(d => d.flickreels_id?.toString()));
-        console.log(`[Sync R2] Found ${existingIds.size} existing dramas in Supabase`);
 
         // List all R2 folders
         const listCommand = new ListObjectsV2Command({
