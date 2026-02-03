@@ -33,18 +33,24 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ============================================================================
-# AUTO-CLEAR PROGRESS ON RESTART (for fresh nested structure deploy)
+# ALWAYS CLEAR PROGRESS ON STARTUP (FORCED - No conditions!)
+# This ensures fresh start after R2 wipe and nested folder restructure
 # ============================================================================
 
 import sys
-CLEAR_PROGRESS = "--clear" in sys.argv or "--fresh" in sys.argv or os.environ.get("CLEAR_PROGRESS", "false").lower() == "true"
 
-if CLEAR_PROGRESS:
-    for pf in ["scraping_progress.json", "scraped_ids.txt", "scrape_progress.json"]:
-        if os.path.exists(pf):
+# ALWAYS DELETE PROGRESS FILES - NO CONDITIONS!
+logger.info("🗑️ Clearing all progress files for fresh start...")
+for pf in ["scraping_progress.json", "scraped_ids.txt", "scrape_progress.json", 
+           "batch_stats.json", "failed_dramas.txt"]:
+    if os.path.exists(pf):
+        try:
             os.remove(pf)
-            logger.info(f"Cleared progress file: {pf}")
-    logger.info("Starting fresh!")
+            logger.info(f"  ✓ Deleted: {pf}")
+        except Exception as e:
+            logger.warning(f"  ⚠ Could not delete {pf}: {e}")
+logger.info("✅ Fresh start ready!")
+
 
 # ============================================================================
 # CONFIGURATION
