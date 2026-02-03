@@ -4,7 +4,7 @@
         "builder": "NIXPACKS"
     },
     "deploy": {
-        "startCommand": "python batch_scraper_indonesia.py --limit=5 --fresh",
+        "startCommand": "python batch_scraper_indonesia.py --limit=10 --fresh",
         "restartPolicyType": "ON_FAILURE",
         "restartPolicyMaxRetries": 5
     }
