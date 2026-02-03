@@ -56,16 +56,16 @@ export async function POST() {
             ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
             : 'https://tender-connection-production-246f.up.railway.app';
 
-        // Get existing dramas from Supabase (continue even if fails)
-        let existingIds = new Set<string>();
+        // Get existing dramas from Supabase by title (continue even if fails)
+        let existingTitles = new Set<string>();
         try {
             const { data: existingDramas, error: fetchError } = await supabase
                 .from('dramas')
-                .select('flickreels_id');
+                .select('title');
 
             if (!fetchError && existingDramas) {
-                existingIds = new Set(existingDramas.map(d => d.flickreels_id?.toString()));
-                console.log(`[Sync R2] Found ${existingIds.size} existing dramas in Supabase`);
+                existingTitles = new Set(existingDramas.map(d => d.title?.toLowerCase()));
+                console.log(`[Sync R2] Found ${existingTitles.size} existing dramas in Supabase`);
             } else {
                 console.warn('[Sync R2] Could not fetch existing dramas, will try to insert all');
             }
@@ -96,18 +96,8 @@ export async function POST() {
             const folderName = folder.Prefix.replace('flickreels/', '').replace('/', '');
             if (!folderName || folderName === 'test' || folderName === 'dramas') continue;
 
-            // Extract ID from folder name (format: "Title (ID)")
-            let dramaId = folderName;
-            const match = folderName.match(/\((\d+)\)$/);
-            if (match) {
-                dramaId = match[1];
-            }
-
-            // Skip if already exists
-            if (existingIds.has(dramaId)) {
-                skipped++;
-                continue;
-            }
+            // Extract title from folder name (format: "Title (ID)")
+            const folderTitle = folderName.split('(')[0].trim();
 
             try {
                 // Read metadata
@@ -144,15 +134,21 @@ export async function POST() {
                     episodeCount = metadata.total_episodes || metadata.chapter_total || 0;
                 }
 
-                // Prepare drama data
-                const title = metadata.title || folderName.split('(')[0].trim();
+                // Prepare drama data (matching actual Supabase schema)
+                const title = metadata.title || folderTitle;
+
+                // Skip if title already exists
+                if (existingTitles.has(title.toLowerCase())) {
+                    skipped++;
+                    continue;
+                }
+
                 const dramaData = {
-                    flickreels_id: dramaId,
                     title: title,
                     synopsis: metadata.synopsis || '',
-                    cover_url: `${baseUrl}/api/stream/flickreels/${encodeURIComponent(folderName)}/cover.jpg`,
+                    thumbnail_url: `${baseUrl}/api/stream/flickreels/${encodeURIComponent(folderName)}/cover.jpg`,
                     total_episodes: episodeCount,
-                    r2_folder: folderName,
+                    view_count: 0,
                     is_published: true, // Auto-publish
                 };
 
@@ -182,7 +178,7 @@ export async function POST() {
             synced,
             skipped,
             failed,
-            total: existingIds.size + synced,
+            total: existingTitles.size + synced,
             syncedDramas,
         }, { headers: corsHeaders });
 
