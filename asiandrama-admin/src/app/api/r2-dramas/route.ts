@@ -1,14 +1,15 @@
 /**
  * R2 Self-Hosted Dramas API
  * 
- * Lists all dramas available in our self-hosted R2 bucket.
- * Reads the dramas.json file uploaded during the scraping process.
+ * Lists all published dramas from Supabase + R2 bucket.
+ * Priority: Supabase (Admin Portal managed) > R2 folder-based
  * 
  * Usage: GET /api/r2-dramas
  */
 
+import { S3Client } from '@aws-sdk/client-s3';
+import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
-import { S3Client, GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3';
 
 // R2 configuration
 const R2_CONFIG = {
@@ -17,6 +18,10 @@ const R2_CONFIG = {
     secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
     bucketName: process.env.R2_BUCKET_NAME || 'asiandrama-cdn',
 };
+
+// Supabase configuration
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 // Cache
 let cachedDramas: any = null;
@@ -42,6 +47,11 @@ function getS3Client() {
     });
 }
 
+// Create Supabase client
+function getSupabaseClient() {
+    return createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
 export async function GET() {
     try {
         const now = Date.now();
@@ -53,71 +63,65 @@ export async function GET() {
             });
         }
 
-        console.log('[R2 Dramas] Fetching drama list from R2...');
-
-        const s3 = getS3Client();
-
-        // List all folders in dramas/ prefix
-        const listCommand = new ListObjectsV2Command({
-            Bucket: R2_CONFIG.bucketName,
-            Prefix: 'flickreels/',
-            Delimiter: '/',
-        });
-
-        const listResult = await s3.send(listCommand);
-        const folders = listResult.CommonPrefixes || [];
-
-        console.log(`[R2 Dramas] Found ${folders.length} drama folders`);
-
-        // For each folder, read metadata.json
         const dramas: any[] = [];
+        const seenIds = new Set<string>();
 
-        for (const folder of folders) {
-            if (!folder.Prefix) continue;
+        // Get base URL
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL ||
+            process.env.RAILWAY_PUBLIC_DOMAIN
+            ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
+            : 'https://tender-connection-production-246f.up.railway.app';
 
-            const folderName = folder.Prefix.replace('flickreels/', '').replace('/', '');
-            if (!folderName) continue;
+        // 1. FIRST: Fetch published dramas from Supabase (Admin Portal managed)
+        console.log('[R2 Dramas] Fetching published dramas from Supabase...');
+        try {
+            const supabase = getSupabaseClient();
+            const { data: supabaseDramas, error } = await supabase
+                .from('dramas')
+                .select('*')
+                .eq('is_published', true);
 
-            try {
-                // Read metadata.json from folder
-                const metaCommand = new GetObjectCommand({
-                    Bucket: R2_CONFIG.bucketName,
-                    Key: `flickreels/${folderName}/metadata.json`,
-                });
+            if (error) {
+                console.error('[R2 Dramas] Supabase error:', error);
+            } else if (supabaseDramas && supabaseDramas.length > 0) {
+                console.log(`[R2 Dramas] Found ${supabaseDramas.length} published dramas in Supabase`);
 
-                const metaResult = await s3.send(metaCommand);
+                for (const d of supabaseDramas) {
+                    const dramaId = d.flickreels_id || d.id?.toString();
+                    seenIds.add(dramaId);
 
-                if (metaResult.Body) {
-                    const bodyText = await metaResult.Body.transformToString();
-                    const metadata = JSON.parse(bodyText);
+                    // Use cover_url from Supabase if available, otherwise construct from r2_folder
+                    const coverUrl = d.cover_url ||
+                        (d.r2_folder ? `${baseUrl}/api/stream/flickreels/${encodeURIComponent(d.r2_folder)}/cover.jpg` : null);
 
-                    // Get base URL (Railway deployment URL or localhost)
-                    const baseUrl = process.env.NEXT_PUBLIC_API_URL ||
-                        process.env.RAILWAY_PUBLIC_DOMAIN
-                        ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
-                        : 'https://tender-connection-production-246f.up.railway.app';
-
-                    // Build drama object with R2 stream URLs (ABSOLUTE URLs for mobile)
                     dramas.push({
-                        id: metadata.id || extractIdFromFolder(folderName),
-                        title: metadata.title || folderName,
-                        synopsis: metadata.synopsis || '',
-                        cover_url: `${baseUrl}/api/stream/flickreels/${encodeURIComponent(folderName)}/cover.jpg`,
-                        thumbnail_url: `${baseUrl}/api/stream/flickreels/${encodeURIComponent(folderName)}/cover.jpg`,
-                        total_episodes: metadata.total_episodes || metadata.chapter_total || 0,
-                        language_id: metadata.language_id || 6,
-                        folder_name: folderName,
+                        id: dramaId,
+                        title: d.title,
+                        synopsis: d.synopsis || '',
+                        cover_url: coverUrl,
+                        thumbnail_url: coverUrl,
+                        total_episodes: d.total_episodes || 0,
+                        language_id: 6,
+                        folder_name: d.r2_folder || dramaId,
+                        source: 'supabase',
                     });
                 }
-            } catch (err) {
-                console.log(`[R2 Dramas] Skipping ${folderName}: no metadata`);
             }
+        } catch (err) {
+            console.error('[R2 Dramas] Supabase fetch failed:', err);
         }
 
-        console.log(`[R2 Dramas] Loaded ${dramas.length} dramas with metadata`);
+        // NOTE: R2 folder scanning is DISABLED
+        // All drama visibility is now controlled via Admin Portal (Supabase)
+        // To show a drama in the app:
+        //   1. Make sure it exists in Supabase 'dramas' table
+        //   2. Set is_published = true
+        // 
+        // R2 is still used for video storage, but NOT for drama discovery
+        console.log(`[R2 Dramas] Total: ${dramas.length} dramas (Supabase only - Admin Portal controlled)`);
 
         // Update cache
-        cachedDramas = { dramas, count: dramas.length, source: 'r2-self-hosted' };
+        cachedDramas = { dramas, count: dramas.length, source: 'supabase-only' };
         cacheTime = now;
 
         return NextResponse.json(cachedDramas, {
