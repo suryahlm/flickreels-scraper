@@ -707,10 +707,18 @@ class BatchScraperSupabase:
 def main():
     parser = argparse.ArgumentParser(description="Batch scraper with Supabase integration")
     parser.add_argument("--json", default="new_dramas_for_app.json", help="Path to dramas JSON file")
-    parser.add_argument("--target", type=int, default=428, help="Target number of dramas")
+    parser.add_argument("--target", type=int, default=115, help="Target number of dramas")
     parser.add_argument("--start", type=int, default=0, help="Start from drama index")
     parser.add_argument("--test", action="store_true", help="Test mode - scrape 1 drama only")
+    parser.add_argument("--fresh", action="store_true", help="Fresh start - clear progress files")
     args = parser.parse_args()
+    
+    # Fresh start - clear progress files
+    if args.fresh:
+        for pf in ["scraped_ids.txt", "scrape_progress.json"]:
+            if os.path.exists(pf):
+                os.remove(pf)
+                logger.info(f"Cleared progress file: {pf}")
     
     # Handle relative path
     json_path = args.json
