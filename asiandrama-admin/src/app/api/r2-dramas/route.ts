@@ -90,8 +90,8 @@ export async function GET() {
                     const dramaId = d.flickreels_id || d.id?.toString();
                     seenIds.add(dramaId);
 
-                    // Use cover_url from Supabase if available, otherwise construct from r2_folder
-                    const coverUrl = d.cover_url ||
+                    // Use thumbnail_url from Supabase if available, otherwise construct from r2_folder
+                    const coverUrl = d.thumbnail_url || d.cover_url ||
                         (d.r2_folder ? `${baseUrl}/api/stream/flickreels/${encodeURIComponent(d.r2_folder)}/cover.jpg` : null);
 
                     dramas.push({
