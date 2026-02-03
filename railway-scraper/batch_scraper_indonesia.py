@@ -628,8 +628,8 @@ class IndonesianBatchScraper:
         if limit:
             dramas_to_scrape = dramas_to_scrape[:limit]
         
-        # Filter already scraped
-        dramas_to_scrape = [d for d in dramas_to_scrape if d["id"] not in self.scraped_ids]
+        # Filter already scraped (convert id to str for comparison)
+        dramas_to_scrape = [d for d in dramas_to_scrape if str(d["id"]) not in self.scraped_ids]
         logger.info(f"Will scrape {len(dramas_to_scrape)} new dramas")
         
         # Scrape each drama
