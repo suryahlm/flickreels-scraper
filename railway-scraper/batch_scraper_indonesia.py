@@ -58,9 +58,10 @@ FLICKREELS_CONFIG = {
     "version": "2.2.3.0"
 }
 
+# SUPABASE CONFIG - MUST MATCH THE APP!
 SUPABASE_CONFIG = {
-    "url": os.getenv("SUPABASE_URL", "https://cvgwyundswqfwmqfhhmo.supabase.co"),
-    "key": os.getenv("SUPABASE_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2Z3d5dW5kc3dxZndtcWZoaG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg0MTgxNjYsImV4cCI6MjA1Mzk5NDE2Nn0.dGp37Olo_snMDCL8j9sXpjQCDBbrWvqNv2SIHZhkETU")
+    "url": os.getenv("SUPABASE_URL", "https://bmryonqbddbkjbtquhgu.supabase.co"),
+    "key": os.getenv("SUPABASE_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtcnlvbnFiZGRia2pidHF1aGd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2ODc2ODQsImV4cCI6MjA4NTI2MzY4NH0.C8Y_kNVDfDvUjdI2HFRDDmybX4yCm7XklaA204kTwMQ")
 }
 
 # INDONESIAN ONLY! Same as HTTP Toolkit capture
@@ -532,16 +533,19 @@ class IndonesianBatchScraper:
             f"{r2_base}/complete.json"
         )
         
-        # Save to Supabase
+        # Save to Supabase - use correct schema!
+        # thumbnail_url uses Railway stream API for proper CORS headers
+        stream_base = "https://tender-connection-production-246f.up.railway.app/api/stream"
+        thumbnail_url = f"{stream_base}/{r2_base}/cover.jpg"
+        
         db_data = {
-            "source_id": drama_id,
+            "flickreels_id": drama_id,
             "title": title,
-            "cover_url": drama.get("cover", ""),
-            "description": drama.get("description", ""),
+            "synopsis": drama.get("description", ""),
+            "thumbnail_url": thumbnail_url,
             "total_episodes": len(episodes),
-            "genres": drama.get("tags", []),
-            "r2_path": r2_base,
-            "is_published": False  # Admin will review
+            "r2_folder": f"{clean_title} ({drama_id})",
+            "is_published": True  # AUTO-PUBLISH for Indonesian dramas!
         }
         self.supabase.insert_drama(db_data)
         
