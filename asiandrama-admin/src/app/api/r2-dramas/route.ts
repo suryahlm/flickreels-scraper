@@ -79,7 +79,8 @@ export async function GET() {
             const { data: supabaseDramas, error } = await supabase
                 .from('dramas')
                 .select('*')
-                .eq('is_published', true);
+                .eq('is_published', true)
+                .order('created_at', { ascending: false }); // Newest first
 
             if (error) {
                 console.error('[R2 Dramas] Supabase error:', error);
@@ -104,6 +105,7 @@ export async function GET() {
                         language_id: 6,
                         folder_name: d.r2_folder || dramaId,
                         source: 'supabase',
+                        created_at: d.created_at, // For sorting by newest
                     });
                 }
             }
