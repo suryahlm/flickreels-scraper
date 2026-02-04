@@ -1,0 +1,14 @@
+# Nixpacks configuration for Next.js Admin Portal
+# Force detection as Node.js project, not Staticfile
+
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "npm start"
