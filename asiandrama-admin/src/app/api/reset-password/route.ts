@@ -1,17 +1,25 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 
-// Admin client with service role key (server-side only)
-const supabaseAdmin = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    {
+// Force dynamic rendering - don't pre-render this route
+export const dynamic = 'force-dynamic';
+
+// Create admin client inside function to avoid build-time errors
+function getSupabaseAdmin() {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!url || !key) {
+        throw new Error('Missing Supabase environment variables');
+    }
+
+    return createClient(url, key, {
         auth: {
             autoRefreshToken: false,
             persistSession: false
         }
-    }
-);
+    });
+}
 
 export async function POST(request: NextRequest) {
     try {
@@ -30,6 +38,8 @@ export async function POST(request: NextRequest) {
                 { status: 400 }
             );
         }
+
+        const supabaseAdmin = getSupabaseAdmin();
 
         const { error } = await supabaseAdmin.auth.admin.updateUserById(userId, {
             password: newPassword,
