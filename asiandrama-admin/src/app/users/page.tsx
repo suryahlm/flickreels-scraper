@@ -132,13 +132,20 @@ export default function UsersPage() {
 
         setActionLoading(true);
 
-        // Use Supabase Admin API to reset password
-        const { error } = await supabase.auth.admin.updateUserById(selectedUser.id, {
-            password: newPassword,
+        // Call API route to reset password (uses service role key on server)
+        const response = await fetch('/api/reset-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                userId: selectedUser.id,
+                newPassword: newPassword,
+            }),
         });
 
-        if (error) {
-            alert('Gagal reset password: ' + error.message);
+        const result = await response.json();
+
+        if (!response.ok) {
+            alert('Gagal reset password: ' + result.error);
         } else {
             alert('Password berhasil direset');
         }
