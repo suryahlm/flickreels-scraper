@@ -1,4 +1,4 @@
-import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
+import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { NextRequest, NextResponse } from 'next/server';
 
 // R2 Client configuration
@@ -17,9 +17,11 @@ const BUCKET_NAME = process.env.R2_BUCKET_NAME || 'flickreels';
 function getContentType(path: string): string {
     if (path.endsWith('.m3u8')) return 'application/vnd.apple.mpegurl';
     if (path.endsWith('.ts')) return 'video/mp2t';
+    if (path.endsWith('.mp4')) return 'video/mp4';
     if (path.endsWith('.jpg') || path.endsWith('.jpeg')) return 'image/jpeg';
     if (path.endsWith('.png')) return 'image/png';
     if (path.endsWith('.webp')) return 'image/webp';
+    if (path.endsWith('.heic')) return 'image/heic';
     if (path.endsWith('.json')) return 'application/json';
     return 'application/octet-stream';
 }
@@ -42,7 +44,49 @@ export async function GET(
         const path = pathSegments.join('/');
         console.log(`[Stream API] Fetching: ${path}`);
 
-        // Fetch from R2
+        // For MP4 files: Redirect to R2 presigned URL (eliminates proxy double-hop)
+        if (path.endsWith('.mp4')) {
+            console.log(`[Stream API] Generating presigned URL for MP4: ${path}`);
+
+            // Generate presigned URL (valid for 1 hour)
+            const presignedCommand = new GetObjectCommand({
+                Bucket: BUCKET_NAME,
+                Key: path,
+            });
+            const presignedUrl = await getSignedUrl(R2, presignedCommand, { expiresIn: 3600 });
+
+            // Redirect client to download directly from R2/Cloudflare edge
+            return new NextResponse(null, {
+                status: 302,
+                headers: {
+                    'Location': presignedUrl,
+                    'Access-Control-Allow-Origin': '*',
+                    'Cache-Control': 'no-cache', // Don't cache redirects
+                },
+            });
+        }
+
+        // For cover images: Also redirect to presigned URL for faster loading
+        if (path.endsWith('.jpg') || path.endsWith('.jpeg') || path.endsWith('.png') || path.endsWith('.webp')) {
+            console.log(`[Stream API] Generating presigned URL for image: ${path}`);
+
+            const presignedCommand = new GetObjectCommand({
+                Bucket: BUCKET_NAME,
+                Key: path,
+            });
+            const presignedUrl = await getSignedUrl(R2, presignedCommand, { expiresIn: 86400 }); // 24h for images
+
+            return new NextResponse(null, {
+                status: 302,
+                headers: {
+                    'Location': presignedUrl,
+                    'Access-Control-Allow-Origin': '*',
+                    'Cache-Control': 'public, max-age=86400',
+                },
+            });
+        }
+
+        // For HLS and other files: Fetch from R2 and process
         const command = new GetObjectCommand({
             Bucket: BUCKET_NAME,
             Key: path,
@@ -54,81 +98,84 @@ export async function GET(
             return NextResponse.json({ error: 'File not found' }, { status: 404 });
         }
 
-        // Convert stream to buffer
-        const chunks: Uint8Array[] = [];
-        const reader = response.Body.transformToWebStream().getReader();
-
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            chunks.push(value);
-        }
-
-        let buffer = Buffer.concat(chunks);
         const contentType = getContentType(path);
+    });
+}
 
-        // For m3u8 files: rewrite relative paths to absolute URLs
-        if (path.endsWith('.m3u8')) {
-            let content = buffer.toString('utf-8');
+// For HLS/other files: Buffer into memory (small files, m3u8 needs URL rewriting)
+const chunks: Uint8Array[] = [];
+const reader = response.Body.transformToWebStream().getReader();
 
-            // CRITICAL: Normalize line endings to LF only (Android ExoPlayer requires this)
-            content = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+}
 
-            // Get base path (directory of the m3u8 file)
-            const basePath = path.substring(0, path.lastIndexOf('/') + 1);
+let buffer = Buffer.concat(chunks);
 
-            // Get the base URL for the API - use Railway domain or request host
-            const railwayDomain = process.env.RAILWAY_PUBLIC_DOMAIN;
-            const host = request.headers.get('host');
-            const protocol = request.headers.get('x-forwarded-proto') || 'https';
-            const baseUrl = railwayDomain
-                ? `https://${railwayDomain}`
-                : `${protocol}://${host}`;
+// For m3u8 files: rewrite relative paths to absolute URLs
+if (path.endsWith('.m3u8')) {
+    let content = buffer.toString('utf-8');
 
-            // Rewrite .ts segment references to absolute URLs using the new clean path format
-            const lines = content.split('\n');
-            const rewrittenLines = lines.map(line => {
-                const trimmed = line.trim();
-                // If line ends with .ts and doesn't start with #, it's a segment file
-                if (trimmed.endsWith('.ts') && !trimmed.startsWith('#')) {
-                    const segmentPath = basePath + trimmed;
-                    // Use clean URL format: /api/stream/path/to/file.ts
-                    return `${baseUrl}/api/stream/${segmentPath}`;
-                }
-                return line;
-            });
-            content = rewrittenLines.join('\n');
+    // CRITICAL: Normalize line endings to LF only (Android ExoPlayer requires this)
+    content = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
-            buffer = Buffer.from(content, 'utf-8');
-            console.log(`[Stream API] Rewrote m3u8 with absolute URLs for: ${path}`);
+    // Get base path (directory of the m3u8 file)
+    const basePath = path.substring(0, path.lastIndexOf('/') + 1);
+
+    // Get the base URL for the API - use Railway domain or request host
+    const railwayDomain = process.env.RAILWAY_PUBLIC_DOMAIN;
+    const host = request.headers.get('host');
+    const protocol = request.headers.get('x-forwarded-proto') || 'https';
+    const baseUrl = railwayDomain
+        ? `https://${railwayDomain}`
+        : `${protocol}://${host}`;
+
+    // Rewrite .ts segment references to absolute URLs using the new clean path format
+    const lines = content.split('\n');
+    const rewrittenLines = lines.map(line => {
+        const trimmed = line.trim();
+        // If line ends with .ts and doesn't start with #, it's a segment file
+        if (trimmed.endsWith('.ts') && !trimmed.startsWith('#')) {
+            const segmentPath = basePath + trimmed;
+            // Use clean URL format: /api/stream/path/to/file.ts
+            return `${baseUrl}/api/stream/${segmentPath}`;
         }
+        return line;
+    });
+    content = rewrittenLines.join('\n');
 
-        console.log(`[Stream API] Success: ${path} (${buffer.length} bytes)`);
+    buffer = Buffer.from(content, 'utf-8');
+    console.log(`[Stream API] Rewrote m3u8 with absolute URLs for: ${path}`);
+}
 
-        return new NextResponse(buffer, {
-            status: 200,
-            headers: {
-                'Content-Type': contentType,
-                'Content-Length': buffer.length.toString(),
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type, Range',
-                'Cache-Control': 'public, max-age=31536000',
-            },
-        });
+console.log(`[Stream API] Success: ${path} (${buffer.length} bytes)`);
+
+return new NextResponse(buffer, {
+    status: 200,
+    headers: {
+        'Content-Type': contentType,
+        'Content-Length': buffer.length.toString(),
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Range',
+        'Cache-Control': 'public, max-age=31536000',
+    },
+});
 
     } catch (error: any) {
-        console.error('[Stream API] Error:', error);
+    console.error('[Stream API] Error:', error);
 
-        if (error.name === 'NoSuchKey') {
-            return NextResponse.json({ error: 'File not found' }, { status: 404 });
-        }
-
-        return NextResponse.json(
-            { error: 'Failed to fetch file', details: error.message },
-            { status: 500 }
-        );
+    if (error.name === 'NoSuchKey') {
+        return NextResponse.json({ error: 'File not found' }, { status: 404 });
     }
+
+    return NextResponse.json(
+        { error: 'Failed to fetch file', details: error.message },
+        { status: 500 }
+    );
+}
 }
 
 // Handle OPTIONS for CORS preflight
