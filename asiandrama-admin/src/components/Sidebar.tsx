@@ -1,17 +1,18 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 import {
-    LayoutDashboard,
+    Bell,
     Film,
-    Users,
     FolderOpen,
     Image,
-    Settings,
+    LayoutDashboard,
     LogOut,
+    Settings,
+    Users
 } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 
 const navItems = [
     { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -19,6 +20,7 @@ const navItems = [
     { href: '/users', label: 'Users', icon: Users },
     { href: '/categories', label: 'Kategori', icon: FolderOpen },
     { href: '/banners', label: 'Banner', icon: Image },
+    { href: '/notifications', label: 'Notifikasi', icon: Bell },
     { href: '/settings', label: 'Settings', icon: Settings },
 ];
 
@@ -52,8 +54,8 @@ export default function Sidebar() {
                             key={item.href}
                             href={item.href}
                             className={`flex items-center gap-3 px-6 py-3 transition-colors ${isActive
-                                    ? 'bg-gradient-to-r from-amber-500 to-yellow-600 text-white'
-                                    : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                                ? 'bg-gradient-to-r from-amber-500 to-yellow-600 text-white'
+                                : 'text-gray-400 hover:bg-gray-800 hover:text-white'
                                 }`}
                         >
                             <Icon size={20} />
