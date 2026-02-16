@@ -3,8 +3,16 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 // Provide fallback for build time when env vars aren't available
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
+// Public client (anon key) - subject to RLS
 export const supabase: SupabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+// Admin client (service_role key) - bypasses ALL RLS policies
+// Use this for admin operations like storage upload, settings update, etc.
+export const supabaseAdmin: SupabaseClient = supabaseServiceKey
+    ? createClient(supabaseUrl, supabaseServiceKey)
+    : supabase; // Fallback to anon if no service key
 
 // Database types
 export interface Drama {

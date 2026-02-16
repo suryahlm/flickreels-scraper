@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { Save, ToggleLeft, ToggleRight, Upload, Image as ImageIcon } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import { Image as ImageIcon, Save, ToggleLeft, ToggleRight, Upload } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function SettingsPage() {
     const [appName, setAppName] = useState('AsianDrama');
@@ -53,18 +53,16 @@ export default function SettingsPage() {
         setUploading(true);
 
         try {
-            // Upload to Supabase Storage
-            const fileName = `app-icon-${Date.now()}.${file.name.split('.').pop()}`;
-            const { data, error } = await supabase.storage
-                .from('assets')
-                .upload(fileName, file, { upsert: true });
+            // Upload via server-side API route (uses service_role key, bypasses RLS)
+            const formData = new FormData();
+            formData.append('file', file);
 
-            if (error) throw error;
+            const res = await fetch('/api/upload-icon', { method: 'POST', body: formData });
+            const result = await res.json();
 
-            // Get public URL
-            const { data: urlData } = supabase.storage.from('assets').getPublicUrl(fileName);
-            setAppIcon(urlData.publicUrl);
+            if (!res.ok) throw new Error(result.error);
 
+            setAppIcon(result.url);
             alert('Icon berhasil diupload!');
         } catch (error: any) {
             console.error('Upload error:', error);
