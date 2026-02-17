@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import type { User } from '@supabase/supabase-js';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 interface AuthProviderProps {
     children: React.ReactNode;
@@ -32,7 +32,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
     useEffect(() => {
         if (!loading) {
-            if (!user && pathname !== '/login') {
+            if (!user && pathname !== '/login' && !pathname.startsWith('/privacy')) {
                 router.push('/login');
             } else if (user && pathname === '/login') {
                 router.push('/');
