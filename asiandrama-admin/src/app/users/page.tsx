@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Search, Ban, CheckCircle, Coins, Plus, Minus, Crown, Key, X } from 'lucide-react';
 import { supabase, type Profile } from '@/lib/supabase';
+import { Ban, CheckCircle, Coins, Crown, Key, Minus, Plus, Search, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function UsersPage() {
     const [search, setSearch] = useState('');
@@ -54,11 +54,35 @@ export default function UsersPage() {
         const finalAmount = add ? amount : -amount;
         const newBalance = Math.max(0, selectedUser.coin_balance + finalAmount);
 
+        // Update profiles table (for admin dashboard display)
         await supabase.from('profiles').update({ coin_balance: newBalance }).eq('id', selectedUser.id);
+
+        // Also update user_coins table (for mobile app sync)
+        const { data: existingCoins } = await supabase
+            .from('user_coins')
+            .select('balance')
+            .eq('user_id', selectedUser.id)
+            .single();
+
+        if (existingCoins) {
+            // Update existing record
+            await supabase
+                .from('user_coins')
+                .update({ balance: newBalance })
+                .eq('user_id', selectedUser.id);
+        } else {
+            // Create new record if doesn't exist
+            await supabase
+                .from('user_coins')
+                .insert({ user_id: selectedUser.id, balance: newBalance, total_earned: newBalance });
+        }
+
+        // Log transaction
         await supabase.from('coin_transactions').insert({
             user_id: selectedUser.id,
             amount: finalAmount,
-            reason: coinReason,
+            type: add ? 'admin_add' : 'admin_deduct',
+            description: coinReason,
         });
 
         setUsers((prev) =>
