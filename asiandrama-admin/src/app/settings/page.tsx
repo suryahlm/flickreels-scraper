@@ -10,6 +10,9 @@ export default function SettingsPage() {
     const [maintenanceMode, setMaintenanceMode] = useState(false);
     const [coinPrice, setCoinPrice] = useState('10000');
     const [vipMonthlyPrice, setVipMonthlyPrice] = useState('49000');
+    const [adEnabled, setAdEnabled] = useState(true);
+    const [freeEpisodes, setFreeEpisodes] = useState('5');
+    const [adInterval, setAdInterval] = useState('5');
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -28,6 +31,9 @@ export default function SettingsPage() {
                     case 'maintenance_mode': setMaintenanceMode(setting.value === 'true'); break;
                     case 'coin_price': setCoinPrice(setting.value); break;
                     case 'vip_monthly_price': setVipMonthlyPrice(setting.value); break;
+                    case 'ad_enabled': setAdEnabled(setting.value === 'true'); break;
+                    case 'free_episodes': setFreeEpisodes(setting.value); break;
+                    case 'ad_interval': setAdInterval(setting.value); break;
                 }
             });
         }
@@ -79,6 +85,9 @@ export default function SettingsPage() {
             { key: 'maintenance_mode', value: maintenanceMode.toString() },
             { key: 'coin_price', value: coinPrice },
             { key: 'vip_monthly_price', value: vipMonthlyPrice },
+            { key: 'ad_enabled', value: adEnabled.toString() },
+            { key: 'free_episodes', value: freeEpisodes },
+            { key: 'ad_interval', value: adInterval },
         ];
 
         for (const setting of settings) {
@@ -185,6 +194,50 @@ export default function SettingsPage() {
                                 onChange={(e) => setVipMonthlyPrice(e.target.value)}
                                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
                             />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Ad Settings */}
+                <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
+                    <h2 className="font-semibold mb-4">Pengaturan Iklan</h2>
+
+                    <div className="space-y-4">
+                        <div className="flex items-center justify-between py-3">
+                            <div>
+                                <p className="font-medium">Iklan Aktif</p>
+                                <p className="text-sm text-gray-500">Tampilkan iklan interstitial antar episode</p>
+                            </div>
+                            <button
+                                onClick={() => setAdEnabled(!adEnabled)}
+                                className={`text-3xl ${adEnabled ? 'text-green-500' : 'text-gray-600'}`}
+                            >
+                                {adEnabled ? <ToggleRight /> : <ToggleLeft />}
+                            </button>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">Episode Gratis (tanpa iklan)</label>
+                            <input
+                                type="number"
+                                value={freeEpisodes}
+                                onChange={(e) => setFreeEpisodes(e.target.value)}
+                                min="0"
+                                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
+                            />
+                            <p className="text-xs text-gray-500 mt-1">Episode 1 sampai {freeEpisodes} tidak ada iklan</p>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">Interval Iklan (setiap N episode)</label>
+                            <input
+                                type="number"
+                                value={adInterval}
+                                onChange={(e) => setAdInterval(e.target.value)}
+                                min="1"
+                                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
+                            />
+                            <p className="text-xs text-gray-500 mt-1">Iklan muncul setiap {adInterval} episode setelah episode gratis</p>
                         </div>
                     </div>
                 </div>
