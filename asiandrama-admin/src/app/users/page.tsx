@@ -223,7 +223,7 @@ export default function UsersPage() {
                                 <tr key={user.id} className="border-t border-gray-800 hover:bg-gray-800/50">
                                     <td className="px-4 py-3 text-gray-500">{index + 1}</td>
                                     <td className="px-4 py-3">
-                                        <p className="font-medium">{user.full_name || 'Anonymous'}</p>
+                                        <p className="font-medium">{user.email || 'No email'}</p>
                                         <p className="text-xs text-gray-500">{user.id.slice(0, 8)}...</p>
                                     </td>
                                     <td className="px-4 py-3">
