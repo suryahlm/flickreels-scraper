@@ -1,8 +1,8 @@
 'use client';
 
+import { supabase, type Category, type Drama } from '@/lib/supabase';
+import { Edit, Eye, EyeOff, Plus, Search, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Plus, Search, Edit, Trash2, Eye, EyeOff } from 'lucide-react';
-import { supabase, type Drama, type Category } from '@/lib/supabase';
 
 export default function DramasPage() {
     const [search, setSearch] = useState('');
@@ -99,6 +99,7 @@ export default function DramasPage() {
                 <table className="w-full">
                     <thead className="bg-gray-800">
                         <tr>
+                            <th className="text-left px-4 py-3 w-12">No.</th>
                             <th className="text-left px-4 py-3">Judul</th>
                             <th className="text-left px-4 py-3">Kategori</th>
                             <th className="text-left px-4 py-3">Episode</th>
@@ -110,13 +111,14 @@ export default function DramasPage() {
                     <tbody>
                         {filteredDramas.length === 0 ? (
                             <tr>
-                                <td colSpan={6} className="text-center py-8 text-gray-500">
+                                <td colSpan={7} className="text-center py-8 text-gray-500">
                                     Belum ada drama
                                 </td>
                             </tr>
                         ) : (
-                            filteredDramas.map((drama) => (
+                            filteredDramas.map((drama, index) => (
                                 <tr key={drama.id} className="border-t border-gray-800 hover:bg-gray-800/50">
+                                    <td className="px-4 py-3 text-gray-500">{index + 1}</td>
                                     <td className="px-4 py-3 font-medium">{drama.title}</td>
                                     <td className="px-4 py-3 text-gray-400">{getCategoryName(drama.category_id)}</td>
                                     <td className="px-4 py-3 text-gray-400">{drama.total_episodes}</td>
