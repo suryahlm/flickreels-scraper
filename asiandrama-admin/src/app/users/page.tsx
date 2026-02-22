@@ -203,6 +203,7 @@ export default function UsersPage() {
                 <table className="w-full">
                     <thead className="bg-gray-800">
                         <tr>
+                            <th className="text-left px-4 py-3 w-12">#</th>
                             <th className="text-left px-4 py-3">User</th>
                             <th className="text-left px-4 py-3">Koin</th>
                             <th className="text-left px-4 py-3">VIP</th>
@@ -213,13 +214,14 @@ export default function UsersPage() {
                     <tbody>
                         {filteredUsers.length === 0 ? (
                             <tr>
-                                <td colSpan={5} className="text-center py-8 text-gray-500">
+                                <td colSpan={6} className="text-center py-8 text-gray-500">
                                     Belum ada user
                                 </td>
                             </tr>
                         ) : (
-                            filteredUsers.map((user) => (
+                            filteredUsers.map((user, index) => (
                                 <tr key={user.id} className="border-t border-gray-800 hover:bg-gray-800/50">
+                                    <td className="px-4 py-3 text-gray-500">{index + 1}</td>
                                     <td className="px-4 py-3">
                                         <p className="font-medium">{user.full_name || 'Anonymous'}</p>
                                         <p className="text-xs text-gray-500">{user.id.slice(0, 8)}...</p>
