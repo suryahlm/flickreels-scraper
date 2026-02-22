@@ -1,7 +1,7 @@
 'use client';
 
 import { supabase } from '@/lib/supabase';
-import { Crown, Eye, Film, TrendingUp, Users } from 'lucide-react';
+import { Activity, Crown, Eye, Film, TrendingUp, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface TrafficStats {
@@ -24,13 +24,7 @@ interface RecentUser {
     created_at: string;
 }
 
-interface CoinActivity {
-    amount: number;
-    reason: string | null;
-    created_at: string;
-    user_id: string;
-    user_name?: string;
-}
+
 
 interface CategoryCount {
     name: string;
@@ -52,10 +46,10 @@ export default function TrafficPage() {
     });
     const [topDramas, setTopDramas] = useState<TopDrama[]>([]);
     const [recentUsers, setRecentUsers] = useState<RecentUser[]>([]);
-    const [coinActivity, setCoinActivity] = useState<CoinActivity[]>([]);
+    const [coinActivity, setCoinActivity] = useState<{ user_name: string; activity_date: string }[]>([]);
     const [categoryData, setCategoryData] = useState<CategoryCount[]>([]);
     const [userTrend, setUserTrend] = useState<DailyData[]>([]);
-    const [coinTrend, setCoinTrend] = useState<DailyData[]>([]);
+    const [activeUserTrend, setActiveUserTrend] = useState<DailyData[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -172,30 +166,30 @@ export default function TrafficPage() {
                 }))
             );
 
-            // ---- Coin Transaction Trend (30 days) ----
-            const { data: allCoins } = await supabase
-                .from('coin_transactions')
-                .select('created_at, amount')
-                .gte('created_at', thirtyDaysAgo.toISOString());
+            // ---- Active User Trend (30 days) ----
+            const { data: activityData } = await supabase
+                .from('user_activity_log')
+                .select('activity_date, user_id')
+                .gte('activity_date', thirtyDaysAgo.toISOString().split('T')[0]);
 
-            const coinDailyMap = new Map<string, number>();
+            const activeUserDailyMap = new Map<string, Set<string>>();
             for (let i = 29; i >= 0; i--) {
                 const d = new Date();
                 d.setDate(d.getDate() - i);
                 const key = d.toISOString().split('T')[0];
-                coinDailyMap.set(key, 0);
+                activeUserDailyMap.set(key, new Set());
             }
-            allCoins?.forEach(c => {
-                const key = c.created_at.split('T')[0];
-                if (coinDailyMap.has(key)) {
-                    coinDailyMap.set(key, (coinDailyMap.get(key) || 0) + 1);
+            activityData?.forEach(a => {
+                const key = a.activity_date;
+                if (activeUserDailyMap.has(key)) {
+                    activeUserDailyMap.get(key)!.add(a.user_id);
                 }
             });
-            setCoinTrend(
-                [...coinDailyMap.entries()].map(([date, count]) => ({
+            setActiveUserTrend(
+                [...activeUserDailyMap.entries()].map(([date, users]) => ({
                     date,
                     label: new Date(date).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }),
-                    count,
+                    count: users.size,
                 }))
             );
 
@@ -209,7 +203,7 @@ export default function TrafficPage() {
     const maxViews = topDramas.length > 0 ? Math.max(...topDramas.map(d => d.view_count || 1)) : 1;
     const maxCategoryCount = categoryData.length > 0 ? Math.max(...categoryData.map(c => c.count)) : 1;
     const maxUserTrend = Math.max(...userTrend.map(d => d.count), 1);
-    const maxCoinTrend = Math.max(...coinTrend.map(d => d.count), 1);
+    const maxActiveUserTrend = Math.max(...activeUserTrend.map(d => d.count), 1);
 
     if (loading) {
         return (
@@ -286,32 +280,32 @@ export default function TrafficPage() {
                     </div>
                 </div>
 
-                {/* Coin Transaction Trend */}
+                {/* Active Users Trend */}
                 <div className="bg-gray-900 rounded-xl border border-gray-800">
                     <div className="p-4 border-b border-gray-800">
                         <h2 className="font-semibold flex items-center gap-2">
-                            <TrendingUp size={18} className="text-yellow-400" />
-                            Aktivitas Koin (30 hari)
+                            <Activity size={18} className="text-green-400" />
+                            User Aktif (30 hari)
                         </h2>
                     </div>
                     <div className="p-4">
                         <div className="flex items-end gap-[2px] h-40">
-                            {coinTrend.map((d, i) => (
+                            {activeUserTrend.map((d, i) => (
                                 <div key={d.date} className="flex-1 flex flex-col items-center justify-end h-full group relative">
                                     <div
-                                        className="w-full bg-yellow-500 rounded-t-sm min-h-[2px] transition-all hover:bg-yellow-400"
-                                        style={{ height: `${Math.max((d.count / maxCoinTrend) * 100, 2)}%` }}
+                                        className="w-full bg-green-500 rounded-t-sm min-h-[2px] transition-all hover:bg-green-400"
+                                        style={{ height: `${Math.max((d.count / maxActiveUserTrend) * 100, 2)}%` }}
                                     ></div>
                                     <div className="absolute bottom-full mb-2 hidden group-hover:block bg-gray-700 text-white text-xs px-2 py-1 rounded whitespace-nowrap z-10">
-                                        {d.label}: {d.count} transaksi
+                                        {d.label}: {d.count} user aktif
                                     </div>
                                 </div>
                             ))}
                         </div>
                         <div className="flex justify-between mt-2 text-xs text-gray-500">
-                            <span>{coinTrend[0]?.label}</span>
-                            <span>{coinTrend[Math.floor(coinTrend.length / 2)]?.label}</span>
-                            <span>{coinTrend[coinTrend.length - 1]?.label}</span>
+                            <span>{activeUserTrend[0]?.label}</span>
+                            <span>{activeUserTrend[Math.floor(activeUserTrend.length / 2)]?.label}</span>
+                            <span>{activeUserTrend[activeUserTrend.length - 1]?.label}</span>
                         </div>
                     </div>
                 </div>
