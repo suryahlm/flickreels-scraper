@@ -46,7 +46,7 @@ export default function TrafficPage() {
     });
     const [topDramas, setTopDramas] = useState<TopDrama[]>([]);
     const [recentUsers, setRecentUsers] = useState<RecentUser[]>([]);
-    const [coinActivity, setCoinActivity] = useState<{ user_name: string; activity_date: string }[]>([]);
+    const [coinActivity, setCoinActivity] = useState<{ amount: number; reason: string | null; created_at: string; user_id: string }[]>([]);
     const [categoryData, setCategoryData] = useState<CategoryCount[]>([]);
     const [userTrend, setUserTrend] = useState<DailyData[]>([]);
     const [activeUserTrend, setActiveUserTrend] = useState<DailyData[]>([]);
