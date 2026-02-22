@@ -2,6 +2,7 @@
 
 import { supabase } from '@/lib/supabase';
 import {
+    BarChart3,
     Bell,
     Film,
     FolderOpen,
@@ -16,6 +17,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 const navItems = [
     { href: '/', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/traffic', label: 'Trafik', icon: BarChart3 },
     { href: '/dramas', label: 'Drama', icon: Film },
     { href: '/users', label: 'Users', icon: Users },
     { href: '/categories', label: 'Kategori', icon: FolderOpen },

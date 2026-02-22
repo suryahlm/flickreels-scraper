@@ -127,7 +127,7 @@ export default function PrivacyPolicy() {
                     <p>
                         If you have any questions about this Privacy Policy, please contact us at:
                     </p>
-                    <p className="mt-2 text-purple-400">suryahalim26@gmail.com</p>
+                    <p className="mt-2 text-purple-400">globaldigitalid01@gmail.com</p>
                 </section>
             </div>
 
