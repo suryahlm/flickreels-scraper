@@ -1,6 +1,6 @@
 'use client';
 
-import { supabase, type Category, type Drama } from '@/lib/supabase';
+import { supabase, supabaseAdmin, type Category, type Drama } from '@/lib/supabase';
 import { Edit, Eye, EyeOff, Plus, Search, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -32,7 +32,11 @@ export default function DramasPage() {
     );
 
     const togglePublish = async (id: string, currentStatus: boolean) => {
-        await supabase.from('dramas').update({ is_published: !currentStatus }).eq('id', id);
+        const { error } = await supabaseAdmin.from('dramas').update({ is_published: !currentStatus }).eq('id', id);
+        if (error) {
+            alert('Gagal mengubah status: ' + error.message);
+            return;
+        }
         setDramas((prev) =>
             prev.map((d) => (d.id === id ? { ...d, is_published: !currentStatus } : d))
         );
@@ -40,13 +44,17 @@ export default function DramasPage() {
 
     const deleteDrama = async (id: string) => {
         if (!confirm('Yakin hapus drama ini?')) return;
-        await supabase.from('dramas').delete().eq('id', id);
+        const { error } = await supabaseAdmin.from('dramas').delete().eq('id', id);
+        if (error) {
+            alert('Gagal menghapus drama: ' + error.message);
+            return;
+        }
         setDramas((prev) => prev.filter((d) => d.id !== id));
     };
 
     const addDrama = async () => {
         if (!newDrama.title.trim()) return alert('Judul wajib diisi');
-        const { data, error } = await supabase
+        const { data, error } = await supabaseAdmin
             .from('dramas')
             .insert({
                 title: newDrama.title,
