@@ -1,7 +1,7 @@
 'use client';
 
 import { supabase, type Profile } from '@/lib/supabase';
-import { Ban, CheckCircle, Coins, Crown, Key, Minus, Plus, Search, X } from 'lucide-react';
+import { Ban, CheckCircle, Coins, Crown, Key, Minus, Plus, Search, Trash2, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function UsersPage() {
@@ -13,6 +13,7 @@ export default function UsersPage() {
     const [coinReason, setCoinReason] = useState('');
     const [showVipModal, setShowVipModal] = useState(false);
     const [showPasswordModal, setShowPasswordModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [vipDays, setVipDays] = useState('30');
     const [newPassword, setNewPassword] = useState('');
     const [actionLoading, setActionLoading] = useState(false);
@@ -180,6 +181,31 @@ export default function UsersPage() {
         setSelectedUser(null);
     };
 
+    const deleteUser = async () => {
+        if (!selectedUser) return;
+        setActionLoading(true);
+
+        const response = await fetch('/api/delete-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: selectedUser.id }),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            alert('Gagal hapus user: ' + result.error);
+        } else {
+            // Remove user from local state
+            setUsers((prev) => prev.filter((u) => u.id !== selectedUser.id));
+            alert(`User ${selectedUser.email || selectedUser.full_name || 'ini'} berhasil dihapus`);
+        }
+
+        setActionLoading(false);
+        setShowDeleteModal(false);
+        setSelectedUser(null);
+    };
+
     if (loading) return <div className="text-center py-20">Loading...</div>;
 
     return (
@@ -295,6 +321,14 @@ export default function UsersPage() {
                                             >
                                                 {user.is_banned ? <CheckCircle size={18} /> : <Ban size={18} />}
                                             </button>
+                                            {/* Delete User */}
+                                            <button
+                                                onClick={() => { setSelectedUser(user); setShowDeleteModal(true); }}
+                                                className="p-2 hover:bg-red-900 rounded text-red-500"
+                                                title="Hapus User"
+                                            >
+                                                <Trash2 size={18} />
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -305,7 +339,7 @@ export default function UsersPage() {
             </div>
 
             {/* Coin Management Modal */}
-            {selectedUser && !showVipModal && !showPasswordModal && (
+            {selectedUser && !showVipModal && !showPasswordModal && !showDeleteModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
                     <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md border border-gray-800">
                         <div className="flex justify-between items-center mb-4">
@@ -433,6 +467,58 @@ export default function UsersPage() {
                                 className="w-full bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50"
                             >
                                 {actionLoading ? 'Loading...' : <><Key size={18} /> Reset Password</>}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Delete User Modal */}
+            {showDeleteModal && selectedUser && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md border border-red-800">
+                        <div className="flex justify-between items-center mb-4">
+                            <h2 className="text-xl font-bold flex items-center gap-2 text-red-500">
+                                <Trash2 size={24} /> Hapus User
+                            </h2>
+                            <button onClick={() => { setShowDeleteModal(false); setSelectedUser(null); }} className="text-gray-500 hover:text-white">
+                                <X size={24} />
+                            </button>
+                        </div>
+
+                        <div className="bg-red-900/20 border border-red-800 rounded-lg p-4 mb-4">
+                            <p className="text-red-400 text-sm font-medium mb-2">⚠️ Peringatan!</p>
+                            <p className="text-gray-300 text-sm">
+                                Tindakan ini akan menghapus user secara <strong>permanen</strong> beserta semua data terkait:
+                            </p>
+                            <ul className="text-gray-400 text-xs mt-2 list-disc list-inside space-y-1">
+                                <li>Profil dan akun login</li>
+                                <li>Saldo koin dan riwayat transaksi</li>
+                                <li>Status VIP dan langganan</li>
+                                <li>Episode yang sudah di-unlock</li>
+                                <li>Riwayat check-in harian</li>
+                            </ul>
+                        </div>
+
+                        <div className="bg-gray-800 rounded-lg p-3 mb-4">
+                            <p className="text-sm text-gray-400">User yang akan dihapus:</p>
+                            <p className="font-medium text-white">{selectedUser.email || 'No email'}</p>
+                            <p className="text-xs text-gray-500">{selectedUser.full_name || 'Anonymous'} • ID: {selectedUser.id.slice(0, 8)}...</p>
+                        </div>
+
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => { setShowDeleteModal(false); setSelectedUser(null); }}
+                                className="flex-1 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg"
+                            >
+                                Batal
+                            </button>
+                            <button
+                                onClick={deleteUser}
+                                disabled={actionLoading}
+                                className="flex-1 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50"
+                            >
+                                {actionLoading ? 'Menghapus...' : <><Trash2 size={18} /> Hapus Permanen</>}
                             </button>
                         </div>
                     </div>
