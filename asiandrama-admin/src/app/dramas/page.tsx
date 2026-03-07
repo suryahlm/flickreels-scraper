@@ -1,6 +1,6 @@
 'use client';
 
-import { supabase, supabaseAdmin, type Category, type Drama } from '@/lib/supabase';
+import { supabase, type Category, type Drama } from '@/lib/supabase';
 import { Edit, Eye, EyeOff, Plus, Search, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -32,9 +32,14 @@ export default function DramasPage() {
     );
 
     const togglePublish = async (id: string, currentStatus: boolean) => {
-        const { error } = await supabaseAdmin.from('dramas').update({ is_published: !currentStatus }).eq('id', id);
-        if (error) {
-            alert('Gagal mengubah status: ' + error.message);
+        const res = await fetch('/api/dramas', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, is_published: !currentStatus }),
+        });
+        const result = await res.json();
+        if (!res.ok) {
+            alert('Gagal mengubah status: ' + (result.error || 'Unknown error'));
             return;
         }
         setDramas((prev) =>
@@ -44,9 +49,10 @@ export default function DramasPage() {
 
     const deleteDrama = async (id: string) => {
         if (!confirm('Yakin hapus drama ini?')) return;
-        const { error } = await supabaseAdmin.from('dramas').delete().eq('id', id);
-        if (error) {
-            alert('Gagal menghapus drama: ' + error.message);
+        const res = await fetch(`/api/dramas?id=${id}`, { method: 'DELETE' });
+        const result = await res.json();
+        if (!res.ok) {
+            alert('Gagal menghapus drama: ' + (result.error || 'Unknown error'));
             return;
         }
         setDramas((prev) => prev.filter((d) => d.id !== id));
@@ -54,18 +60,14 @@ export default function DramasPage() {
 
     const addDrama = async () => {
         if (!newDrama.title.trim()) return alert('Judul wajib diisi');
-        const { data, error } = await supabaseAdmin
-            .from('dramas')
-            .insert({
-                title: newDrama.title,
-                synopsis: newDrama.synopsis || null,
-                category_id: newDrama.category_id || null,
-            })
-            .select()
-            .single();
-
-        if (error) return alert('Error: ' + error.message);
-        setDramas([data, ...dramas]);
+        const res = await fetch('/api/dramas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newDrama),
+        });
+        const result = await res.json();
+        if (!res.ok) return alert('Error: ' + (result.error || 'Unknown error'));
+        setDramas([result.drama, ...dramas]);
         setNewDrama({ title: '', synopsis: '', category_id: '' });
         setShowAddModal(false);
     };
