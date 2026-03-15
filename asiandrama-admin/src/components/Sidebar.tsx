@@ -10,6 +10,7 @@ import {
     LayoutDashboard,
     LogOut,
     Settings,
+    Star,
     Users
 } from 'lucide-react';
 import Link from 'next/link';
@@ -19,6 +20,7 @@ const navItems = [
     { href: '/', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/traffic', label: 'Trafik', icon: BarChart3 },
     { href: '/dramas', label: 'Drama', icon: Film },
+    { href: '/featured', label: 'Featured', icon: Star },
     { href: '/users', label: 'Users', icon: Users },
     { href: '/categories', label: 'Kategori', icon: FolderOpen },
     { href: '/banners', label: 'Banner', icon: Image },
