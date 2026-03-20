@@ -25,6 +25,7 @@ export interface Drama {
     view_count: number;
     is_published: boolean;
     created_at: string;
+    r2_folder: string | null;
 }
 
 export interface Episode {
