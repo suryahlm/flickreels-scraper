@@ -35,6 +35,10 @@ WORKDIR /app
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
+# Runtime env vars for server-side API routes (passed via docker run -e or docker-compose)
+# NEXT_PUBLIC_* are inlined at build time, but server-side keys must be available at runtime
+ENV SUPABASE_SERVICE_ROLE_KEY=""
+
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
