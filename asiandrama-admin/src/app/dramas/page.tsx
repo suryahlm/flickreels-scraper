@@ -5,7 +5,7 @@ import { Edit, Eye, EyeOff, Filter, Plus, Search, Trash2, X } from 'lucide-react
 import { useEffect, useMemo, useState } from 'react';
 
 // ── Source detection from r2_folder ──
-const SOURCES = ['FlickReels', 'DramaBox', 'Melolo', 'Netshort'] as const;
+const SOURCES = ['FlickReels', 'DramaBox', 'Melolo', 'Netshort', 'DramaNova'] as const;
 type Source = (typeof SOURCES)[number];
 
 const SOURCE_COLORS: Record<Source, string> = {
@@ -13,9 +13,11 @@ const SOURCE_COLORS: Record<Source, string> = {
     DramaBox: 'bg-blue-900/60 text-blue-300 border-blue-700',
     Melolo: 'bg-emerald-900/60 text-emerald-300 border-emerald-700',
     Netshort: 'bg-amber-900/60 text-amber-300 border-amber-700',
+    DramaNova: 'bg-rose-900/60 text-rose-300 border-rose-700',
 };
 
 function getSource(r2_folder: string | null | undefined): Source {
+    if (r2_folder?.startsWith('dramanova/')) return 'DramaNova';
     if (r2_folder?.startsWith('netshort/')) return 'Netshort';
     if (r2_folder?.startsWith('dramabox/')) return 'DramaBox';
     if (r2_folder?.startsWith('melolo/')) return 'Melolo';
