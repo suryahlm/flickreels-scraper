@@ -13,6 +13,15 @@ export default function SettingsPage() {
     const [adEnabled, setAdEnabled] = useState(true);
     const [freeEpisodes, setFreeEpisodes] = useState('5');
     const [adInterval, setAdInterval] = useState('5');
+
+    // Layout Settings
+    const [layoutDramabox, setLayoutDramabox] = useState('10');
+    const [layoutNetshort, setLayoutNetshort] = useState('10');
+    const [layoutFlickreels, setLayoutFlickreels] = useState('10');
+    const [layoutDramanova, setLayoutDramanova] = useState('10');
+    const [layoutDramawave, setLayoutDramawave] = useState('10');
+    const [layoutMelolo, setLayoutMelolo] = useState('10');
+
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -34,6 +43,19 @@ export default function SettingsPage() {
                     case 'ad_enabled': setAdEnabled(setting.value === 'true'); break;
                     case 'free_episodes': setFreeEpisodes(setting.value); break;
                     case 'ad_interval': setAdInterval(setting.value); break;
+                    case 'provider_layout':
+                        try {
+                            const parsed = JSON.parse(setting.value);
+                            if (parsed.dramabox !== undefined) setLayoutDramabox(String(parsed.dramabox));
+                            if (parsed.netshort !== undefined) setLayoutNetshort(String(parsed.netshort));
+                            if (parsed.flickreels !== undefined) setLayoutFlickreels(String(parsed.flickreels));
+                            if (parsed.dramanova !== undefined) setLayoutDramanova(String(parsed.dramanova));
+                            if (parsed.dramawave !== undefined) setLayoutDramawave(String(parsed.dramawave));
+                            if (parsed.melolo !== undefined) setLayoutMelolo(String(parsed.melolo));
+                        } catch(e) {
+                            console.error('Failed to parse provider_layout', e);
+                        }
+                        break;
                 }
             });
         }
@@ -88,6 +110,17 @@ export default function SettingsPage() {
             { key: 'ad_enabled', value: adEnabled.toString() },
             { key: 'free_episodes', value: freeEpisodes },
             { key: 'ad_interval', value: adInterval },
+            { 
+                key: 'provider_layout', 
+                value: JSON.stringify({
+                    dramabox: parseInt(layoutDramabox) || 10,
+                    netshort: parseInt(layoutNetshort) || 10,
+                    flickreels: parseInt(layoutFlickreels) || 10,
+                    dramanova: parseInt(layoutDramanova) || 10,
+                    dramawave: parseInt(layoutDramawave) || 10,
+                    melolo: parseInt(layoutMelolo) || 10
+                }) 
+            },
         ];
 
         for (const setting of settings) {
@@ -238,6 +271,41 @@ export default function SettingsPage() {
                                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
                             />
                             <p className="text-xs text-gray-500 mt-1">Iklan muncul setiap {adInterval} episode setelah episode gratis</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Provider Layout Settings */}
+                <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
+                    <h2 className="font-semibold mb-4">Urutan & Tampilan "Semua Drama"</h2>
+                    <p className="text-sm text-gray-500 mb-6">
+                        Tentukan jumlah maksimal drama yang ditarik per giliran rotasi.<br/>
+                        <b>Urutan tayang baku:</b> Dramabox → Netshort → FlickReels → DramaNova → DramaWave → Melolo.
+                    </p>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">1. Dramabox</label>
+                            <input type="number" value={layoutDramabox} onChange={e => setLayoutDramabox(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
+                        </div>
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">2. Netshort</label>
+                            <input type="number" value={layoutNetshort} onChange={e => setLayoutNetshort(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
+                        </div>
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">3. FlickReels</label>
+                            <input type="number" value={layoutFlickreels} onChange={e => setLayoutFlickreels(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
+                        </div>
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">4. DramaNova</label>
+                            <input type="number" value={layoutDramanova} onChange={e => setLayoutDramanova(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
+                        </div>
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">5. DramaWave</label>
+                            <input type="number" value={layoutDramawave} onChange={e => setLayoutDramawave(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
+                        </div>
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">6. Melolo</label>
+                            <input type="number" value={layoutMelolo} onChange={e => setLayoutMelolo(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
                         </div>
                     </div>
                 </div>
