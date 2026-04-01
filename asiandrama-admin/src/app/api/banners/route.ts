@@ -5,6 +5,9 @@ export interface AppBanners {
     banner_1: string[];
     banner_2: string[];
     banner_3: string[];
+    banner_1_links?: string[];
+    banner_2_links?: string[];
+    banner_3_links?: string[];
     telegram_link?: string;
 }
 
@@ -12,6 +15,9 @@ const DEFAULT_BANNERS: AppBanners = {
     banner_1: [],
     banner_2: [],
     banner_3: [],
+    banner_1_links: [],
+    banner_2_links: [],
+    banner_3_links: [],
     telegram_link: 'https://t.me/asiandrama_id',
 };
 
@@ -54,6 +60,9 @@ export async function POST(request: NextRequest) {
             banner_1: (body.banner_1 || []).slice(0, 5),
             banner_2: (body.banner_2 || []).slice(0, 5),
             banner_3: (body.banner_3 || []).slice(0, 5),
+            banner_1_links: (body.banner_1_links || []).slice(0, 5),
+            banner_2_links: (body.banner_2_links || []).slice(0, 5),
+            banner_3_links: (body.banner_3_links || []).slice(0, 5),
             telegram_link: body.telegram_link || 'https://t.me/asiandrama_id',
         };
 

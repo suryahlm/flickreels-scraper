@@ -8,6 +8,9 @@ interface AppBanners {
     banner_1: string[];
     banner_2: string[];
     banner_3: string[];
+    banner_1_links?: string[];
+    banner_2_links?: string[];
+    banner_3_links?: string[];
     telegram_link?: string;
 }
 
@@ -18,6 +21,9 @@ export default function BannersPage() {
         banner_1: [],
         banner_2: [],
         banner_3: [],
+        banner_1_links: [],
+        banner_2_links: [],
+        banner_3_links: [],
         telegram_link: 'https://t.me/asiandrama_id',
     });
     const [originalBanners, setOriginalBanners] = useState<AppBanners | null>(null);
@@ -40,6 +46,9 @@ export default function BannersPage() {
                 banner_1: raw.banner_1 || [],
                 banner_2: raw.banner_2 || [],
                 banner_3: raw.banner_3 || [],
+                banner_1_links: raw.banner_1_links || [],
+                banner_2_links: raw.banner_2_links || [],
+                banner_3_links: raw.banner_3_links || [],
                 telegram_link: raw.telegram_link || 'https://t.me/asiandrama_id',
             };
             setBanners(data);
@@ -76,10 +85,15 @@ export default function BannersPage() {
             
             if (!res.ok) throw new Error(data.error || 'Upload gagal');
 
-            setBanners(prev => ({
-                ...prev,
-                [slot]: [...(prev[slot] as string[]), data.url]
-            }));
+            setBanners(prev => {
+                const linkKey = `${slot}_links` as keyof AppBanners;
+                const currentLinks = (prev[linkKey] as string[] || []);
+                return {
+                    ...prev,
+                    [slot]: [...(prev[slot] as string[]), data.url],
+                    [linkKey]: [...currentLinks, ''],
+                };
+            });
             
         } catch (err: any) {
             setStatus({ type: 'error', message: err.message });
@@ -91,10 +105,15 @@ export default function BannersPage() {
 
     const removeImage = (slot: BannerSlot, index: number) => {
         if (!confirm('Hapus gambar ini dari slider?')) return;
-        setBanners(prev => ({
-            ...prev,
-            [slot]: (prev[slot] as string[]).filter((_, i) => i !== index)
-        }));
+        setBanners(prev => {
+            const linkKey = `${slot}_links` as keyof AppBanners;
+            const currentLinks = (prev[linkKey] as string[] || []);
+            return {
+                ...prev,
+                [slot]: (prev[slot] as string[]).filter((_, i) => i !== index),
+                [linkKey]: currentLinks.filter((_, i) => i !== index),
+            };
+        });
     };
 
     const saveChanges = async () => {
@@ -124,6 +143,19 @@ export default function BannersPage() {
 
     const renderBannerSection = (title: string, desc: string, slotKey: BannerSlot) => {
         const images = banners[slotKey] as string[];
+        const linkKey = `${slotKey}_links` as keyof AppBanners;
+        const links = (banners[linkKey] as string[] || []);
+        
+        const updateLink = (index: number, value: string) => {
+            setBanners(prev => {
+                const currentLinks = [...(prev[linkKey] as string[] || [])];
+                // Pastikan array cukup panjang
+                while (currentLinks.length <= index) currentLinks.push('');
+                currentLinks[index] = value;
+                return { ...prev, [linkKey]: currentLinks };
+            });
+        };
+        
         return (
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 mb-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
@@ -169,24 +201,33 @@ export default function BannersPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     {images.map((url, i) => (
-                        <div key={i} className="group relative aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
-                            {/* Ensure url works by skipping Next Image strict domains if external */}
-                            <img src={url} alt={`Banner ${i+1}`} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
-                            
-                            {/* Overlay Controls */}
-                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                                <span className="absolute top-2 left-2 bg-black/80 px-2 py-1 rounded text-xs text-amber-500 font-bold border border-amber-900/50">
-                                    Slide {i + 1}
-                                </span>
+                        <div key={i} className="flex flex-col gap-2">
+                            <div className="group relative aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
+                                <img src={url} alt={`Banner ${i+1}`} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                                 
-                                <button 
-                                    onClick={() => removeImage(slotKey, i)}
-                                    className="p-2 bg-red-900/80 hover:bg-red-600 rounded-full text-white backdrop-blur-sm"
-                                    title="Hapus Slide"
-                                >
-                                    <Trash2 size={16} />
-                                </button>
+                                {/* Overlay Controls */}
+                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                                    <span className="absolute top-2 left-2 bg-black/80 px-2 py-1 rounded text-xs text-amber-500 font-bold border border-amber-900/50">
+                                        Slide {i + 1}
+                                    </span>
+                                    
+                                    <button 
+                                        onClick={() => removeImage(slotKey, i)}
+                                        className="p-2 bg-red-900/80 hover:bg-red-600 rounded-full text-white backdrop-blur-sm"
+                                        title="Hapus Slide"
+                                    >
+                                        <Trash2 size={16} />
+                                    </button>
+                                </div>
                             </div>
+                            {/* Link Input */}
+                            <input 
+                                type="url"
+                                value={links[i] || ''}
+                                onChange={(e) => updateLink(i, e.target.value)}
+                                className="w-full bg-gray-950 border border-gray-700 rounded px-2 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500 placeholder-gray-600"
+                                placeholder="Link tujuan (opsional)"
+                            />
                         </div>
                     ))}
                 </div>
