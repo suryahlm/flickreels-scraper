@@ -1,0 +1,69 @@
+﻿node.exe : ΓÜá Warning: Next.js inferred your 
+workspace root, but it may not be correct.
+At line:1 char:1
++ & "C:\Users\SURYA\AppData\Local\Programs\Php
+WebStudy-Data\env\node/no ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( 
+   ΓÜá Warning: Ne...not be correct.:String)  
+   [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandEr 
+   ror
+ 
+ We detected multiple lockfiles and selected 
+the directory of 
+D:\Surya\IT\AsianDrama-02\package-lock.json 
+as the root directory.
+ To silence this warning, set 
+`turbopack.root` in your Next.js config, or 
+consider removing one of the lockfiles if 
+it's not needed.
+   See https://nextjs.org/docs/app/api-referen
+ce/config/next-config-js/turbopack#root-direct
+ory for more information.
+ Detected additional lockfiles: 
+   * D:\Surya\IT\AsianDrama-02\_draft\FlickRee
+ls\asiandrama-admin\package-lock.json
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 10.5s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/21) ...
+  Generating static pages using 7 workers (5/21) 
+  Generating static pages using 7 workers (10/21) 
+  Generating static pages using 7 workers (15/21) 
+Γ£ô Generating static pages using 7 workers (21/21) in 761.1ms
+  Finalizing page optimization ...
+
+Route (app)
+Γöî Γùï /
+Γö£ Γùï /_not-found
+Γö£ ╞Æ /api/dramas
+Γö£ ╞Æ /api/r2-dramas
+Γö£ ╞Æ /api/r2-proxy
+Γö£ ╞Æ /api/r2-stream
+Γö£ ╞Æ /api/reset-password
+Γö£ ╞Æ /api/stream
+Γö£ ╞Æ /api/stream/[...path]
+Γö£ ╞Æ /api/sync-r2
+Γö£ ╞Æ /api/test-language
+Γö£ ╞Æ /api/upload-icon
+Γö£ Γùï /banners
+Γö£ Γùï /categories
+Γö£ Γùï /dramas
+Γö£ Γùï /login
+Γö£ Γùï /notifications
+Γö£ Γùï /privacy
+Γö£ Γùï /settings
+Γö£ Γùï /traffic
+Γöö Γùï /users
+
+
+Γùï  (Static)   prerendered as static content
+╞Æ  (Dynamic)  server-rendered on demand
+

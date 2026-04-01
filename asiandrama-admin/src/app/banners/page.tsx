@@ -34,7 +34,14 @@ export default function BannersPage() {
         try {
             setLoading(true);
             const res = await fetch('/api/banners');
-            const data = await res.json() as AppBanners;
+            const raw = await res.json() as AppBanners;
+            // Normalisasi: pastikan telegram_link selalu ada agar hasChanges tidak false-positive
+            const data: AppBanners = {
+                banner_1: raw.banner_1 || [],
+                banner_2: raw.banner_2 || [],
+                banner_3: raw.banner_3 || [],
+                telegram_link: raw.telegram_link || 'https://t.me/asiandrama_id',
+            };
             setBanners(data);
             setOriginalBanners(JSON.parse(JSON.stringify(data)));
         } catch (e) {

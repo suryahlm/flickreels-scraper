@@ -1,0 +1,266 @@
+﻿node.exe : ΓÜá Warning: Next.js inferred your 
+workspace root, but it may not be correct.
+At line:1 char:1
++ & "C:\Users\SURYA\AppData\Local\Programs\Php
+WebStudy-Data\env\node/no ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( 
+   ΓÜá Warning: Ne...not be correct.:String)  
+   [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandEr 
+   ror
+ 
+ We detected multiple lockfiles and selected 
+the directory of 
+D:\Surya\IT\AsianDrama-02\package-lock.json 
+as the root directory.
+ To silence this warning, set 
+`turbopack.root` in your Next.js config, or 
+consider removing one of the lockfiles if 
+it's not needed.
+   See https://nextjs.org/docs/app/api-referen
+ce/config/next-config-js/turbopack#root-direct
+ory for more information.
+ Detected additional lockfiles: 
+   * D:\Surya\IT\AsianDrama-02\_draft\FlickRee
+ls\asiandrama-admin\package-lock.json
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 4 errors:
+./_draft/FlickReels/asiandrama-admin/src/app/a
+pi/r2-dramas/route.ts:10:1
+Module not found: Can't resolve 
+'@aws-sdk/client-s3'
+[0m [90m  8 |[39m [90m */[39m
+ [90m  9 |[39m
+[31m[1m>[22m[39m[90m 10 |[39m 
+[36mimport[39m { [33mS3Client[39m } 
+[36mfrom[39m 
+[32m'@aws-sdk/client-s3'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m
+ [90m 11 |[39m [36mimport[39m { 
+createClient } [36mfrom[39m 
+[32m'@supabase/supabase-js'[39m[33m;[39m
+ [90m 12 |[39m [36mimport[39m { 
+[33mNextResponse[39m } [36mfrom[39m 
+[32m'next/server'[39m[33m;[39m
+ [90m 13 |[39m[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-fo
+und
+
+
+./_draft/FlickReels/asiandrama-admin/src/app/a
+pi/r2-stream/route.ts:12:1
+Module not found: Can't resolve 
+'@aws-sdk/client-s3'
+[0m [90m 10 |[39m
+ [90m 11 |[39m [36mimport[39m { 
+[33mNextRequest[39m[33m,[39m 
+[33mNextResponse[39m } [36mfrom[39m 
+[32m'next/server'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 12 |[39m 
+[36mimport[39m { 
+[33mS3Client[39m[33m,[39m 
+[33mGetObjectCommand[39m } [36mfrom[39m 
+[32m'@aws-sdk/client-s3'[39m[33m;[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m
+ [90m 13 |[39m
+ [90m 14 |[39m [90m// R2 configuration[39m
+ [90m 15 |[39m [36mconst[39m 
+[33mR2_CONFIG[39m [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-fo
+und
+
+
+./_draft/FlickReels/asiandrama-admin/src/app/a
+pi/stream/[...path]/route.ts:1:1
+Module not found: Can't resolve 
+'@aws-sdk/client-s3'
+[0m[31m[1m>[22m[39m[90m 1 |[39m 
+[36mimport[39m { 
+[33mGetObjectCommand[39m[33m,[39m 
+[33mS3Client[39m } [36mfrom[39m 
+[32m'@aws-sdk/client-s3'[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m
+ [90m 2 |[39m [36mimport[39m { 
+getSignedUrl } [36mfrom[39m [32m'@aws-sdk/s
+3-request-presigner'[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m { 
+[33mNextRequest[39m[33m,[39m 
+[33mNextResponse[39m } [36mfrom[39m 
+[32m'next/server'[39m[33m;[39m
+ [90m 4 |[39m[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-fo
+und
+
+
+./_draft/FlickReels/asiandrama-admin/src/app/a
+pi/sync-r2/route.ts:1:1
+Module not found: Can't resolve 
+'@aws-sdk/client-s3'
+[0m[31m[1m>[22m[39m[90m 1 |[39m 
+[36mimport[39m { 
+[33mGetObjectCommand[39m[33m,[39m 
+[33mListObjectsV2Command[39m[33m,[39m 
+[33mS3Client[39m } [36mfrom[39m 
+[32m'@aws-sdk/client-s3'[39m[33m;[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { 
+createClient } [36mfrom[39m 
+[32m'@supabase/supabase-js'[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m { 
+[33mNextResponse[39m } [36mfrom[39m 
+[32m'next/server'[39m[33m;[39m
+ [90m 4 |[39m[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-fo
+und
+
+
+    at <unknown> (./_draft/FlickReels/asiandra
+ma-admin/src/app/api/r2-dramas/route.ts:10:1)
+    at <unknown> (https://nextjs.org/docs/mess
+ages/module-not-found)
+    at <unknown> (./_draft/FlickReels/asiandra
+ma-admin/src/app/api/r2-stream/route.ts:12:1)
+    at <unknown> (https://nextjs.org/docs/mess
+ages/module-not-found)
+    at <unknown> (./_draft/FlickReels/asiandra
+ma-admin/src/app/api/stream/[...path]/route.ts
+:1:1)
+    at <unknown> (https://nextjs.org/docs/mess
+ages/module-not-found)
+    at <unknown> (./_draft/FlickReels/asiandra
+ma-admin/src/app/api/sync-r2/route.ts:1:1)
+    at <unknown> (https://nextjs.org/docs/mess
+ages/module-not-found)
