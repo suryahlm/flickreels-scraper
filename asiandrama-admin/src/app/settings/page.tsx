@@ -1,7 +1,7 @@
 'use client';
 
 import { supabase } from '@/lib/supabase';
-import { Image as ImageIcon, Save, ToggleLeft, ToggleRight, Upload } from 'lucide-react';
+import { Image as ImageIcon, Save, ToggleLeft, ToggleRight, Upload, CheckCircle2, XCircle } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 export default function SettingsPage() {
@@ -25,6 +25,14 @@ export default function SettingsPage() {
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    // Toast State
+    const [toast, setToast] = useState<{ show: boolean; type: 'success' | 'error'; message: string } | null>(null);
+
+    const showToast = (message: string, type: 'success' | 'error' = 'success') => {
+        setToast({ show: true, type, message });
+        setTimeout(() => setToast(null), 3000);
+    };
 
     useEffect(() => {
         fetchSettings();
@@ -68,13 +76,13 @@ export default function SettingsPage() {
 
         // Validate file type
         if (!['image/jpeg', 'image/jpg', 'image/png'].includes(file.type)) {
-            alert('Hanya file JPG atau PNG yang diperbolehkan');
+            showToast('Hanya file JPG atau PNG yang diperbolehkan', 'error');
             return;
         }
 
         // Validate file size (max 2MB)
         if (file.size > 2 * 1024 * 1024) {
-            alert('Ukuran file maksimal 2MB');
+            showToast('Ukuran file maksimal 2MB', 'error');
             return;
         }
 
@@ -91,10 +99,10 @@ export default function SettingsPage() {
             if (!res.ok) throw new Error(result.error);
 
             setAppIcon(result.url);
-            alert('Icon berhasil diupload!');
+            showToast('Icon berhasil diupload!', 'success');
         } catch (error: any) {
             console.error('Upload error:', error);
-            alert('Gagal upload: ' + error.message);
+            showToast('Gagal upload: ' + error.message, 'error');
         } finally {
             setUploading(false);
         }
@@ -129,13 +137,13 @@ export default function SettingsPage() {
                 .upsert({ key: setting.key, value: setting.value, updated_at: new Date().toISOString() });
         }
 
-        alert('Settings saved!');
+        showToast('Settings saved successfully!', 'success');
     };
 
     if (loading) return <div className="text-center py-20">Loading...</div>;
 
     return (
-        <div>
+        <div className="relative min-h-screen">
             <h1 className="text-2xl font-bold mb-6">Settings</h1>
 
             <div className="max-w-2xl space-y-6">
@@ -318,6 +326,14 @@ export default function SettingsPage() {
                     <Save size={20} /> Simpan Settings
                 </button>
             </div>
+
+            {/* Toast Notification */}
+            {toast && toast.show && (
+                <div className={`fixed bottom-6 right-6 flex items-center gap-3 px-6 py-4 rounded-xl shadow-lg shadow-black/50 transform transition-all duration-300 translate-y-0 opacity-100 ${toast.type === 'success' ? 'bg-green-500/20 border border-green-500/50 text-green-400' : 'bg-red-500/20 border border-red-500/50 text-red-400'} z-50`} style={{ backdropFilter: 'blur(8px)' }}>
+                    {toast.type === 'success' ? <CheckCircle2 size={24} className="text-green-500" /> : <XCircle size={24} className="text-red-500" />}
+                    <span className="font-medium">{toast.message}</span>
+                </div>
+            )}
         </div>
     );
 }
