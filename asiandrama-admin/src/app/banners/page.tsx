@@ -8,13 +8,17 @@ interface AppBanners {
     banner_1: string[];
     banner_2: string[];
     banner_3: string[];
+    telegram_link?: string;
 }
+
+type BannerSlot = 'banner_1' | 'banner_2' | 'banner_3';
 
 export default function BannersPage() {
     const [banners, setBanners] = useState<AppBanners>({
         banner_1: [],
         banner_2: [],
         banner_3: [],
+        telegram_link: 'https://t.me/asiandrama_id',
     });
     const [originalBanners, setOriginalBanners] = useState<AppBanners | null>(null);
     const [loading, setLoading] = useState(true);
@@ -42,11 +46,12 @@ export default function BannersPage() {
 
     const hasChanges = JSON.stringify(banners) !== JSON.stringify(originalBanners);
 
-    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, slot: keyof AppBanners) => {
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, slot: BannerSlot) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        if (banners[slot].length >= 5) {
+        const currentImages = banners[slot] as string[];
+        if (currentImages.length >= 5) {
             setStatus({ type: 'error', message: `Kotak ini sudah penuh maksimal 5 gambar!` });
             return;
         }
@@ -66,7 +71,7 @@ export default function BannersPage() {
 
             setBanners(prev => ({
                 ...prev,
-                [slot]: [...prev[slot], data.url]
+                [slot]: [...(prev[slot] as string[]), data.url]
             }));
             
         } catch (err: any) {
@@ -77,11 +82,11 @@ export default function BannersPage() {
         }
     };
 
-    const removeImage = (slot: keyof AppBanners, index: number) => {
+    const removeImage = (slot: BannerSlot, index: number) => {
         if (!confirm('Hapus gambar ini dari slider?')) return;
         setBanners(prev => ({
             ...prev,
-            [slot]: prev[slot].filter((_, i) => i !== index)
+            [slot]: (prev[slot] as string[]).filter((_, i) => i !== index)
         }));
     };
 
@@ -110,14 +115,16 @@ export default function BannersPage() {
         }
     };
 
-    const renderBannerSection = (title: string, desc: string, slotKey: keyof AppBanners) => (
+    const renderBannerSection = (title: string, desc: string, slotKey: BannerSlot) => {
+        const images = banners[slotKey] as string[];
+        return (
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 mb-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
                 <div>
                     <h2 className="text-xl font-bold text-amber-500">{title}</h2>
                     <p className="text-gray-400 text-sm mt-1">{desc}</p>
                     <p className="text-gray-500 text-xs mt-1">
-                        Sisa Kapasitas: <span className="text-white font-medium">{5 - banners[slotKey].length} slot</span> dari 5
+                        Sisa Kapasitas: <span className="text-white font-medium">{5 - images.length} slot</span> dari 5
                     </p>
                 </div>
                 
@@ -128,12 +135,12 @@ export default function BannersPage() {
                         className="hidden" 
                         accept="image/jpeg, image/png, image/webp"
                         onChange={(e) => handleFileUpload(e, slotKey)}
-                        disabled={uploadingSlot === slotKey || banners[slotKey].length >= 5}
+                        disabled={uploadingSlot === slotKey || images.length >= 5}
                     />
                     <label 
                         htmlFor={`upload-${slotKey}`}
                         className={`px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-colors
-                            ${(banners[slotKey].length >= 5 || uploadingSlot === slotKey) 
+                            ${(images.length >= 5 || uploadingSlot === slotKey) 
                                 ? 'bg-gray-800 text-gray-500 cursor-not-allowed' 
                                 : 'bg-gray-800 hover:bg-gray-700 text-white cursor-pointer border border-gray-700'
                             }`}
@@ -147,14 +154,14 @@ export default function BannersPage() {
                 </div>
             </div>
 
-            {banners[slotKey].length === 0 ? (
+            {images.length === 0 ? (
                 <div className="border-2 border-dashed border-gray-800 rounded-xl p-8 text-center bg-gray-900/50 flex flex-col items-center justify-center">
                     <p className="text-gray-500 mb-2">Belum ada gambar yang diunggah</p>
                     <p className="text-xs text-gray-600">Tekan "Tambah Gambar" untuk memasukkan JPEG/PNG maksimal 5 file</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                    {banners[slotKey].map((url, i) => (
+                    {images.map((url, i) => (
                         <div key={i} className="group relative aspect-video bg-black rounded-lg overflow-hidden border border-gray-800">
                             {/* Ensure url works by skipping Next Image strict domains if external */}
                             <img src={url} alt={`Banner ${i+1}`} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
@@ -179,6 +186,7 @@ export default function BannersPage() {
             )}
         </div>
     );
+    };
 
     if (loading) {
         return (
@@ -249,6 +257,24 @@ export default function BannersPage() {
                 "Terletak tepat di bawah menu Pengaturan pengguna. Ruang yang sangat sering dilihat setiap nge-claim dompet profil.",
                 "banner_3"
             )}
+            
+            {/* Extended Settings: Links */}
+            <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 mt-8">
+                <div className="mb-4">
+                    <h2 className="text-xl font-bold text-[#229ED9]">Pengaturan External Link</h2>
+                    <p className="text-gray-400 text-sm mt-1">Konfigurasikan tautan tombol grup Telegram yang ada pada menu Profil.</p>
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Tautan Grup Telegram</label>
+                    <input 
+                        type="url" 
+                        value={banners.telegram_link || ''}
+                        onChange={(e) => setBanners(prev => ({ ...prev, telegram_link: e.target.value }))}
+                        className="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#229ED9]"
+                        placeholder="Contoh: https://t.me/asiandrama_id"
+                    />
+                </div>
+            </div>
             
         </div>
     );

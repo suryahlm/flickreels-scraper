@@ -5,12 +5,14 @@ export interface AppBanners {
     banner_1: string[];
     banner_2: string[];
     banner_3: string[];
+    telegram_link?: string;
 }
 
 const DEFAULT_BANNERS: AppBanners = {
     banner_1: [],
     banner_2: [],
     banner_3: [],
+    telegram_link: 'https://t.me/asiandrama_id',
 };
 
 // GET Banners
@@ -47,11 +49,12 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Payload tidak valid' }, { status: 400 });
         }
 
-        // Pastikan masing-masing maksimal 5 URL
+        // Pastikan masing-masing maksimal 5 URL dan ada link telegram
         const sanitizePayload: AppBanners = {
             banner_1: (body.banner_1 || []).slice(0, 5),
             banner_2: (body.banner_2 || []).slice(0, 5),
             banner_3: (body.banner_3 || []).slice(0, 5),
+            telegram_link: body.telegram_link || 'https://t.me/asiandrama_id',
         };
 
         const { error } = await supabaseAdmin
