@@ -1,5 +1,17 @@
 import { supabaseAdmin } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
+import { S3Client, ListObjectsV2Command, DeleteObjectsCommand } from '@aws-sdk/client-s3';
+
+// Setup Cloudflare R2 Client
+const r2Client = new S3Client({
+    region: 'auto',
+    endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+    credentials: {
+        accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
+        secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
+    },
+});
+const BUCKET_NAME = process.env.R2_BUCKET_NAME || 'asiandrama-cdn';
 
 // R2 Public URL
 const R2_URL = 'https://pub-7e9668fd996e4d5f81b00057db79402f.r2.dev/flickreels/dramas.json';
@@ -111,17 +123,75 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'Drama ID required' }, { status: 400 });
         }
 
+        // 1. Ambil data r2_folder sebelum dihapus
+        const { data: dramaTarget } = await supabaseAdmin
+            .from('dramas')
+            .select('title, r2_folder')
+            .eq('id', id)
+            .single();
+
+        if (!dramaTarget) {
+            return NextResponse.json({ error: 'Drama tidak ditemukan' }, { status: 404 });
+        }
+
+        // 2. Jika punya r2_folder yang valid, hapus semua file terkait dari R2 CDN
+        if (dramaTarget.r2_folder && dramaTarget.r2_folder.length > 3) {
+            let isTruncated = true;
+            let continuationToken: string | undefined = undefined;
+            const folderPrefix = dramaTarget.r2_folder.endsWith('/') 
+                ? dramaTarget.r2_folder 
+                : `${dramaTarget.r2_folder}/`;
+
+            console.log(`[API/dramas] Mulai membersihkan R2 Bucket untuk folder: ${folderPrefix}`);
+            let deletedCount = 0;
+
+            try {
+                // Loop untuk paginasi (jika file > 1000)
+                while (isTruncated) {
+                    const listCmd: any = new ListObjectsV2Command({
+                        Bucket: BUCKET_NAME,
+                        Prefix: folderPrefix,
+                        ContinuationToken: continuationToken,
+                    });
+                    
+                    const listRes: any = await r2Client.send(listCmd);
+                    const objects = listRes.Contents;
+
+                    if (objects && objects.length > 0) {
+                        const deleteCmd: any = new DeleteObjectsCommand({
+                            Bucket: BUCKET_NAME,
+                            Delete: {
+                                Objects: objects.map((obj: any) => ({ Key: obj.Key })),
+                                Quiet: true, // Tidak perlu mengembalikan data file persatu-persatu
+                            }
+                        });
+                        
+                        await r2Client.send(deleteCmd);
+                        deletedCount += objects.length;
+                    }
+                    
+                    isTruncated = listRes.IsTruncated ?? false;
+                    continuationToken = listRes.NextContinuationToken;
+                }
+                console.log(`[API/dramas] Berhasil menghapus total ${deletedCount} file dari CDN R2.`);
+            } catch (r2Error) {
+                console.error('[API/dramas] Gagal membersihkan Cloudflare R2:', r2Error);
+                // Kita TIDAK me-return error di sini, biarkan lanjut menghapus dari DB.
+            }
+        }
+
+        // 3. Eksekusi mati (Delete) dari Supabase Database (Hard Delete)
         const { error } = await supabaseAdmin
             .from('dramas')
             .delete()
             .eq('id', id);
 
         if (error) {
-            console.error('[API/dramas] Delete error:', error);
+            console.error('[API/dramas] Supabase Delete error:', error);
             return NextResponse.json({ error: error.message }, { status: 500 });
         }
 
-        return NextResponse.json({ success: true });
+        return NextResponse.json({ success: true, deletedR2Files: true });
     } catch (e: any) {
         return NextResponse.json({ error: e.message }, { status: 500 });
     }
