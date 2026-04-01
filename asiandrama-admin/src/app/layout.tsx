@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import AuthProvider from "@/components/AuthProvider";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "AsianDrama Admin",
@@ -18,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-950 text-white`}>
+      <body className="bg-gray-950 text-white font-sans">
         <AuthProvider>
           <div className="flex min-h-screen">
             <Sidebar />
