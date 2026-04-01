@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
                 key: 'app_banners',
                 value: JSON.stringify(sanitizePayload),
                 updated_at: new Date().toISOString()
-            });
+            }, { onConflict: 'key' });
 
         if (error) {
             console.error('[API/banners] Update error:', error);
