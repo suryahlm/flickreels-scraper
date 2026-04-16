@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Film, Users, Eye, Coins } from 'lucide-react';
-import { supabase, type Drama, type Profile } from '@/lib/supabase';
+import { type Drama, type Profile } from '@/lib/supabase';
 
 interface Stats {
   totalDramas: number;
@@ -28,51 +28,15 @@ export default function Dashboard() {
 
   async function fetchDashboardData() {
     try {
-      // Fetch drama count
-      const { count: dramaCount } = await supabase
-        .from('dramas')
-        .select('*', { count: 'exact', head: true });
-
-      // Fetch user count
-      const { count: userCount } = await supabase
-        .from('profiles')
-        .select('*', { count: 'exact', head: true });
-
-      // Fetch total views
-      const { data: viewData } = await supabase
-        .from('dramas')
-        .select('view_count');
-      const totalViews = viewData?.reduce((sum, d) => sum + (d.view_count || 0), 0) || 0;
-
-      // Fetch total coins
-      const { data: coinData } = await supabase
-        .from('profiles')
-        .select('coin_balance');
-      const totalCoins = coinData?.reduce((sum, p) => sum + (p.coin_balance || 0), 0) || 0;
-
-      setStats({
-        totalDramas: dramaCount || 0,
-        totalUsers: userCount || 0,
-        totalViews,
-        totalCoins,
-      });
-
-      // Fetch recent users
-      const { data: users } = await supabase
-        .from('profiles')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(5);
-      setRecentUsers(users || []);
-
-      // Fetch top dramas
-      const { data: dramas } = await supabase
-        .from('dramas')
-        .select('*')
-        .order('view_count', { ascending: false })
-        .limit(5);
-      setTopDramas(dramas || []);
-
+      // Call server-side API route (uses supabaseAdmin to bypass RLS)
+      const res = await fetch('/api/dashboard-stats');
+      if (!res.ok) throw new Error(`API error: ${res.status}`);
+      
+      const data = await res.json();
+      
+      setStats(data.stats);
+      setRecentUsers(data.recentUsers || []);
+      setTopDramas(data.topDramas || []);
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
     } finally {
