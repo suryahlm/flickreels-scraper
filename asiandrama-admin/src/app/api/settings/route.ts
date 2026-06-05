@@ -16,7 +16,7 @@ export async function POST(req: Request) {
                     key: setting.key, 
                     value: setting.value, 
                     updated_at: new Date().toISOString() 
-                });
+                }, { onConflict: 'key' });
             
             if (error) {
                 console.error(`Failed to update setting ${setting.key}:`, error);
