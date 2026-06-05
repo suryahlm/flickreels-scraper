@@ -131,13 +131,19 @@ export default function SettingsPage() {
             },
         ];
 
-        for (const setting of settings) {
-            await supabase
-                .from('app_settings')
-                .upsert({ key: setting.key, value: setting.value, updated_at: new Date().toISOString() });
+        try {
+            const res = await fetch('/api/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(settings)
+            });
+            const result = await res.json();
+            if (!res.ok) throw new Error(result.error || 'Failed to save settings');
+            showToast('Settings saved successfully!', 'success');
+        } catch (error: any) {
+            console.error('Error saving settings:', error);
+            showToast(error.message, 'error');
         }
-
-        showToast('Settings saved successfully!', 'success');
     };
 
     if (loading) return <div className="text-center py-20">Loading...</div>;
