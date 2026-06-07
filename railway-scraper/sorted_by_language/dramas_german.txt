@@ -1,0 +1,127 @@
+======================================================================
+  DAFTAR DRAMA - GERMAN
+  Total: 117 drama
+======================================================================
+
+No.    ID       Judul                                               Episode
+---------------------------------------------------------------------------
+1      588      Verdensuntergang, mein Schönling ist der Boss         75 eps
+2      589      Herrische Liebe                                       65 eps
+3      590      Millionär als Ehemann                                 69 eps
+4      591      Hitze der Apokalypse                                  77 eps
+5      594      Legend der Dämonenkonkubine                           83 eps
+6      595      Schock! Mein Boss ist mein Online-Date                55 eps
+7      596      Rache nach der Verwandlung                            80 eps
+8      598      Ich liebe dich, meine Magd                            74 eps
+9      601      Unerwartetes Geld fällt vom Himmel                    67 eps
+10     604      Wer ist die echte Mutter                              76 eps
+11     652      Mit Liebe verwöhnt                                   100 eps
+12     653      Meine liebe Landfrau                                  77 eps
+13     675      Marktfrau der Krone                                   69 eps
+14     676      Im Namen der Familie                                  59 eps
+15     685      Die Kaiserin Erwählt                                  52 eps
+16     686      Die Dunkle Rose                                      120 eps
+17     688      Die Rache der blinden Ehefrau                         83 eps
+18     692      Der Tanz der Phönixe                                  79 eps
+19     694      Die Charmante Assistentin                             89 eps
+20     696      Die Rachemagd                                         80 eps
+21     698      Die Schönheit der 80er Jahre                          99 eps
+22     699      Ehe aus der Not                                       99 eps
+23     700      Mysteriöser Ehemann                                   98 eps
+24     723      Die Entfesselte Leidenschaft                          80 eps
+25     785      Einfach wie ein Kinderspiel                           69 eps
+26     786      Plötzliche Liebe mit 50                               62 eps
+27     957      Bis die Liebe kommt                                   70 eps
+28     966      Die Abwehraktion der Erbin                            80 eps
+29     967      Liebe, Die Nicht Ausgesprochen Kann                   82 eps
+30     1031     Mit dem Wind – Die große Rebellion der kleinen H      80 eps
+31     1032     Meine Mutter ist der Boss                             80 eps
+32     1087     Mama hört meine Gedanken – mit drei Kids zum Mil      80 eps
+33     1125     Die verlorene Tochter vom reichsten Mann              80 eps
+34     1197     Wiedergeboren als ein Superstar                       80 eps
+35     1235     Der Milliardär Macht Mir Einen Heiratsantrag          80 eps
+36     1289     Mein charmanter junger Boss                           93 eps
+37     1307     Meine Frau ist die Meisterheilerin                   100 eps
+38     1339     Liebe nach der Scheidung                              43 eps
+39     1413     Ein Kuss voller Schmerz und Liebe                     80 eps
+40     1450     Geniales Baby und Boshafter Papa                      87 eps
+41     1540     Schicksalhafte Liebe                                  98 eps
+42     1604     Wenn die Liebe stirbt                                 57 eps
+43     1655     Ein Enkel vom Himmel(Synchronisiert )                 80 eps
+44     1697     Richtiger Mann ist Schwager                           52 eps
+45     1781     Ich will, dass du weißt                               70 eps
+46     1891     Zu dominant, zu gefährlich                            73 eps
+47     1943     Drei Männer, eine Rache                               91 eps
+48     2056     Schatten der Liebe                                    73 eps
+49     2130     Unter der Intrige                                     79 eps
+50     2257     Grill und Imperium                                    40 eps
+51     2338     Where the Wind Chime Die                              75 eps
+52     2349     In der Falle sitzen                                   62 eps
+53     2450     Zweitgeborenenplan der verarmten Hexe                 83 eps
+54     2452     Zweitgeborenenplan der verarmten Hexe                 83 eps
+55     2584     Wer ist eigentlich meine Schwiegertochter             45 eps
+56     2779     Mein Drache                                           79 eps
+57     2807     Die wilde Ehepartnerin von Herrn Lorenz               80 eps
+58     2850     Vom Außenseiter zum Liebling                          30 eps
+59     2853     Von Entlassungen bis zur Schließung                   34 eps
+60     2854     Das Geheimnis der Schwiegertochter                    30 eps
+61     2855     Meine Mini-Mutter                                     32 eps
+62     3105     Gefangen im Körper einer Göttin                       82 eps
+63     3122     Herr Stein außer Kontrolle                            78 eps
+64     3195     Vier Schätze mit einem Vater                          77 eps
+65     3226     Der CEO wird zu meinem Vogel                          85 eps
+66     3281     Die Schwesternschatten                                66 eps
+67     3378     Das geniale Fabrikmädchen                             60 eps
+68     3379     Wiedergefundene Liebe                                 90 eps
+69     3380     Die Suche nach der Tochter                            69 eps
+70     3382     Liebe auf Umwegen versehentlich verheiratet           90 eps
+71     3474     Plötzlich verheiratet mit dem CEO                     68 eps
+72     3508     Verschwiegene Liebe                                   55 eps
+73     3545     Blitzhochzeit, Geheimnisse und Liebe                  90 eps
+74     3613     Die Unaufhaltsame                                     72 eps
+75     3635     Prinzessin nach der Scheidung                         90 eps
+76     3643     CEO Klee hat die falsche Frau geheiratet              90 eps
+77     3691     Rache und Liebe                                       92 eps
+78     3748     Du erhellst meine Welt                                86 eps
+79     3855     Wärst du meine Frau                                   92 eps
+80     3856     Wenn Sehnsucht auf das Schicksal trifft               92 eps
+81     3885     die echte Erbin narrt die falsche                     51 eps
+82     3983     Blitzhochzeit mit der Chefin                          18 eps
+83     4017     Sternenlicht begleitet mein Herz                      82 eps
+84     4135     Desires Die Hard                                      70 eps
+85     4154     Der Weg zur Diva                                      60 eps
+86     4167     Vergöttert und Verloren                               68 eps
+87     4271     Klinge der Gerechtigkeit                              54 eps
+88     4366     Verwandlung der Liebe                                 85 eps
+89     4398     Die kleine Wahrsagerin                                63 eps
+90     4403     Liebe auf den ersten Blick                            80 eps
+91     4438     Jadefluch: Tödliche Spiele im Sonn-Klan               81 eps
+92     4524     Drei Kinder, ein Plan                                 75 eps
+93     4527     Meine drei enttäuschenden Erben                       80 eps
+94     4581     Tanz der Glanz                                        79 eps
+95     4624     Vater, Ich Räche Uns                                  58 eps
+96     4659     Liebe und Hass verschwinden im Staub                  69 eps
+97     4670     Ein Schicksal voll Liebe und Leid                     54 eps
+98     4717     Unbezahlbar: Meine Mama ist die Boss                  84 eps
+99     4753     Geliebt, und doch getäuscht.                          73 eps
+100    4770     Plötzliche Trennung                                   63 eps
+101    4789     Das Geheimnis der Berge                               62 eps
+102    4817     Die 18-jährige Uroma:   Kampf um den Familienruh      84 eps
+103    4859     Morgen ist nicht ewig                                 77 eps
+104    4860     Die Liebe nach dem Tod                                94 eps
+105    4946     Wiedersehen ist vom Himmel bestimmt.                  78 eps
+106    4997     Die Bettler-Chefin                                    58 eps
+107    5024     Until I Die for the Last Time                         56 eps
+108    5079     Ich kann Hunde   sprechen hören                       55 eps
+109    5127     Herr Schmidt, Frau quält Schurke wieder!              87 eps
+110    5184     Segen in der Not                                      69 eps
+111    5215     Die Stimme der Enkelin                                53 eps
+112    5242     Das Tabu der roten Toten                              65 eps
+113    5287     Das unantastbare Tabu                                 50 eps
+114    5299     Die Wilde Wagner-Erbin                                59 eps
+115    5332     Wenn die Mutter enttäuscht geht                       49 eps
+116    5347     Wer ist schwanger?                                    63 eps
+117    5415     Mein Mund schweigt,   mein Herz vergibt nicht         61 eps
+
+---------------------------------------------------------------------------
+Total: 117 drama

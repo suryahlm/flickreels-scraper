@@ -1,0 +1,13 @@
+======================================
+  FLICKREELS HARVEST CHECKPOINT
+======================================
+
+Tanggal Scan     : 7 Februari 2026
+ID Terakhir      : 5436
+Total Ditemukan  : 5360 drama (dari scan ID 1-7000)
+Drama Indonesia  : 495 (aktif di Supabase)
+Drama ID Mati    : 77 (sudah dihapus FlickReels)
+
+NEXT CHECK: ~21 Februari 2026
+  → Scan mulai dari ID 5437 ke atas
+  → Cari drama Indonesia baru yang ditambahkan FlickReels

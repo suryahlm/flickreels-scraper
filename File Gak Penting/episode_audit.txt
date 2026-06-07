@@ -1,0 +1,29 @@
+﻿======================================================================
+EPISODE COUNT: R2 vs DATABASE
+======================================================================
+python : Traceback (most recent call last):
+At line:1 char:45
++ ... Test Scraping\FlickReels" ; python 
+check_all_episodes.py 2>&1 | Out-F ...
++                                 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback ( 
+   most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "D:\Surya\IT\Test 
+Scraping\FlickReels\check_all_episodes.py", line 50, in 
+<module>
+    print(f"[{status}] {d.get('title')[:40]}: 
+R2={r2_episodes}, DB={db_episodes}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SURYA\AppData\Local\Programs\Python\Pyth
+on314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encodi
+ng_table)[0]
+           
+~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode 
+character '\uff08' in position 27: character maps to 
+<undefined>

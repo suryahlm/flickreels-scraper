@@ -1,0 +1,720 @@
+======================================================================
+  DAFTAR DRAMA - SPANISH
+  Total: 710 drama
+======================================================================
+
+No.    ID       Judul                                               Episode
+---------------------------------------------------------------------------
+1      301      The Fiancée Farce                                     80 eps
+2      431      La Luz del Apocalipsis                                67 eps
+3      432      ¡Ayuda! Mi novio virtual es mi jefe                   55 eps
+4      433      Renacer de la Venganza                                80 eps
+5      434      De Campo a Esposa del Magnate                         68 eps
+6      435      Mi esposo exprés es un magnate                        69 eps
+7      436      Su Princesa del Embarazo                             100 eps
+8      437      Niñera se casa con un rico                            74 eps
+9      438      Donde el Amor Nos Lleve                               73 eps
+10     439      De Campesina a La Élite                               77 eps
+11     440      Ella, mi obsesión nocturna                            62 eps
+12     443      Donde el destino nos une                              74 eps
+13     444      El Nieto Bendito                                      59 eps
+14     445      Una Noche, Un Amor Infinito                           79 eps
+15     446      La suegra desaparecida                                46 eps
+16     447      Día de la boda                                        50 eps
+17     448      La Sirvienta de la Destrucción                        80 eps
+18     451      Cuñada real es plebeya                                69 eps
+19     455      Atrapados por la Venganza                             65 eps
+20     456      La Belleza en Los Años 80                             99 eps
+21     486      La casualidad de amor                                 76 eps
+22     553      Mi Querida Señorita                                   69 eps
+23     555      La noche se aclarará                                  83 eps
+24     556      Bebé une a un matrimonio                              70 eps
+25     557      Cuando Alba murió                                     76 eps
+26     558      Cuando Alba murió                                     88 eps
+27     627      ¡La Presidenta Regresa al Pueblo!                     68 eps
+28     637      Madrastra en los 80                                   82 eps
+29     638      Encontrar La Felicidad                                40 eps
+30     642      Fénix en Vuelo                                        79 eps
+31     659      La vida de los gemelos                                99 eps
+32     697      Amor Inesperado(Doblado)                              70 eps
+33     727      Adiós, hijos ingratos                                 57 eps
+34     730      El largo compromiso                                   61 eps
+35     741      Crónica de una Reina Oscura                          120 eps
+36     749      Amor Después del Divorcio                             43 eps
+37     750      ¡De verdad, no soy un inmortal!                       80 eps
+38     778      Nos Casamos a los 50                                  62 eps
+39     780      Amor en Engaño                                        90 eps
+40     781      Amor en Engaño                                       103 eps
+41     790      Ámame Como Lo Haces                                   56 eps
+42     810      La Dama Gu y sus Secretos                             91 eps
+43     811      El reencuentro agridulce con mi primer amor           81 eps
+44     812      El Último Día de Rodillas                             80 eps
+45     813      Revancha de la Dama Millonaria                        80 eps
+46     814      La Trampa del Deseo                                   73 eps
+47     844      Caballero de justicia en la oscuridad                 54 eps
+48     857      El chico atractivo                                    93 eps
+49     858      La Viuda del triunfo                                  75 eps
+50     882      Reiniciar la vida a los cincuenta                     42 eps
+51     883      Luz de Luna en la Punta de los Dedos                  30 eps
+52     884      La Reina Regresa Imparable                            77 eps
+53     887      El Eco de un Amor Muerto                              80 eps
+54     888      Mi Querida Cuñada                                     52 eps
+55     901      Perdió Todo, Pero Yo Mandaba                          29 eps
+56     915      La esposa intocable del señor                        100 eps
+57     917      El casero y sus cuatro inquilinas                     91 eps
+58     941      Ojalá lo supieras                                     70 eps
+59     942      La Niña Con Poder Imparable                           79 eps
+60     944      Ríndete a Mi Abrazo                                   62 eps
+61     947      Mente Leída: La Nueva Favorita                        30 eps
+62     961      Cuando Me Perdiste, Él Me Eligió                      65 eps
+63     971      Cuando Me Perdiste, Él Me Eligió                      65 eps
+64     989      Quince años de oscuridad                             100 eps
+65     1015     Hola, ¿quieres casarte conmigo?                       76 eps
+66     1016     La Quiere Mucho                                       88 eps
+67     1017     El Encuentro del Destino                              98 eps
+68     1018     Revelé el Secreto después de Renacer                  30 eps
+69     1019     Disparo a Tu Corazón                                  64 eps
+70     1020     Adelantar contra el viento y las olas：El contraa      80 eps
+71     1021     La tristeza fluye como el mar                         88 eps
+72     1022     La tristeza fluye como el mar                         88 eps
+73     1037     Las Esposas de la Familia Gonzalez                    52 eps
+74     1040     La tristeza fluye como el mar                         36 eps
+75     1043     Amor Sin Escapatoria(Doblado)                         55 eps
+76     1044     Trampa de amor con mi caballero encantador            42 eps
+77     1053     La Verdadera Venganza                                 80 eps
+78     1074     Una ama de casa y su súper estrella.（Doblado）         55 eps
+79     1075     Papá, Mamá, Soy su Hija Superpoderosa                 82 eps
+80     1076     Una ama de casa y su súper estrella.（Doblado）         45 eps
+81     1077     ¡El Millonario Es Mi Esposo!                          80 eps
+82     1078     Las Flores Florecen en la Ciudad del Sur              92 eps
+83     1079     La Venganza de la Desesperada                         92 eps
+84     1104     Amor de verano                                        92 eps
+85     1111     Mi Mamá Escucha Mi Voz Interior                       80 eps
+86     1119     De las Cenizas al Poder                               80 eps
+87     1142     Mamá Enfadada                                         66 eps
+88     1144     Mi Nuera Me Expone En Vivo... Y Sonrío                45 eps
+89     1152     Casémonos, Sr.  Landa                                 82 eps
+90     1153     El Desquite de la Esposa XXL                          63 eps
+91     1155     Cómo Decirte Que Te Amo                               82 eps
+92     1156     Nos Casamos a los 50(Doblado)                         62 eps
+93     1157     Reencuentro con el Niño Genio                         60 eps
+94     1158     El diseño de vida                                     78 eps
+95     1168     El Viaje de Moha                                     100 eps
+96     1190     Los Secretos                                          91 eps
+97     1191     Cuando el Corazón no Olvida                           60 eps
+98     1192     Próximo destino: La Diva                              60 eps
+99     1193     El Amor Equivocado del CEO                            75 eps
+100    1213     El Destino del Amor                                   59 eps
+101    1225     Mimada Por El Multimillonario                         73 eps
+102    1226     La Joven Novia                                        68 eps
+103    1227     Bebés Adorables y Padre Astuto                        87 eps
+104    1274     Búsqueda de Familiares                                60 eps
+105    1276     Esposa Accidental Del Magnate                         62 eps
+106    1279     La Última Gota de Amor                                30 eps
+107    1281     Amor perdido                                          72 eps
+108    1282     Romántico Matrimonio Súbito en Proceso                73 eps
+109    1284     El magnate a prueba insiste en tomarme como espo     100 eps
+110    1286     Mundo Tierno por Ti                                   86 eps
+111    1290     1955: Me Casé con el Jefe de la Mafia por Contra      59 eps
+112    1299     La Rosa Blanca del Destino                            74 eps
+113    1323     El Magnate que se Convirtió en Mi Canario             85 eps
+114    1333     Bajo la Luz de las Estrellas                          82 eps
+115    1359     La Dulce Mamá y Su Marido Billonario(Doblado)         80 eps
+116    1360     Chica Genio de Fábrica                                60 eps
+117    1361     Los niños de la fuerza                                70 eps
+118    1362     El bebé que lucha                                     80 eps
+119    1364     Dos Flores en el Mismo Tallo                          66 eps
+120    1365     Melissa, la Taoísta                                   77 eps
+121    1366     Cinco niños increíbles                                72 eps
+122    1367     Casada por error con un magnate                       53 eps
+123    1372     La Guerra de los Cinco Papás                          77 eps
+124    1381     Mi Constelación                                       80 eps
+125    1382     ¡Mi Esposo es el CEO!                                 68 eps
+126    1391     Casada con un desconocido                             90 eps
+127    1398     Ser la Sra. Multimillonaria de Una Noche              63 eps
+128    1409     La Esposa Secreta del CEO                             55 eps
+129    1410     Señor Gil, Te Equivocas de Tu Esposa                  90 eps
+130    1429     El Pequeño Maestro: Tu Esposa Está Aquí, Papá         90 eps
+131    1430     Los Secretos de mi Esposa                             90 eps
+132    1431     Después de Nosotros                                   92 eps
+133    1433     El orgullo de reina                                   81 eps
+134    1434     El Sabor Prohibido de la Noche                        55 eps
+135    1435     Mi Viaje de Ida y Vuelta en el Tiempo                 99 eps
+136    1436     Vuelo al Amor                                         36 eps
+137    1437     El Retorno de la Jefa                                 67 eps
+138    1438     Mi Mini-Mamá                                          32 eps
+139    1463     Las Estrella Siguen Brillando                         51 eps
+140    1464     La Esposa que Nunca Conocí                            60 eps
+141    1467     De traicionada a reina del apocalipsis                61 eps
+142    1472     La Verdad Silenciosa                                  75 eps
+143    1476     Mi monito y su papá millonario                        74 eps
+144    1490     Renacer en los 80: La Esposa XL que Triunfó           70 eps
+145    1509     La joven esposa interna del señor López               80 eps
+146    1511     Mi Mamá Tonta                                         80 eps
+147    1514     La heredera ha vuelto: El ex ya no me alcanza         73 eps
+148    1515     El Señor Ramos Se Convirtió en Princesa al Casar      86 eps
+149    1516     La Sacerdotisa Arrasa el Mundo                        70 eps
+150    1517     Ella es mi primer amor                                36 eps
+151    1518     Señor, su novia es invencible                        100 eps
+152    1520     Amor desconocido                                      92 eps
+153    1523     La Heredera Perdida                                   64 eps
+154    1527     La bisabuela de 18 años, la gloria pronto volver      47 eps
+155    1533     Secretos en la Cueva                                  35 eps
+156    1560     No llores, hermana está aquí                          60 eps
+157    1562     La Boda Maldita                                       90 eps
+158    1563     Jugamos con fuego                                     60 eps
+159    1572     La Magia del Amor                                     84 eps
+160    1582     Jugamos con fuego                                     60 eps
+161    1588     Mi Esposa No Es Fácil                                 53 eps
+162    1589     El segundo amor del CEO                               56 eps
+163    1591     Mi amor, te mimo de locura                            90 eps
+164    1592     Nieve que Conquista Venganza y Pasión                 85 eps
+165    1594     El Matrimonio que no Pude Abandonar                   82 eps
+166    1596     Matrimonio Relámpago                                  78 eps
+167    1597     Cuando el Orgullo se Encuentra con el Amor           105 eps
+168    1599     La nuera vengadora                                    35 eps
+169    1632     El Gentil Presidente                                  98 eps
+170    1635     El mejor sabor en el mundo                            65 eps
+171    1656     Ríndete a Mi Abrazo(Doblado)                          62 eps
+172    1664     Amor Renacido en Esta Vida                            33 eps
+173    1684     Mamá de Día, Esposa del CEO de Noche                  55 eps
+174    1688     Yo estaré                                             78 eps
+175    1695     Amor de la juventud                                   85 eps
+176    1698     Mamá ardiente y millonario dominante                  80 eps
+177    1700     El Titán del Entretenimiento                          83 eps
+178    1712     El secreto del templo ancestral                       40 eps
+179    1722     Mi Marido De Rebote, ¡Pero Qué Partidazo!            100 eps
+180    1749     La Tormenta en Alta Mar                               45 eps
+181    1754     La Confesión Postergada                              100 eps
+182    1755     Patrón, Ese Bebé Sí Es Tuyo                           90 eps
+183    1756     ¿Quién es la zorra astuta?                            61 eps
+184    1758     El Juego Peligroso del Amor Prohibido                 84 eps
+185    1761     El Sabor Prohibido de la Noche(Doblado)               55 eps
+186    1767     Renuncié a mi beca y desafié al sistema               40 eps
+187    1795     Amor Desaparecido                                     31 eps
+188    1796     Mi Bebé Genio Quiere que Me Vuelva a Casar            91 eps
+189    1799     El Destino Nos Quería Juntos                         109 eps
+190    1813     Cuatro años de un amor que nunca llegó                63 eps
+191    1814     Promoción de una Criada                               67 eps
+192    1824     La Elegida del Tesoro Ancestral                      155 eps
+193    1827     Niñera, ¡No Te Escapas!                               53 eps
+194    1830     Mamá ardiente y millonario dominante(Doblado)         80 eps
+195    1840     El Maestro de la pesca                                76 eps
+196    1869     Soy la Esposa Secreta del CEO                         57 eps
+197    1870     La decisión de emperatriz                             62 eps
+198    1880     La amiga mejora mi vida                               89 eps
+199    1881     Pequeños Conquistadores y Papá Jefe                  101 eps
+200    1894     Tu Verdadero Amor Está en Casa                        81 eps
+201    1895     Julieta, aún por venir                                18 eps
+202    1904     Tú Me Criaste, Yo Te Cuidaré                          54 eps
+203    1908     1955: Me Casé con el Jefe de la Mafia por Contra      59 eps
+204    1910     Hasta que todo arda                                   40 eps
+205    1925     Puja por amor                                         60 eps
+206    1926     Amor Express, Fortuna Secreta                         90 eps
+207    1953     La guerra entre hermanas                              43 eps
+208    1956     Canciller de día, Tierno de noche                     91 eps
+209    1978     Jefe no Hagas Líos los Niños Son Tuyos                80 eps
+210    1979     Volverá mi amor                                       73 eps
+211    1980     El precio del amor doble                              70 eps
+212    1995     Mi esposo, el millonario secreto                      89 eps
+213    1996     La Casa de los Espejos Rotos                          50 eps
+214    1998     La Mejor Vida                                        148 eps
+215    2007     Corazón Oculto del Comandante                         50 eps
+216    2008     El secreto de nuera                                   45 eps
+217    2025     Tumba del corazón                                     30 eps
+218    2026     El segundo amor del CEO(Doblado)                      56 eps
+219    2027     El Murmullo Invisible del Amor Materno                78 eps
+220    2049     En su olvido, él siempre está presente                68 eps
+221    2051     Esta Vez Sí Se Complicó Todo                          97 eps
+222    2067     El camino a casa                                      65 eps
+223    2068     Mi Esposa Audaz es la Jefa                            83 eps
+224    2080     princesa escapa, príncipe persigue                    65 eps
+225    2082     Diosa de la Cocina de Centría                         31 eps
+226    2089     Castigo por malcriar                                  30 eps
+227    2090     Todo por Ti, Mamá                                     77 eps
+228    2091     La Caída de la Rosa                                   67 eps
+229    2103     La última mano                                        36 eps
+230    2104     La CEO y el Repartidor                                91 eps
+231    2108     Desde las estrellas, él vino a mí                     70 eps
+232    2109     Mi monito y su papá millonario(Doblado)               74 eps
+233    2111     El amor llegará                                       79 eps
+234    2131     Lágrimas Tras Los Lazos Rotos                         72 eps
+235    2133     El Secreto de Aquella Noche                           52 eps
+236    2158     Mamá y Sus Tres Cupidos                               75 eps
+237    2161     La bisabuela de 18 años, la gloria pronto volver      90 eps
+238    2167     El Príncipe Reencarnado                               61 eps
+239    2189     El éxito de mi suegra y yo                            60 eps
+240    2190     Ámame, hermana mayor                                  79 eps
+241    2191     La bisabuela de 18 años, la gloria pronto volver     100 eps
+242    2200     Me vengaré de mi familia                              60 eps
+243    2203     La Gordita que Ahora lo Hace Rogar                    85 eps
+244    2206     Lucha contra la apuesta                               94 eps
+245    2210     Te amé en silencio                                    73 eps
+246    2212     El amor lo vence todo                                 82 eps
+247    2230     La Presa                                              60 eps
+248    2267     Tenía Que Ser El Destino                              37 eps
+249    2268     Antes del Amanecer                                    52 eps
+250    2271     Cuando Florece el Jazmín                              80 eps
+251    2272     Mamá, ¡sálvame!                                       35 eps
+252    2280     ¡Estrella de la suerte aquí!                          70 eps
+253    2284     Mi familia del más allá                              105 eps
+254    2291     Mija, hasta la próxima vida                           30 eps
+255    2292     Sinceridad Tardía                                     60 eps
+256    2300     Mi vida robada                                        58 eps
+257    2301     Me Toca Esposa por Decreto                            71 eps
+258    2311     Renacida como la esposa del Jefe                      62 eps
+259    2312     ¿Quién es la Verdadera?                               40 eps
+260    2319     No eres el emperador inmortal                         61 eps
+261    2337     Rompe el cielo después del divorcio                   95 eps
+262    2341     Reencarnación de amor                                 75 eps
+263    2352     Mi esposa es la Jefa                                  80 eps
+264    2353     Mi esposa es la Jefa                                  80 eps
+265    2373     Solo Muerta Me Convertí en Su Amor Eterno             85 eps
+266    2374     El tío de mi prometido está super sexy                73 eps
+267    2375     La Venganza de la Sirvienta                           61 eps
+268    2376     Amor Contra el Destino                                73 eps
+269    2377     Tres Años y No Puedo Dejarla                          82 eps
+270    2379     ¿Mi esposa es Princesa?                               80 eps
+271    2381     Le serment renouvelé                                  63 eps
+272    2384     La Famille impossible                                105 eps
+273    2389     O meu amor voltará                                    73 eps
+274    2390     Diário de Sobrevivência do Vilão                      60 eps
+275    2391     Herdeiro: Memória Perdida                             82 eps
+276    2404     La Fuite Impossible                                   60 eps
+277    2405     La Princesse qui détestait le Prince                  65 eps
+278    2406     Alliance pour la justice conjugale                    42 eps
+279    2407     La tempête devant le bac                              43 eps
+280    2409     Tomber, renaître, réussir                             31 eps
+281    2411     La Vengeance Cachée                                   45 eps
+282    2415     Sous-estimée                                          36 eps
+283    2418     Estrellita de la Fortuna                              79 eps
+284    2419     La Empleada Doméstica del Engaño                      40 eps
+285    2429     Amor y Mentira                                        80 eps
+286    2430     Muerto, venganza, redención                           64 eps
+287    2481     A escondidas con Su Majestad                          84 eps
+288    2500     Bésame, hermana                                       77 eps
+289    2504     Amor sin regreso                                     100 eps
+290    2505     Princesita antigua: Aventuras en el Futuro            66 eps
+291    2510     Ciegas por el Amor                                    74 eps
+292    2512     Largo es el camino, profundo el amor                  90 eps
+293    2513     Renace la reina del destino                           60 eps
+294    2514     Secretos en el Grupo Río Celeste​                     59 eps
+295    2524     Amor que Renace                                       71 eps
+296    2531     Cuando la Rosa Volvió a Florecer                      59 eps
+297    2533     La Jasmín Negra                                       64 eps
+298    2534     Corazón en Llamas                                     99 eps
+299    2558     Mi Tío, Mi Única Salvación                            89 eps
+300    2561     Con mi vida, por la tuya                              54 eps
+301    2563     Soy la Princesa, ¿y tú quién eres?                    80 eps
+302    2570     Master's Gambit: From Protégé to Predator​            76 eps
+303    2575     Niebla de Engaños, Amor Verdadero                     90 eps
+304    2576     El amor invernal                                      74 eps
+305    2577     El Maestro Verdadero                                  76 eps
+306    2600     Que me ames de corazón                                81 eps
+307    2608     Cuando el amor llama a la puerta                      38 eps
+308    2615     El Esposo de Dos Caras                                30 eps
+309    2616     La Barrendera del Destino                             72 eps
+310    2618     ¿Por Qué Es Así Mi Esposo Inesperado?                 90 eps
+311    2631     La chica taoísta que me salvó                         80 eps
+312    2642     Lucha por el Resplandor                               79 eps
+313    2643     En Año Nuevo encontré mi ángel                        66 eps
+314    2644     Sin Límites Por Ti                                    69 eps
+315    2645     Romper las cadenas del chivo expiatorio               58 eps
+316    2647     El Príncipe Reencarnado (Doblado)                     61 eps
+317    2651     Parásitos                                             41 eps
+318    2652     El Milagro del Médico Desanimado                      60 eps
+319    2675     Mi Último Día, Sus Fuegos Eternos                     30 eps
+320    2676     Papá por Error, Amor por Destino                      63 eps
+321    2682     La Maestra                                            71 eps
+322    2684     Chut... Chloé débarque !                              92 eps
+323    2700     Media vida juntos, ahora somos extraños               60 eps
+324    2708     Caer en la ternura                                    50 eps
+325    2709     Mis nueras me consienten más que ese ex               50 eps
+326    2710     Mis nueras me consienten más que ese ex               30 eps
+327    2717     El regreso del Chivo Expiatorio                       43 eps
+328    2724     La Coartada Perfecta                                  51 eps
+329    2735     La señora Silvestre... ¿esa loca borracha?            64 eps
+330    2736     Amor a Prueba de Secretos                             81 eps
+331    2745     Dinero Sucio, Amor Podrido                            68 eps
+332    2759     Amor exprés entre dos CEOs "pobres"                   80 eps
+333    2772     Justicia en Nombre del Padre                          58 eps
+334    2773     La increíble Lucía                                    60 eps
+335    2774     Eres mi paraíso y mi infierno                         92 eps
+336    2778     El amor llegará (Doblado)                             79 eps
+337    2798     La Esposa Sustituta                                   61 eps
+338    2803     Cultivo sin corazón, mundo con pasión                 89 eps
+339    2817     Corté la Relación con Mi Hijo                         71 eps
+340    2819     El Amor Nunca Cambia                                  60 eps
+341    2820     Véritable, et vengeresse                              40 eps
+342    2834     Mi Bondad Se Acabó                                    31 eps
+343    2835     El benefactor oculto                                  60 eps
+344    2844     El Jazmín Mortal                                      43 eps
+345    2852     Mi Amor Inesperado                                    75 eps
+346    2856     Oubliée, puis couronnée                               61 eps
+347    2869     La hija que nunca fue amada                           70 eps
+348    2870     Tú eras mi todo, ahora eres mi presa                  67 eps
+349    2873     Contrato de Amor​​                                    80 eps
+350    2882     Te devuelvo la vida con mi corazón                    58 eps
+351    2883     El Amor Prohibido del Junior Indómito                 71 eps
+352    2898     Florece en el viento helado                           87 eps
+353    2899     El padre diabólico                                    30 eps
+354    2900     Rendición a Ella                                      73 eps
+355    2905     Lo dejo de una vez                                    53 eps
+356    2906     Eres mi mejor opción                                  60 eps
+357    2914     Amor Cansado de Esperar                               90 eps
+358    2936     La bisabuela de 18 años, la gloria pronto volver     100 eps
+359    2937     Reencuentro bajo la luna                              45 eps
+360    2938     Divorcée, elle explose tout                           95 eps
+361    2939     Amour à Durée Limitée                                 81 eps
+362    2949     Entre el olvido y el amor                             60 eps
+363    2950     El Regente de Día, Mi Galán de Noche                  89 eps
+364    2969     Mi mamá, la reina                                     78 eps
+365    2972     Mi Papá, Mi Superhéroe                                86 eps
+366    2973     Fleur Vénéneuse                                       84 eps
+367    2981     Trátame Bien Como Siempre                             59 eps
+368    3001     Amante por Mandato                                    80 eps
+369    3002     Amante por Mandato                                    80 eps
+370    3003     ¡Ámame, Hermana!                                      69 eps
+371    3019     La pobrecita consentida por su esposo CEO             79 eps
+372    3020     Los Quintillizos Legendarios                         101 eps
+373    3021     La hija perdida de los Bravo                          68 eps
+374    3022     Un único matrimonio                                   87 eps
+375    3028     Ma femme, le grand médecin                            80 eps
+376    3033     CEO y Mamá Soltera                                    79 eps
+377    3034     La Espera Infinita                                    60 eps
+378    3043     Koi âgée de six ans et demi                           79 eps
+379    3054     Amor desconectado                                     82 eps
+380    3055     Concepción Cordero                                    80 eps
+381    3068     Lo que fuimos, ya no tuvimos                          76 eps
+382    3070     La princesa consorte, mi buena estrella               87 eps
+383    3086     El Retorno de Baco                                    64 eps
+384    3088     El Sol Negro                                          77 eps
+385    3090     Captain, Your Fiancée Married Someone Else            51 eps
+386    3101     Soy la Reina                                          95 eps
+387    3102     El amor desentrañado del malentendido                 60 eps
+388    3104     El girasol que florece en la noche                    88 eps
+389    3157     Ámame, una vez más                                    86 eps
+390    3159     La Diosa Enmascarada                                 100 eps
+391    3160     Matrimonio Falso, Amor Verdadero                      79 eps
+392    3161     La serpiente ardiente, la gente indiferente           43 eps
+393    3162     Amor Obsesivo                                         52 eps
+394    3163     Épouse fatale                                         69 eps
+395    3167     À contre-cœur, enchaîné                               71 eps
+396    3171     La Madre Traicionada es la Soberana Divina            53 eps
+397    3186     El examen del destino                                 66 eps
+398    3187     La Suplente que Robó su Corazón                       60 eps
+399    3190     Mi mujer, mi jefa                                     69 eps
+400    3206     La Holgazana Triunfadora                              34 eps
+401    3207     El Supermercado de los Dos Mundos                     70 eps
+402    3221     La Esposa Adivina del CEO                             87 eps
+403    3227     Trésors dans les poubelles                            72 eps
+404    3229     Despertar de la Heredera                              61 eps
+405    3234     Escuchar Tu Mente, Tansmitir Mi Amor                  98 eps
+406    3238     L'Amour Passionné                                     73 eps
+407    3251     Mi fortuna eres tú                                    72 eps
+408    3264     Amor eterno                                           60 eps
+409    3265     La Venganza de la Emperatriz                          60 eps
+410    3292     El Precio de la Traición                              60 eps
+411    3293     La Verdad Escondida                                   51 eps
+412    3300     El Despertar de una Madre                             64 eps
+413    3301     El Regreso de la Diosa                                64 eps
+414    3308     La tienda maravillosa                                 72 eps
+415    3309     Divorcio con amor                                     66 eps
+416    3315     Monstrita Mona Contra el Sistema                      75 eps
+417    3316     Mamá, no nos dejes                                    67 eps
+418    3318     L'Épouse Vengeance​                                   52 eps
+419    3319     La petite étoile chanceuse des temps calamiteux       70 eps
+420    3321     Amor Oculto do Senhor Ministro                        91 eps
+421    3322     Virei Família com Rei do Além                        105 eps
+422    3325     Quando o Amor se Faz Presente                         79 eps
+423    3326     A Palma que Prende                                    63 eps
+424    3328     Ela e o Marido que Não a Conhecida                    95 eps
+425    3330     Minha Esposa é uma Chefe                              80 eps
+426    3334     Bentinho caiu do céu                                  70 eps
+427    3337     Bisavó de 18 Anos que Restaurou a Família             90 eps
+428    3347     El Deicidio                                           50 eps
+429    3365     Cuando el emperador llegue                            45 eps
+430    3366     La buena estrella de la paz                           73 eps
+431    3371     La Nuit s'éclairera                                   83 eps
+432    3373     La Fiancée Vengeresse                                 75 eps
+433    3374     Échos d'amour                                        109 eps
+434    3399     La traición más profunda                              66 eps
+435    3400     El resiliente viaje de una sobrina secuestrada        71 eps
+436    3413     Diez Años de Diferencia                               75 eps
+437    3414     El intercambio de la memoria                          60 eps
+438    3422     Me saqué la lotería de la vida                        30 eps
+439    3423     El Niño Jefe                                          62 eps
+440    3434     Regreso a los 70 con mi suegra mandona                95 eps
+441    3459     La Pareja del Diablo​                                 50 eps
+442    3461     El Secreto de la Bodega                               54 eps
+443    3462     La Trampa Nupcial                                     48 eps
+444    3472     De la Cárcel a la Gloria                              60 eps
+445    3473     La CEO y su Ex Pobre​                                 59 eps
+446    3482     Casada con el último dios                             70 eps
+447    3484     Sólo Tú                                               54 eps
+448    3506     Detengo el compromiso de mi hijo                      64 eps
+449    3507     Su Nuevo Amor                                         84 eps
+450    3529     El Dios de la Froja de Cuchillas                      57 eps
+451    3531     La identidad cambia, amor eterno                      54 eps
+452    3532     Tres Cartas de Perdón                                 80 eps
+453    3539     Qui a volé ma vie ?                                   58 eps
+454    3566     Con mi hijo, aplasté a los de mi ex.                  75 eps
+455    3567     La verdad del amor                                    73 eps
+456    3568     La Sacerdotisa Renacida                               80 eps
+457    3569     A Ciegas hacia la Verdad                              60 eps
+458    3580     El regreso del General,una hija sustituida            70 eps
+459    3581     ¡Presidente, estoy embarazada!                        60 eps
+460    3585     Cœur Donné, Cœur Pris                                 75 eps
+461    3586     Mariage imprévu, bonheur inespére                     72 eps
+462    3607     Dos Tabúes                                            50 eps
+463    3617     La Niñera y el Millonario: Mi Romance de 50 Años      65 eps
+464    3619     El Juicio del Destino                                 61 eps
+465    3634     La Madre Traicionada es la Soberana Divina(Dobla      53 eps
+466    3641     Cuando el Hermano Vuelve                              57 eps
+467    3645     Armande - La Revanche des 90's                        34 eps
+468    3653     El Guardián Silencioso                                67 eps
+469    3654     El niño ancestral                                     71 eps
+470    3670     Venganza del Heredero Oculto                          63 eps
+471    3671     El secreto de la montaña                              62 eps
+472    3673     Le retour de la prodige                               61 eps
+473    3682     Enviada como espía, volví como esposa                 61 eps
+474    3683     La bisabuela de 18 años, la gloria pronto volver      84 eps
+475    3684     Eco del Alma Antigua                                  66 eps
+476    3699     L'Heure de Vérité​​                                   40 eps
+477    3709     Mi bebé y mi jefa                                     70 eps
+478    3712     Adiós, mamá                                           42 eps
+479    3721     Escoltas que recorren el mundo                        63 eps
+480    3723     Princesita antigua: Aventuras en el Futuro (Dobl      66 eps
+481    3736     Amor, el jefe soy yo                                  70 eps
+482    3737     Amor que Renace  (Doblado)                            71 eps
+483    3738     Cultivo sin corazón, mundo con pasión  (Doblado)      89 eps
+484    3744     El Sustituto Perfecto                                 80 eps
+485    3756     Pregnant By My Sister's Fiancé                        60 eps
+486    3757     Nuit Sauvée                                           62 eps
+487    3759     Unmasking Her Son's Fiancée                           72 eps
+488    3775     El Regente de Día, Mi Galán de Noche  (Doblado)       89 eps
+489    3781     Venganza en la fiesta de compromiso                   72 eps
+490    3783     Mamá, Papá te Salvará                                 60 eps
+491    3788     De la Cendre à la Gloire                              52 eps
+492    3805     El Maestro Misterioso Arrasa con Todo                 83 eps
+493    3818     El jefe que fue mi ex                                 76 eps
+494    3848     Jugamos con fuego(Doblado)                            60 eps
+495    3849     El Boss de la Instancia es Mi Marido                  79 eps
+496    3851     La esposa ambiciosa del emperador                     82 eps
+497    3863     El arte de la despedida                               50 eps
+498    3865     El Príncipe Reencarnado 2: La Guerra Por La Here      59 eps
+499    3876     Criando cerdos, humillo a los del ex                  60 eps
+500    3887     Contrato de Amor​​ (Doblado)                          80 eps
+501    3895     Un beso en la rosa espinosa                           85 eps
+502    3910     La Niña que Susurra a los Animales                    75 eps
+503    3918     Pasar el resto de mi vida contigo                     60 eps
+504    3944     Lo bien que me trata el mundo                         95 eps
+505    3953     Amor al margen                                        64 eps
+506    3960     La intriga por el trono                               93 eps
+507    3973     The Regent's Extraordinary Fiancée                    80 eps
+508    3991     ¿Mi gigoló es el emperador?                           80 eps
+509    3992     De Campesina a La Élite(Doblado)                      77 eps
+510    3994     El jefe que fue mi ex                                 76 eps
+511    4044     La Tempête chez les Gaillard                          40 eps
+512    4046     El amor que no puedo recuperar                        76 eps
+513    4051     El contraataque de Nikki                              56 eps
+514    4057     La verdadera buena estrella                           84 eps
+515    4064     Transmigración Rápida: El Prota loco Celoso          102 eps
+516    4071     La amiga de mi novio en mi boda                       80 eps
+517    4072     Amor en tiempos de guerra                             75 eps
+518    4077     No enojen a la Sra. Keller                            83 eps
+519    4104     ¡Con este sistema,  soy el rico!                      71 eps
+520    4105     La revancha de la hija legítima                       83 eps
+521    4121     Soy Emperatriz, ¿y tú?                               120 eps
+522    4146     Camino de la gloria                                   60 eps
+523    4147     Mi amor secreto se casó con otra                      76 eps
+524    4181     Conseguí un marido multimillonario                    60 eps
+525    4185     ¡Señora, qué boca de mal agüero!                      80 eps
+526    4191     Ele é Muito Selvagem                                  73 eps
+527    4196     L'Ombre d'une Épouse                                  61 eps
+528    4201     Dos Aromas, Un Destino Reseña                         58 eps
+529    4207     Déjame amarte de nuevo                               105 eps
+530    4217     El abismo anhelo                                      64 eps
+531    4232     La elección del destino​                              60 eps
+532    4263     A Senhora que Doma os Rebeldes                        69 eps
+533    4264     Esposa do Presidente é Natural da Rural               68 eps
+534    4266     Teinté de Toi                                         60 eps
+535    4267     Mon Étoile                                            63 eps
+536    4283     El arte de la despedida(Doblado)                      50 eps
+537    4289     En plena medianoche, no abras la puerta               65 eps
+538    4306     Que ousadia!                                          74 eps
+539    4307     ¡Presidente, estoy embarazada!(Doblado)               60 eps
+540    4309     La paleta mandona y su familia rica pero sumisa       59 eps
+541    4314     Bisavó de 18 Anos que Restaurou a Família II         100 eps
+542    4331     Enseñando a mi amor                                   55 eps
+543    4332     Mi regalo del destino                                 64 eps
+544    4346     El pedido sorprendente de ruptura                     77 eps
+545    4347     Resgatar pessoa caída                                 80 eps
+546    4357     Viúva do Vivo, Noiva do Comando                       62 eps
+547    4362     La venganza de la ancestra del Dao                    61 eps
+548    4367     Toi, rien que toi                                     80 eps
+549    4368     Flerte por engano                                     74 eps
+550    4382     Matrimonio relámpago con el millonario               103 eps
+551    4383     Secreto de los Cuatrillizos                           92 eps
+552    4387     Dos almas, una venganza                               62 eps
+553    4390     ¿Niña? ¡Soy la Maestra Celestial!                     98 eps
+554    4414     El regreso del dragón                                 53 eps
+555    4418     La verdad detrás del amor materno                     49 eps
+556    4425     Amor de Espera na Hora Certa                          71 eps
+557    4430     ¡Todos, la Ancestra ha vuelto!                        69 eps
+558    4434     Tras renacer, rompí con mi hijo.                      65 eps
+559    4439     Quand la sorcellerie se retourne                      42 eps
+560    4444     Amor a segunda vista                                  80 eps
+561    4450     C’était écrit                                         75 eps
+562    4456     Mi esposo está adicto a mí                            98 eps
+563    4462     Sol lucirá                                            81 eps
+564    4475     Me enamoré a los 50                                   70 eps
+565    4486     Mi galán en casa chica                                73 eps
+566    4490     Bajo el alud de lodo                                  70 eps
+567    4494     La ingrata que llamo hija                             49 eps
+568    4499     El secreto del juego de rol                           50 eps
+569    4500     Entre Amor e Vingança                                 59 eps
+570    4528     A faxineira é mesmo a mãe do presidente               59 eps
+571    4548     Amor por error                                        72 eps
+572    4561     O Incidente da Empregada Doméstica                    40 eps
+573    4562     Avanzo de la mano de mi bebé telepático               64 eps
+574    4613     El secreto bajo el vientre                            53 eps
+575    4625     Mon amant est le régent ?                             89 eps
+576    4629     Amor de Fachada Virou Pó na Mesa                      72 eps
+577    4633     En el refri, me quedó el corazón congelado            56 eps
+578    4637     El secreto de mi esposa                              100 eps
+579    4646     La princesa heredera de hoy                           80 eps
+580    4657     Por Ela, Eu me Rendo                                  75 eps
+581    4658     El caudillo se rinde a mi abrazo                      75 eps
+582    4660     La Deuxième Vie de Papa                               42 eps
+583    4664     Amor entre sombras                                    85 eps
+584    4669     Le poids de la haine                                  80 eps
+585    4673     O Imperador Que Quis Ser Meu Amante                   80 eps
+586    4683     Cuando el amor vuelve                                 62 eps
+587    4690     No te metas con la señorita                           75 eps
+588    4691     Llega la buena suerte                                 60 eps
+589    4698     Provocar a Patricinha? Pai é Protegido!               75 eps
+590    4699     O Verdadeiro Amor                                     70 eps
+591    4715     Tudo Por Ela                                          63 eps
+592    4716     Jogo da Troca: Por Trás da Máscara                    58 eps
+593    4728     Casamento por Pão: Entre Mundos                       71 eps
+594    4730     A Rainha no Século 21                                 75 eps
+595    4733     Cuando el trono se rinde ante la nostalgia            60 eps
+596    4734     El príncipe inesperado                                63 eps
+597    4740     Viento ligero, amor profundo                          68 eps
+598    4745     A tu lado, por fin                                    75 eps
+599    4749     Danza de la Venganza                                  70 eps
+600    4760     Mi esposa salvaje 3: la generala y su Donjúan         77 eps
+601    4775     Sa beauté dans la neige                               85 eps
+602    4776     Contra la espía mental                                55 eps
+603    4777     Enfants, clé du bonheur                               99 eps
+604    4790     Amour teinté de lune                                  84 eps
+605    4799     Ascensão I: O Guri que Virou Lenda                   100 eps
+606    4800     Quem Está Grávida?                                    63 eps
+607    4804     Surcando los cielos: el soberano en la sombra        100 eps
+608    4808     Los tabúes del último autobús                         63 eps
+609    4815     El regreso de la Reina                                87 eps
+610    4826     Mi ex, la reina de la IA                              80 eps
+611    4827     La trampa de la seducción                             68 eps
+612    4851     Socorro! Meu Marido é Falso Inocente!                 76 eps
+613    4855     A médica divino foi mimada por toda a família         80 eps
+614    4863     Dompté par l’Amour                                    55 eps
+615    4871     Mi arte culinaria me salva en el harén                70 eps
+616    4872     El amor que nunca se desvanece                        44 eps
+617    4877     La reina gemela deja de fingir                        62 eps
+618    4879     Stolen Nights with My Fiancé’s Brother                57 eps
+619    4884     Ríndete ante la verdadera Reina del Juego             60 eps
+620    4890     M. Charles, à nouveau séduit                          80 eps
+621    4899     Pimenta nos Olhos dos Outros é Refresco               69 eps
+622    4900     Quando o Amor se Faz Presente  [Doblado]              79 eps
+623    4904     Asesinato por comida precocinada                      69 eps
+624    4916     Papá de alquiler y mamá de presidenta                 85 eps
+625    4920     Quando a Vida Virou o Jogo                            85 eps
+626    4922     Étreinte du hérisson                                  71 eps
+627    4933     Minha Mãe é a Rainha                                  78 eps
+628    4939     ​​¿Por qué tan despiadada, Señora?​                   35 eps
+629    4952     Cultivando en el Palacio Frío                        100 eps
+630    4974     Conquisté al millonario en los 80                     92 eps
+631    4979     La venganza de la general traicionada                 75 eps
+632    4986     Mi familia, nunca más                                 61 eps
+633    4987     La bisabuela de 18 años, la gloria pronto volver      84 eps
+634    4988     Sol lucirá(Doblado)                                   81 eps
+635    4992     Argh ! J'ai la Mauvaise Langue !                      80 eps
+636    4998     L'Échappée Royale                                    155 eps
+637    5000     Adeus, Família que Me Odiou                           61 eps
+638    5008     Mon mari, la princesse                                86 eps
+639    5014     Renacer contra el dolor transferido                   60 eps
+640    5016     A Morte que Ela Escapou                               61 eps
+641    5021     Bajo la avalancha                                     61 eps
+642    5030     El Príncipe Rosa                                      70 eps
+643    5034     Amor de Espera na Hora Certa [Doblado]                71 eps
+644    5035     Príncipe Rosa                                         70 eps
+645    5042     Hija, mamá es poderosa                                60 eps
+646    5046     Por Ela, Tudo é Possível                              60 eps
+647    5056     Casada al azar con un CEO                             80 eps
+648    5060     Seducción peligrosa                                   80 eps
+649    5068     Belle aux années 80                                   99 eps
+650    5094     La princesa vagabunda                                 91 eps
+651    5113     L'Impératrice du Palais Froid​                        78 eps
+652    5114     El secreto de la señorita oscura                      79 eps
+653    5121     El trato del diablo                                   56 eps
+654    5125     Noite Enfeitiçada por Ela                             62 eps
+655    5132     Papá dominado por mamá                                80 eps
+656    5147     A Incontrolável dos Anos 90                           34 eps
+657    5149     A Criada que Queria Ser Mestra                        67 eps
+658    5150     A Esposa que Desafiou o Gelo                          85 eps
+659    5152     Mariée au Dernier Dieu                                70 eps
+660    5156     Entre el amor y el odio                               59 eps
+661    5157      Que el amor vuelva al hogar                          61 eps
+662    5158     La metamorfosis de mi esposa gordita                  85 eps
+663    5162     Caso às Pressas com Bilionário                        69 eps
+664    5163     Donc, l'amour s'éteint ?​                             50 eps
+665    5169     Solo puede ser mía                                    72 eps
+666    5175     Vida por Vida, Amor por Nada                          75 eps
+667    5182     Au nom de la famille                                  60 eps
+668    5187     Bajo la máscara                                       90 eps
+669    5188     La Emperatriz de Medio Mes                            53 eps
+670    5189     Semilla del amor secreto                              71 eps
+671    5204     La melodía de la venganza                             81 eps
+672    5209     Identité Volée                                        62 eps
+673    5212     ¡Ups! La Reina de la Uni es mi novia por interne     101 eps
+674    5217     Musa do Campus é Minha Namorada Online               101 eps
+675    5223     O Verdadeiro Amor  [Doblado]                          70 eps
+676    5230     La abogada del divorcio era su esposa                 79 eps
+677    5238     Minha Avó é a CEO                                     70 eps
+678    5248     El oráculo inmutable                                  60 eps
+679    5258     El Guion de la sangre                                 61 eps
+680    5259     Casada con el Príncipe por accidente                  80 eps
+681    5266     A Rainha no Século 21 [Doblado]                       75 eps
+682    5272     El regreso del amor                                   81 eps
+683    5276     Amor, Namore Comigo                                   86 eps
+684    5277     L'Héritière était un Flic                             83 eps
+685    5284     Me Beija, Amor                                        77 eps
+686    5286     La Princesse Perle                                    56 eps
+687    5293     Minha Ex-Mulher, Mimada por Mim                       72 eps
+688    5297     Minha Namorada é a Dragão                             80 eps
+689    5304     Amor por contrato                                     83 eps
+690    5308     La exesposa consentida                                72 eps
+691    5309     Mi novia es un Dragón Malvado                         80 eps
+692    5319     Esta Emperatriz viene del Mundo Moderno               73 eps
+693    5335     Cinco Anos Preso por um "Desculpa"?                   61 eps
+694    5336     Meu Marido Tolo é o Bilionário                        85 eps
+695    5339     Limpiar mi nombre desde la ruptura familiar           61 eps
+696    5363     El grano maldito                                      80 eps
+697    5364     El camino hacia la cima                               65 eps
+698    5367     Blague réelle, Mari échangé                           60 eps
+699    5372     Meu Marido Mendigo é Figurão?!                        81 eps
+700    5377     La ira del Dragón                                     81 eps
+701    5385     O Imperador Que Quis Ser Meu Amante [Doblado]         80 eps
+702    5388     La pote du marié                                      80 eps
+703    5389     La vida de la nota máxima                             85 eps
+704    5397     Nota Máxima no Corpo de Zerado                        85 eps
+705    5398     Tras la colisión                                      60 eps
+706    5404     Príncipe, eres demasiado pegajoso                     61 eps
+707    5416     Mon Époux Pot-de-Colle                                61 eps
+708    5419     Socorro, Este Marido é Tão Grudento                   61 eps
+709    5429     Salvaje tras el divorcio                              77 eps
+710    5433     Casamento por Pão: Entre Mundos [Doblado]             71 eps
+
+---------------------------------------------------------------------------
+Total: 710 drama

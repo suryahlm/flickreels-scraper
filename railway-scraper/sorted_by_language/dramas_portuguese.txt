@@ -1,0 +1,25 @@
+======================================================================
+  DAFTAR DRAMA - PORTUGUESE
+  Total: 15 drama
+======================================================================
+
+No.    ID       Judul                                               Episode
+---------------------------------------------------------------------------
+1      3323     Esposa com Um Segredo                                 52 eps
+2      3324     Voltar com o ex                                       63 eps
+3      3333     Linha de fogo: mamãe me salvou                        35 eps
+4      4495     Te Amo Sem Razão                                      80 eps
+5      4520     Meu Galã em Casa                                      73 eps
+6      4529     O Segredo do Meu Irmãozinho                           69 eps
+7      4592     Casada com o Pai do Meu Ex-Noivo                      64 eps
+8      4752     Nova Paixão Dela                                      84 eps
+9      4769     Ferrou! Meu Marido Tem Telepatia                      98 eps
+10     4816     Te Amo Sem Razão [Doblado]                            80 eps
+11     4857     Nossa! Bloqueei meu Marido CEO                        90 eps
+12     5067     Meus Maridos Tritões                                  90 eps
+13     5074     Minha Senhora, Vai se Queimar                         80 eps
+14     5349     Os Grãos são Reais ou Falsos?                         80 eps
+15     5409     Cachorro Grande não Late, Morde                       60 eps
+
+---------------------------------------------------------------------------
+Total: 15 drama

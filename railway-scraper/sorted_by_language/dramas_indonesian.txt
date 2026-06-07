@@ -1,0 +1,532 @@
+======================================================================
+  DAFTAR DRAMA - INDONESIAN
+  Total: 522 drama
+======================================================================
+
+No.    ID       Judul                                               Episode
+---------------------------------------------------------------------------
+1      355      Kembali ke Desa! Banggakan Ibuku                      68 eps
+2      376      Menikah lagi dengan Ketua Direksi                     69 eps
+3      380      Sang Pengasuh Kaya                                    74 eps
+4      382      Aku Dimanja Saat Hamil                               100 eps
+5      384      Hidupku Berubah Setelah Hamil                         79 eps
+6      385      Ternyata Kau Idamanku                                 88 eps
+7      391      Ketika Ajal Mendekat                                  36 eps
+8      393      Dijodohkan Ibu dengan Pria Kaya                       80 eps
+9      398      Kelima Abangku Orang Hebat                            80 eps
+10     406      Penjual Sayur Ternyata Kakak Kaisar                   69 eps
+11     420      Dendam Seberat 200 Kilo                               80 eps
+12     421      Pahlawan di Akhir Dunia                               77 eps
+13     422      Anak Kembarku Pendukung Cintaku                       70 eps
+14     424      Kisah Cinta Bos dan Gadis Desa                        68 eps
+15     426      Keluarga yang Berkhianat                              57 eps
+16     427      Pacar Online-ku Bosku                                 55 eps
+17     428      Pembalasan Dendam Istri CEO yang Lahir Kembali        80 eps
+18     429      Terjebak Skenario Istri                               58 eps
+19     430      Mencarimu di Ujung Dunia                              73 eps
+20     457      Adik lpar Memanjakanku                                52 eps
+21     487      Cintaku Hadir Di Kehidupan Selanjutnya                77 eps
+22     488      Terpikat Padanya di Keheningan Malam                  62 eps
+23     490      Menuju Tempatmu Berada 1                              74 eps
+24     491      Tiada Maaf Bagimu                                     65 eps
+25     493      Pria Simpananku Orang Hebat                           75 eps
+26     495      Istri Kesayangan Mafia                                65 eps
+27     496      Balas Dendam Sang Selir                              120 eps
+28     499      Empat Cewek Cantik Rebutan Si Bos                     91 eps
+29     502      Cinta yang Bersemi Kembali                            43 eps
+30     503      Cinta yang Tak Terucapkan                             82 eps
+31     504      Pembuktian Putri Terkaya yang Sejati                  80 eps
+32     505      Kau Takdirku                                          98 eps
+33     533      Menikah lagi dengan Ketua Direksi(Dubbing)            69 eps
+34     629      Cinta sang Tabib Sakti                               100 eps
+35     630      Pesona Seorang Pria Muda                              93 eps
+36     656      Cahaya Rembulan di Ujung Jari                         30 eps
+37     657      Ibu Mertua yang Hilang                                46 eps
+38     658      Rahasia Menantuku yang Terbongkar                     30 eps
+39     719      Dia Menciumku dengan Luka                             80 eps
+40     721      Cinta Di Ujung Senja                                  62 eps
+41     722      Janda Beranak Menikah Dengan Keluarga Kaya            80 eps
+42     731      Si el amor tuviera magia                              83 eps
+43     782      Penikahan Yang Panjang                                61 eps
+44     783      Dia Keterlaluan                                       73 eps
+45     784      Cinta dan Kebahagiaan                                 40 eps
+46     816      Cinta Lama Kembali Bersemi                            87 eps
+47     817      Putri Mutiara                                         56 eps
+48     818      Usai Keluar Penjara, Status Nyonya Kaya Menggunc      77 eps
+49     819      Si Kecil Pemersatu Keluarga                           82 eps
+50     820      Suami obsesifku                                       63 eps
+51     821      Keluarga Tercinta                                     67 eps
+52     860      Kuingin Kau Tahu                                      70 eps
+53     861      Penyihir Terpuruk dan Rencana Kedua                   83 eps
+54     862      Balas Dendam Istri                                    92 eps
+55     889      Aku Dijodohkan dengan Tiga Pria                       91 eps
+56     890      Kehangatan Cinta yang Berlalu                         80 eps
+57     891      Pak Jay Nikahi Aku!                                   76 eps
+58     893      Perubahan Hidup Penuh Perlindungan                    90 eps
+59     894      Adik lpar Memanjakanku（Dubbing）                       52 eps
+60     918      Ibuku Ketua Geng                                      80 eps
+61     919      Takdir Cinta dengan Kaisar                            62 eps
+62     920      Istri Pak Rey Cukup Liar                              80 eps
+63     949      Berkah Isi Hati Putri Kandung                         30 eps
+64     950      Rumah Tempatku Berpijak                               79 eps
+65     951      Penyesalan yang Terlambat                             30 eps
+66     952      Bos Melani Kembali                                    65 eps
+67     954      Serangan Siaran Langsung dari Menantu                 45 eps
+68     962      Kejayaanku Setelah Berpisah                           70 eps
+69     963      Kejayaanku Setelah Berpisah                           65 eps
+70     968      Bos Melani Kembali                                    67 eps
+71     977      Istri Kesayangan Mafia（Dubbing）                       65 eps
+72     978      Cinta Di Ujung Senja（Dubbing）                         62 eps
+73     990      Kedatangan Si Kecil                                   88 eps
+74     991      Jodoh dari Masa Lalu                                  38 eps
+75     993      Jodoh dari Masa Lalu                                  99 eps
+76     1026     Istri Jelek Bangkit                                   80 eps
+77     1027     Pedang Keadilan                                       54 eps
+78     1029     Kisah Kita Kelak                                      92 eps
+79     1030     Pak Moris, Kau Salah Orang                            90 eps
+80     1038     Drama Para Menantu                                    52 eps
+81     1055     Tunanganku Selingkuhan Adikku                         90 eps
+82     1057     Istri Pendeta Bikin Heboh                             70 eps
+83     1081     Malapetaka Takdir                                     77 eps
+84     1082     Takdir Cinta Satu Malam                               82 eps
+85     1084     Ayah, Istrimu Di Sini                                 90 eps
+86     1100     Salah Menikah Dengan Orang Kaya, Malah Dapat Sua      60 eps
+87     1101     Salah Menikah Dengan Orang Kaya, Malah Dapat Sua      53 eps
+88     1118     Dendam dan Cinta                                     100 eps
+89     1121     Terlambat untuk Kembali                               60 eps
+90     1133     Terlambat untuk Kembali                               60 eps
+91     1159     Cinta yang Tertukar                                   78 eps
+92     1160     Raja Bisnis yang Terbang Tinggi                       85 eps
+93     1161     Istri Tak Terduga Kapten Leo                          36 eps
+94     1162     Selanjutnya Menjadi Ratu Pop                          60 eps
+95     1180     Dia Bagaikan Awal Cahaya Malam                        36 eps
+96     1182     Kepercayaan di Antara Kita                            68 eps
+97     1184     Cinta Tersembunyi                                     80 eps
+98     1186     Ibuku Penyelamatku                                    32 eps
+99     1196     Ayah Untuk Anakku                                     92 eps
+100    1215     Kutemani Sampai Cahaya Kembali                        82 eps
+101    1229     Rosa Para Mí                                         100 eps
+102    1230     Jangan Menangis, Kakak Datang                         60 eps
+103    1232     Murka Seorang Ibu                                     66 eps
+104    1233     Ibu yang Memihak                                      72 eps
+105    1256     Pak Sena Sang Pengejar Cinta                          55 eps
+106    1260     Suara Hati Janin Ajaib                                80 eps
+107    1280     Buah Cinta Pembawa Berkah(Dubbing)                    80 eps
+108    1287     Mencari Anak yang Hilang                              69 eps
+109    1291     Pembalasan Mawar Merah                                82 eps
+110    1292     Bukan Dia, Tapi Kau                                   55 eps
+111    1295     Menjadi Kesayangan si CEO Tampan                      74 eps
+112    1298     Penikahan Kilat Ibu Bos                               18 eps
+113    1304     Aku Menjadi Ibu Tiri di Tahun 80-an                   82 eps
+114    1308     Kegelapan Akan Menjadi Terang                         83 eps
+115    1309     Pengkhianatan di Balik Takhta                         79 eps
+116    1313     Bayi Cerdas Penakluk Lima Ayah                        77 eps
+117    1314     Perjuangan Jauh ke Rumah                              60 eps
+118    1317     Bayi Triliuner dan Ibu Idiot                          80 eps
+119    1318     Istri Kaya, Suami Tak Layak                           73 eps
+120    1329     Benteng Terakhir di Musim Beku                        61 eps
+121    1334     Dimanjain Sang Pewaris                                90 eps
+122    1340     Identitas Istri CEO Terbongkar                        90 eps
+123    1342     Punya Lima Anak Hebat                                 72 eps
+124    1368     Nona Karina yang Tersayang                            69 eps
+125    1373     Kau Hangatkan Duniaku                                 86 eps
+126    1374     Suami Ilusiku                                         76 eps
+127    1376     Asisten Pribadi Sang Bos                              89 eps
+128    1385     Istriku sang Desainer Hebat                           80 eps
+129    1411     Jenderal Wanita Yang Perkasa                          60 eps
+130    1421     Pernikahan Kilat Terbaik di Hidup                     73 eps
+131    1427     Mekarnya Bunga Hati Di Selatan Kota                   92 eps
+132    1443     Ketika Masa Lalu Memanggil                           103 eps
+133    1445     Takdir Cinta dengan Kaisar(Dubbing)                   62 eps
+134    1449     Sang Misterius                                        98 eps
+135    1462     Rahasia Ibu Rumah Tangga                              75 eps
+136    1466     Nona Asli Telah Kembali                               51 eps
+137    1468     Langkah Menuju Pelukan Ibu                            64 eps
+138    1477     Anak Tersayang: Serbuan ke Keluarga Miliarder!        74 eps
+139    1486     Mencari Istri dengan Bantuan Anak                     99 eps
+140    1492     Cinta Sejati Ratu Lembah Obat                         85 eps
+141    1519     Dimanjakan Pria Tua                                   68 eps
+142    1524     Astaga! Salah Mengenali Istriku!                     103 eps
+143    1525     Nenek Muda: Kebangkitan Keluarga                      47 eps
+144    1534     Rahasia Gua Logu                                      35 eps
+145    1535     Takdir Membawa Pulang                                 59 eps
+146    1536     Siapa Bilang Pacar Bos Yansa Lemah?                  100 eps
+147    1537     Pertemuan yang Tertunda                               92 eps
+148    1544     Kaulah Mataku                                         76 eps
+149    1567     Candaan yang Mengubah Segalanya                       60 eps
+150    1602     Vero Akan Selalu Ada                                  78 eps
+151    1605     Suami Rahasiaku Miliarder Tampan                      57 eps
+152    1606     Cinta Kilat                                           86 eps
+153    1607     Cinta Nyata Seorang Suami Kontrak                    100 eps
+154    1614     Mawar Untukku                                        100 eps
+155    1616     Ditinggal di Altar, Dapat CEO                         78 eps
+156    1633     Malam yang Lembut                                     98 eps
+157    1642     Luka yang Tak Terlupa                                 99 eps
+158    1654     Nikah Kilat, Bertemu Tak Kenal                        90 eps
+159    1658     Cinta di Balik Fitnah                                 85 eps
+160    1675     CEO itu Ayah Anakku                                   80 eps
+161    1683     Suara Hati yang Kutepati                             109 eps
+162    1690     Antara Dusta dan Hasrat                               84 eps
+163    1692     Ternyata Kau Istriku                                  73 eps
+164    1706     Rahasia Kehamilan                                     64 eps
+165    1713     Rahasia Aula Leluhur                                  40 eps
+166    1720     Cinta yang Tak Mudah                                  53 eps
+167    1752     Pengakuan Cinta yang Tertunda                        100 eps
+168    1763     Ketika Takdir Membawa Kembali                        101 eps
+169    1764     Ibu Tak Punya Hati Nurani                             32 eps
+170    1769     Pengorbanan sang Siswi Genius                         40 eps
+171    1774     Bulan Berselimut Cinta                                84 eps
+172    1776     Koki Cintaku                                          65 eps
+173    1786     Penyelamat Masa Kecilku                               80 eps
+174    1787     Magang Manja Bu Bos                                   66 eps
+175    1815     Terjebak Cinta Lama                                   63 eps
+176    1823     Putri Pengungkap Rahasia                             155 eps
+177    1829     Balas Dendam Sang Pelayan                             53 eps
+178    1839     El Favoritismo de Papá Casi Me Mata                   40 eps
+179    1854     Reinkarnasi Dewa Mancing                              76 eps
+180    1857     Pertemuan Takdir                                      78 eps
+181    1872     Bukan Salah Ibu                                       60 eps
+182    1882     Bukan Permaisuri Gendut Biasa                         62 eps
+183    1883     Sang Dewi Abadi                                       89 eps
+184    1887     Mahar dan Pernikahan Rahasia                          89 eps
+185    1888     Kasih Ayah yang Tersisihkan                           40 eps
+186    1897     Pujaan Hati CEO                                       90 eps
+187    1911     Balas Dendam Sang Ayah                                40 eps
+188    1914     Reinkarnasiku Adalah Akhir dari Hidupmu               75 eps
+189    1915     Ketika Rembulan Memudar                               33 eps
+190    1936     Anak Tersayang: Serbuan ke Keluarga Miliarder!(D      74 eps
+191    1937     Berlabuh ke Musuh Hati                                60 eps
+192    1944     Pernikahan Penuh Rahasia                              80 eps
+193    1957     Una receta para el amor                               78 eps
+194    1959     Pembalasan sang Pewaris                               35 eps
+195    1961     Mengejarmu Tanpa Ampun                                69 eps
+196    1970     Jangan Macam-Macam, Patih Licik!                      91 eps
+197    1976     Nenek Muda: Kebangkitan Keluarga(Dubbing)             90 eps
+198    1984     Percikan Cinta Dalam Kebakaran                        90 eps
+199    1985     Bayangan Sang Suami                                   73 eps
+200    1986     Suami Kilat, Cinta Terlambat                          90 eps
+201    1991     Jebakan Sang Istri                                    61 eps
+202    2006     Dendam yang Terkubur                                  45 eps
+203    2010     Kasih Salah, Tiada Kembali                            50 eps
+204    2031     CEO itu Ayah Anakku(Dubbing)                          80 eps
+205    2032     Kehidupan Ini Lebih Bahagia                          148 eps
+206    2033     Kutukan Nasib Sang Pengganti                          67 eps
+207    2035     Bukan Pasangan Biasa                                  83 eps
+208    2036     Takdir Seorang Istri                                  70 eps
+209    2037     Cinta yang Tak Terduga                                90 eps
+210    2083     Putra Mahkota Rela Mati Untukku                       65 eps
+211    2099     Disiksa Keluarga Sendiri                              68 eps
+212    2105     Si el Amor es Destino                                 90 eps
+213    2118     Surga yang Dihiasi Dusta                              92 eps
+214    2126     Rahasia di Balik Nikah Kilat                          60 eps
+215    2137     Reinkarnasi Era 70'an sang Ibu                        64 eps
+216    2146     Putri Kandung yang Teraniaya                          30 eps
+217    2147     Cinta dalam Salah Paham                               90 eps
+218    2148     Raja Dunia Hiburan                                    83 eps
+219    2149     Surga Ibu atau Neraka Cinta                           35 eps
+220    2150     Tatkala Cinta Mengetuk                                38 eps
+221    2169     Saat kita bertemu lagi                                79 eps
+222    2186     Nenek Muda: Kebangkitan Keluarga 2                   100 eps
+223    2205     Kasih yang Sirna                                      60 eps
+224    2213     Reinkarnasi Dewa Judi                                 94 eps
+225    2216     Luka yang Membawa Cinta                               85 eps
+226    2221     Sang Veteran                                          36 eps
+227    2232     Maaf, Sayang                                          30 eps
+228    2234     30 Hari untuk Merelakanmu                             52 eps
+229    2239     Ayah yang Salah                                       63 eps
+230    2240     Cinta Mendalam di Balik Kontrak                       60 eps
+231    2242     Sonata Cinta di Musim Dingin                          74 eps
+232    2308     Menikah lagi di Era 90-an                             62 eps
+233    2320     Turunnya Kaisar Abadi                                 61 eps
+234    2321     Menanti Bidadari Masuk Jebakan                        40 eps
+235    2343     Dokter Jenius Terlahir Kembali                        61 eps
+236    2344     Lonceng Berdering dalam Abu Kehidupan                 75 eps
+237    2346     Cinta yang Tak Kembali                                72 eps
+238    2355     Berita Baik yang Belum Tiba                           18 eps
+239    2370     Cinta yang Tak Luntur                                 68 eps
+240    2388     Pas si divine, la pêche !                             76 eps
+241    2393     Pesanan Nyasar ke Hati Presdir                        91 eps
+242    2394     Menjadi Pembawa Sial Untuk Sahabatku                  30 eps
+243    2402     Cinta Tanpa Syarat                                    59 eps
+244    2424     Para hacerte mía, cuñada                             100 eps
+245    2442     Tahta untuk Anak yang Salah                           64 eps
+246    2463     Mencuri Hati Kaisar                                   84 eps
+247    2482     Setia Tanpa Perlu Ditanya                            100 eps
+248    2485     Takdir dalam Cinta                                    88 eps
+249    2487     Reinkarnasi dan Dendam                                82 eps
+250    2489     Tuntunan Takdir                                       73 eps
+251    2491     Dimanja Tiga Menantu Setelah Cerai                    30 eps
+252    2502     Atasanku, Kekasihku                                   69 eps
+253    2506     Ayah Pilihan                                          66 eps
+254    2511     99 Días para Enamorarte                               81 eps
+255    2518     Nyonya Muda yang Tidak Terkalahkan                    69 eps
+256    2537     Nikah Kontrak Berujung Cinta                          71 eps
+257    2541     Cinta Sesat: Lestari dan Bayangannya                  64 eps
+258    2544     Keanggunan Sang Ratu                                  81 eps
+259    2546     Dunia Kedua Rumi                                      59 eps
+260    2559     Demi Memilikimu                                      100 eps
+261    2560     Cinta Terkhianati                                     80 eps
+262    2562     Pembalasan Seorang Istri                              50 eps
+263    2578     Ternyata Pemagang Ini Istriku                         80 eps
+264    2579     Dia Pembawa Cahaya                                    70 eps
+265    2585     Sehari Menjadi Guru                                   76 eps
+266    2612     Penyesalan Anak Durhaka                               78 eps
+267    2613     Setelah Cinta Membunuhku                              60 eps
+268    2619     Konspirasi sang Istri                                 81 eps
+269    2620     Reset Jadi Ibu Baik                                   72 eps
+270    2646     Balas Dendam Keluargaku                               77 eps
+271    2653     Pria Terbaik Untukmu                                  77 eps
+272    2654     Tangan Ajaib Sang Dewa Medis                          60 eps
+273    2655     Bayang-Bayang Kehidupan                               41 eps
+274    2669     Bangkitnya Putri Terbuang                             70 eps
+275    2670     Kakak, Cium Aku!                                      77 eps
+276    2671     Jejak Luka, Jalan Pulang                              54 eps
+277    2672     Anak Durhakaku                                        80 eps
+278    2674     Cinta Lama Bersemi Kembali                            73 eps
+279    2691     Surga di Telapak Kaki Ibu                             77 eps
+280    2701     Renací para arruinar a mi amiga                       30 eps
+281    2715     Penyesalan Kakak Setelah Kepergianku                  72 eps
+282    2720     Bangkit dari Abu Pengkhianatan                        43 eps
+283    2737     Ayah, Aku Ingin Pulang                                65 eps
+284    2738     Cinta di Waktu yang Tepat                             80 eps
+285    2746     Air Mata Pewaris                                      68 eps
+286    2749     Nikah Kontrak Berbuah Cinta                           63 eps
+287    2775     30 Días Para Decir Adiós                              52 eps
+288    2785     Hari Ibu Telah Berakhir                               71 eps
+289    2786     Takdir Kita yang Tercecer                             78 eps
+290    2796     Jodoh Sang Pelukis                                    60 eps
+291    2810     Jebakan Nyonya Untukku                                50 eps
+292    2811     Kembalinya Putri Sejati                               89 eps
+293    2816     Bayang-bayang Dendam                                  82 eps
+294    2825     Aku Direkomendasikan, Kamu Bebas                      31 eps
+295    2846     Cinta Tak Kalah Harum Melati                          43 eps
+296    2848     Sang Ratu                                             75 eps
+297    2857     Rahasia Anak Kembar                                   84 eps
+298    2858     Tak Bisa Melepasmu                                    80 eps
+299    2889     Dia Bak Matahari Terbit                               40 eps
+300    2890     Liarnya Dia​                                          71 eps
+301    2908     Melepas Cinta Lama                                    90 eps
+302    2916     Cahaya di Balik Luka                                  65 eps
+303    2917     Tunduk Padanya                                        73 eps
+304    2918     Cinta Yang Terlambat Disadari                         80 eps
+305    2926     Cinta Benci yang Terkubur                             70 eps
+306    2928     Dua Sisi Kehidupan Suami                              30 eps
+307    2951     Ayah Pilih Kasih                                      65 eps
+308    2952     Cinta Mekar di Musim Semi                             89 eps
+309    2962     Karena Takdir Istimewa                                37 eps
+310    2989     Rahasia Dibalik Identitas                             80 eps
+311    3007     Hidupku Jadi Hidupmu                                  64 eps
+312    3023     Kisah Cinta Bu CEO                                    12 eps
+313    3035     Pernikahan Setahun, Cinta Seumur Hidup                64 eps
+314    3036     Terjerat Rahasia Sang Penyelamat                      50 eps
+315    3063     ​​Kita yang Dulu, Kini Tak Berlanjut​​                76 eps
+316    3064     Putri Dewa                                            87 eps
+317    3073     Dewa Anggur                                           64 eps
+318    3106     Sembuh Karena Cinta                                   60 eps
+319    3107     Kapten, Kau Ditinggal Nikah                           51 eps
+320    3108     Ayah Pacarku, Suamiku                                 88 eps
+321    3114     Jasmin, si délicat                                    64 eps
+322    3144     Dari Utang Berujung Cinta                             66 eps
+323    3145     Nikah Kilat Berujung Cinta Sejati                     90 eps
+324    3146     Sandiwara Sang Istri                                  61 eps
+325    3147     Angin Bulan Punya Rasa, Rindu Tak Pernah Padam        43 eps
+326    3148     Kenangan Kembali, Dia Menyesal Tiada Henti            52 eps
+327    3164     Sayang, Aku Benaran Amnesia                           86 eps
+328    3180     Cinta Pertama yang Hilang                             65 eps
+329    3191     Siswa Empat Provinsi Menjadi Putri Kaya Jakarta​      66 eps
+330    3192     Putri Kandung yang Tersakiti                          89 eps
+331    3208     Aroma Kasih Sayang Suamiku                            76 eps
+332    3212     Rahasia di Balik Api                                  81 eps
+333    3222     Cinta Satu Malam                                      97 eps
+334    3235     Suara Hati Pembangkit Cinta                           98 eps
+335    3240     Cinta Terpisah Maut                                   54 eps
+336    3253     Kakak Nikah, Aku Juga                                 60 eps
+337    3262     Tautiya Kecil Turun dari Langit                       75 eps
+338    3266     Janji yang Hancur                                     60 eps
+339    3267     Rahasia di Balik Hilang                               51 eps
+340    3268     Cinta Di Ujung Senja                                  77 eps
+341    3269     Anak yang Terlupakan                                  59 eps
+342    3338     Vem para Meu Abraço                                   62 eps
+343    3349     Bunuh Dewa                                            50 eps
+344    3352     Sang Kaisar Datang                                    45 eps
+345    3357     Bintang Rezeki Datang: Ayah, Akui Aku                 73 eps
+346    3363     Cinta Melintas Zaman                                  66 eps
+347    3367     Mawar Tersembunyi                                     72 eps
+348    3369     Ibu yang menghilang                                   80 eps
+349    3372     Kisah Cinta Yang Sulit                                59 eps
+350    3406     Ingatan yang Kembali                                  90 eps
+351    3425     Lima Bocah Membuat Ayah Takluk                        63 eps
+352    3436     Cobaan Takdir                                         60 eps
+353    3442     Rahasia Kebun Anggur                                  54 eps
+354    3448     Sasaran Utamaku                                       63 eps
+355    3464     Balas Dendam Setelah Penjara                          60 eps
+356    3475     Menikahi Dewa                                         70 eps
+357    3485     Keanggunan yang Bangkit dari Pengkhianatan            99 eps
+358    3486     Bakti Sang Putri                                      58 eps
+359    3495     Hari Tunangan Anakku, Kubatalkan                      64 eps
+360    3498     Cinta Baru Dia                                        84 eps
+361    3516     Dewa Penempa Pedang                                   57 eps
+362    3521     Tiga Maaf, Selamat Tinggal Kekasihku                  80 eps
+363    3533     Renacida para amar al marqués                         91 eps
+364    3537     Istri Sah Hidup Kembali                               91 eps
+365    3540     Putri yang Terlupakan                                 79 eps
+366    3551     Hati Dimas yang Tersimpan                             73 eps
+367    3552     Kita Hanya Keluarga Biasa                             60 eps
+368    3553     Adikku Tersayang                                      60 eps
+369    3590     Bos Dingin Manja Istri                                60 eps
+370    3592     Pulang, Putri Diganti                                 70 eps
+371    3608     Dewa Masak Tersembunyi                                31 eps
+372    3621     Disuruh Jadi Pacar Palsu, Malah Jadi Bosku            90 eps
+373    3657     Cinta yang Terlambat                                  67 eps
+374    3674     Nenek Muda: Kebangkitan Keluarga 3                    84 eps
+375    3687     Setelah Dipecat, Tunanganku Menyesal                  63 eps
+376    3690     Rahasia di Pegunungan                                 62 eps
+377    3694     Bukan Bidakmu                                         61 eps
+378    3695     Jiwa Kuno Terlahir Kembali                            66 eps
+379    3704     Pembantu Cilik untuk Cintaku                          70 eps
+380    3714     Pengawal Titipan Dunia                                63 eps
+381    3726     Malam Sebelum Kebenaran, Pacarku Putus                70 eps
+382    3741     Cinta Palsu Jadi Nyata                                80 eps
+383    3745     Pak Yuno Jatuh Cinta Lagi                             80 eps
+384    3754     Para hacerte mía, cuñada (Doblado)                   100 eps
+385    3764     Nyonya Muda yang Tidak Terkalahkan(Dubbing)           69 eps
+386    3779     Kembalinya Ayah Demi Ibu                              60 eps
+387    3786     ​​Maaf, Ibu Tidak Merestui!                           72 eps
+388    3796     Kalian Penjahat, Aku Si Gila Sejati!                  86 eps
+389    3800     Aku, Pemimpin Tanah                                   83 eps
+390    3814     Bos Ternyata Mantan Pacarku                           76 eps
+391    3824     Estrategia para Ascender                              63 eps
+392    3834     Keanggunan yang Bangkit dari Pengkhianatan            99 eps
+393    3854     Pacar ke Duplikat, Bos Jadi Cemburu Gila              79 eps
+394    3861     Taktik Sang Cantik                                    82 eps
+395    3866     Anak Ajaib 2: Pertarungan Keluarga                    59 eps
+396    3869     Bakti Sang Putri                                      58 eps
+397    3877     Cium Mawar                                            85 eps
+398    3879     Pembalasan si Gadis Bucin                             67 eps
+399    3921     Sisa Hidupku Hanya untukmu                            60 eps
+400    3946     Dunia Menyayangiku Penuh Kelembutan                   95 eps
+401    3948     Takdir yang Ditentukan                                75 eps
+402    3954     Kisah Cinta di Tepi Arena                             64 eps
+403    3978     Pria Simpanku Ternyata Kaisar                         80 eps
+404    4009     Godaan di Malam Hari                                  87 eps
+405    4022     Kebetulan yang Indah                                  79 eps
+406    4023     Penyesalan yang Terlambat                             30 eps
+407    4037     Kamu Beri Cahaya, Kubalas dengan Debu                 76 eps
+408    4058     Anak Lucu Hoki Datang                                 84 eps
+409    4075     Senang Menikah Denganmu                               46 eps
+410    4080     Jangan Pernah Usik Nancy                              83 eps
+411    4085     Sahabat Cewek Suamiku                                 80 eps
+412    4086     Kecantikan dan Perang                                 75 eps
+413    4106     Sistem Pintu Ganda                                    71 eps
+414    4107     Putri Sejati Kembali                                  83 eps
+415    4114     Usai Cerai, Aku Jadi Permaisuri                      120 eps
+416    4158     Nyonya Muda Tak Terkalahkan 2                         79 eps
+417    4159     Misteri Suami yang Kembali                            94 eps
+418    4160     Sang Adik Bangkit: Menghancurkan                      80 eps
+419    4161     Undangan Pernikahan Pacarku                           76 eps
+420    4186     Menikahi Bos Miliarder                                60 eps
+421    4187     Nyonya Muda Si Mulut Sial                             80 eps
+422    4200     Sang Jenderal Perempuan Kembali                      105 eps
+423    4202     Aroma dan Sensasi                                     58 eps
+424    4225     Pengawal Ternyata Dewa Perang                         55 eps
+425    4254     Kabur dari Penjara                                    83 eps
+426    4255     Hidup Lagi, Kubalas dendam                            47 eps
+427    4274     Berani Menghina Kuasa Mutlakku                        80 eps
+428    4282     Ada Bayangan, Jangan Buka Pintu                       65 eps
+429    4297     Raih Puncak Kehidupan                                 70 eps
+430    4304     Putri Sah Membersihkan Keluarga                       59 eps
+431    4322     Dunia Berikan Dirimu                                  64 eps
+432    4334     Rumah Tempatku Berpijak 2                            113 eps
+433    4340     Pesanan Cerai dari Suamiku                            77 eps
+434    4352     Putri Asli Desa Sang Leluhur Gaib                     61 eps
+435    4392     Lepaskan Dia Bagai Angin                              50 eps
+436    4408     Sekali Lagi, Kami Taklukkan Segalanya                 62 eps
+437    4409     Aku Sang Guru Hati                                    98 eps
+438    4419     Si Naga Sembilan Kembali                              53 eps
+439    4435     Balas Budi si Anak Durhaka                            65 eps
+440    4440     Legenda Keluarga Japhar                               69 eps
+441    4451     Como Era Para Ser                                     75 eps
+442    4463     Cinta di Usia Senja                                   70 eps
+443    4464     Masa Bersinarku                                       81 eps
+444    4465     Suamiku, Si Penempel Manja                            98 eps
+445    4479     Llamada final para el amor                            50 eps
+446    4503     Godaan Berbahaya                                      50 eps
+447    4504     Ibu Berhenti Jadi Korban                              49 eps
+448    4511     Romansa di Rumah Mewah                                73 eps
+449    4531     Tunanganku, Pengkhianatku                             72 eps
+450    4565     Istri Manis, Bayi Ajaib                               64 eps
+451    4574     Jodoh yang Coba Kuhindari                             86 eps
+452    4575     Nyonya yang Tangguh                                   51 eps
+453    4580     Voltar para antigo a receber mulher                   71 eps
+454    4604     Durasi Cinta： 99                                      81 eps
+455    4615     Suara Hati Misterius                                  53 eps
+456    4618     Si Koi Berumur 6,5 Tahun                              79 eps
+457    4619     Bukan Cinta Sembarang                                 87 eps
+458    4626     Cinta Tanpa Balasan                                   56 eps
+459    4650     Rahasia Istri                                        100 eps
+460    4653     Panglima Begitu Menawan                               75 eps
+461    4678     Ibuku adalah Ratu                                     78 eps
+462    4693     Putri Pembalas                                        75 eps
+463    4694     Istriku Adalah Ahli Obat                              80 eps
+464    4707     Takdir yang Diganti                                   68 eps
+465    4710     Merebut Identitas Asliku                              58 eps
+466    4720     Sebelum Fajar​                                        52 eps
+467    4721     Takdir Yang Tercuri                                   58 eps
+468    4750     Cinta Kedua, Janji Sejati                             79 eps
+469    4763     Ibu, Selamatkan Aku!                                  35 eps
+470    4784     Menaklukkan Suami Nakal                               77 eps
+471    4785     Suara Hati di Balik Rahasia                           55 eps
+472    4793     Naga Bangkit                                         100 eps
+473    4794     Siapa yang Hamil?                                     63 eps
+474    4811     Diusir, Rezekiku Berlimpah                            38 eps
+475    4836     Permainan Cinta                                       80 eps
+476    4837     Cari Istri ke Zaman Kuno                              71 eps
+477    4838     Penipu & Aku yang Asli                               100 eps
+478    4841     Berkah yang Tertukar                                  30 eps
+479    4853     Renací en los 80 para mi amor                         61 eps
+480    4926     Rumahku, Aturanku                                     31 eps
+481    4940     Sin cura para la conciencia                           46 eps
+482    4942     Menua Bersamamu                                       30 eps
+483    4958     Sesat, Kembali                                        30 eps
+484    4965     Um casamento para Sempre                              87 eps
+485    5003     Setelah Kehilangan Suara                              61 eps
+486    5022     Bangkit Lagi, Usai Dihujani Salju                     61 eps
+487    5031     Pangeran Merah Muda                                   70 eps
+488    5043     Sang Putri Dilindungi Ibu                             60 eps
+489    5055     Seis vidas para amarte                                65 eps
+490    5071     Godaan Sengaja                                        80 eps
+491    5089     Kok Nyonya Gitu Kejam?                                35 eps
+492    5119     Azab dari Dewi Pena                                   56 eps
+493    5122     Cinta Tanpa Keraguan                                  40 eps
+494    5135     Naga Emas Lahir, Takdir Berbalik                      36 eps
+495    5136     Anak Imut Turun dari Langit                           30 eps
+496    5137     Istri Gemuk Dimanjakan                                85 eps
+497    5159     Maaf, Anak Ini Bukan Milikmu                          45 eps
+498    5171     Musim Panas yang Mencekik                             30 eps
+499    5190     Aku Ditakdirkan Milikmu                               53 eps
+500    5194     Cinta Diam Jadi Nyata                                 71 eps
+501    5202     Kebenaran Tak Terkubur                                46 eps
+502    5208     Para onde você está                                   74 eps
+503    5220     Pacarku Ternyata Dewi Kampus                         101 eps
+504    5226     Suami Miskin Jadi Bos                                 55 eps
+505    5235     Jangan Ganggu Nenek                                   70 eps
+506    5247     Peramal Wanita                                        60 eps
+507    5260     Kamulah Cahaya Bintangku                              54 eps
+508    5261     Bulan yang Tak Pernah Terbit                          40 eps
+509    5273     Tak Termaafkan                                        45 eps
+510    5281     Siapa Keluarga Sebenarnya?                            50 eps
+511    5290     Mantan Istri Kesayangan                               72 eps
+512    5294     Pacarku Ternyata Raja Naga                            80 eps
+513    5320     Istri Pengemis, Permaisuri Sejati                     61 eps
+514    5321     Aku Bukan Permaisurimu Lagi                           73 eps
+515    5340     Suami Tajirku Pura-Pura Bodoh                         85 eps
+516    5356     Jalan Kejayaan                                        65 eps
+517    5378     Legenda Perkumpulan Naga                              81 eps
+518    5381     Dimanjakan Suami Tajir                                58 eps
+519    5405     Hidup Baru Lewat Nilai Tinggi                         85 eps
+520    5406     Keadilan yang Menang                                  60 eps
+521    5422     Suamiku yang Menempel                                 61 eps
+522    5430     Mawar atau Duri?                                      35 eps
+
+---------------------------------------------------------------------------
+Total: 522 drama

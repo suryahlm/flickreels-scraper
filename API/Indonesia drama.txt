@@ -1,0 +1,1635 @@
+request: 
+Method: POST
+URL
+https://api.farsunpteltd.com/app/playlet/latestPlay
+Headers
+Accept-Encoding:
+gzip
+Cache-Control:
+no-cache
+Connection:
+Keep-Alive
+Content-Length:
+361
+Content-Type:
+application/json; charset=UTF-8
+Host:
+api.farsunpteltd.com
+Nonce:
+VhPjJPrEfMLcFHOgFAp7tmU9L7wHsJ30
+Sign:
+76ec73513c4bc5a6621421bdef4ae381ec1240ee4b9fe3ca91a1739be8b53829
+Timestamp:
+1770049165
+Token:
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJfIiwiYXVkIjoiXyIsImlhdCI6MTc2OTYyMTU4OCwiZGF0YSI6eyJtZW1iZXJfaWQiOjQ3Mzc5NTE5LCJwYWNrYWdlX2lkIjoiMiIsIm1haW5fcGFja2FnZV9pZCI6MTAwfX0.2a4S7aMATK5f8yWU2QH1rIMMdwoshSyts89CL_i9AQU
+User-Agent:
+MyUserAgent
+Version:
+2.2.3.0
+
+request body:
+{
+  "main_package_id": 100,
+  "googleAdId": "783978b6-0d30-438d-a58d-faf171eed978",
+  "device_id": "0d209b4d4009b44c",
+  "device_sign": "5af6b3970595e1df2a4be3df91ec58cbab23f04e847db0b89c33eb7eadd51f79",
+  "apps_flyer_uid": "1769621528308-5741215934785896746",
+  "os": "android",
+  "device_brand": "samsung",
+  "device_number": "9",
+  "device_model": "SM-X710N",
+  "language_id": "6",
+  "countryCode": ""
+}
+
+Response:
+Status: 200 OK
+Headers
+Access-Control-Allow-Headers:
+*
+Access-Control-Allow-Methods:
+GET,POST,OPTIONS
+Access-Control-Allow-Origin:
+*
+alt-svc:
+h3=":443"; ma=86400
+cf-cache-status:
+DYNAMIC
+CF-RAY:
+9c7b02930b2bea86-CGK
+Connection:
+keep-alive
+Content-Encoding:
+gzip
+Content-Type:
+application/json;charset=utf-8;
+Date:
+Mon, 02 Feb 2026 16:19:25 GMT
+Server:
+cloudflare
+Server-Timing:
+cfCacheStatus;desc="DYNAMIC"
+Server-Timing:
+cfEdge;dur=239,cfOrigin;dur=13
+Transfer-Encoding:
+chunked
+Vary:
+Accept-Encoding
+
+response body:
+{
+  "status_code": 1,
+  "msg": "成功",
+  "data": {
+    "playlet_id": "3212",
+    "chapter_id": "226815",
+    "title": "Rahasia di Balik Api",
+    "cover": "https:\/\/zshipubcdn.farsunpteltd.com\/playlet\/1758794180_JZy8P8phEZ.jpg",
+    "process_cover": "https:\/\/zshipubcdn.farsunpteltd.com\/playlet\/1758794180_JZy8P8phEZ.jpg?x-oss-process=image\/resize,m_fill,w_180,h_234|image\/sharpen,150",
+    "current_chapter_num": 81
+  },
+  "extra": {},
+  "request_id": "b6210fd74b40d2e79d8ecfaedf5f3ed1",
+  "trace_id": "51b5b6d95cb098fddc028a8d4020cffb"
+}
+
+
+=============================================================
+request:
+Method: POST
+URL
+https://api.farsunpteltd.com/app/activity/list
+Headers
+Accept-Encoding:
+gzip
+Cache-Control:
+no-cache
+Connection:
+Keep-Alive
+Content-Length:
+361
+Content-Type:
+application/json; charset=UTF-8
+Host:
+api.farsunpteltd.com
+Nonce:
+PhBtDHUn2ZUmuBOzA0bP5qkkwUMgt5hQ
+Sign:
+aa6da15c609e17e358fdf0f573beb54eca4ad3b0e0519e081a21fd8c5912090d
+Timestamp:
+1770049164
+Token:
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJfIiwiYXVkIjoiXyIsImlhdCI6MTc2OTYyMTU4OCwiZGF0YSI6eyJtZW1iZXJfaWQiOjQ3Mzc5NTE5LCJwYWNrYWdlX2lkIjoiMiIsIm1haW5fcGFja2FnZV9pZCI6MTAwfX0.2a4S7aMATK5f8yWU2QH1rIMMdwoshSyts89CL_i9AQU
+User-Agent:
+MyUserAgent
+Version:
+2.2.3.0
+
+request body:
+{
+  "main_package_id": 100,
+  "googleAdId": "783978b6-0d30-438d-a58d-faf171eed978",
+  "device_id": "0d209b4d4009b44c",
+  "device_sign": "cf03771e04c0ea8f854e289617b9bacc8c33b1d31fceedd26ed8ac562a1d9210",
+  "apps_flyer_uid": "1769621528308-5741215934785896746",
+  "os": "android",
+  "device_brand": "samsung",
+  "device_number": "9",
+  "device_model": "SM-X710N",
+  "language_id": "6",
+  "countryCode": ""
+}
+
+
+response:
+Status: 200 OK
+Headers
+Access-Control-Allow-Headers:
+*
+Access-Control-Allow-Methods:
+GET,POST,OPTIONS
+Access-Control-Allow-Origin:
+*
+alt-svc:
+h3=":443"; ma=86400
+cf-cache-status:
+DYNAMIC
+CF-RAY:
+9c7b028ddc44e78f-CGK
+Connection:
+keep-alive
+Content-Encoding:
+gzip
+Content-Type:
+application/json;charset=utf-8;
+Date:
+Mon, 02 Feb 2026 16:19:24 GMT
+Server:
+cloudflare
+Server-Timing:
+cfCacheStatus;desc="DYNAMIC"
+Server-Timing:
+cfEdge;dur=242,cfOrigin;dur=21
+Transfer-Encoding:
+chunked
+Vary:
+Accept-Encoding
+
+
+response body:
+{
+  "status_code": 1,
+  "msg": "成功",
+  "data": {
+    "has_third": false,
+    "member_level": [],
+    "positions": [
+      {
+        "has_third": false,
+        "position": 3,
+        "activity_list": [],
+        "member_level": []
+      },
+      {
+        "has_third": false,
+        "position": 4,
+        "activity_list": [],
+        "member_level": []
+      },
+      {
+        "has_third": false,
+        "position": 5,
+        "activity_list": [],
+        "member_level": []
+      }
+    ]
+  },
+  "extra": {},
+  "request_id": "010f2495b59dbb61540a2344bc5fe94b",
+  "trace_id": "f30a8d105f29a1a2f2d99389ec0965ac"
+}
+
+========================================
+
+
+Method: POST
+URL
+https://api.farsunpteltd.com/app/playlet/chapterList
+Protocol:
+https
+Host:
+api.farsunpteltd.com
+Path:
+/app/playlet/chapterList
+Headers
+Accept-Encoding:
+gzip
+Cache-Control:
+no-cache
+Connection:
+Keep-Alive
+Content-Length:
+547
+Content-Type:
+application/json; charset=UTF-8
+Host:
+api.farsunpteltd.com
+Nonce:
+XdsMHuAKLyTBTeAsqo4rXdLNSut7K8dT
+Sign:
+e4294cb3a0ffa96a977e36ff596b581b7e333ef747ad1c8b0a4c002a14a491db
+Timestamp:
+1770049966
+Token:
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJfIiwiYXVkIjoiXyIsImlhdCI6MTc2OTYyMTU4OCwiZGF0YSI6eyJtZW1iZXJfaWQiOjQ3Mzc5NTE5LCJwYWNrYWdlX2lkIjoiMiIsIm1haW5fcGFja2FnZV9pZCI6MTAwfX0.2a4S7aMATK5f8yWU2QH1rIMMdwoshSyts89CL_i9AQU
+User-Agent:
+MyUserAgent
+Version:
+2.2.3.0
+
+
+
+{
+  "auto_unlock": false,
+  "chapter_type": -1,
+  "fragmentPosition": 0,
+  "playlet_id": "457",
+  "show_type": 0,
+  "source": 1,
+  "vip_btn_scene": "{\"scene_type\":[1,3],\"play_type\":1,\"collection_status\":0}",
+  "main_package_id": 100,
+  "googleAdId": "783978b6-0d30-438d-a58d-faf171eed978",
+  "device_id": "0d209b4d4009b44c",
+  "device_sign": "2add7b0af8f39644864c516db292f0d73a55ffb9eb5f20381511dff12c62a920",
+  "apps_flyer_uid": "1769621528308-5741215934785896746",
+  "os": "android",
+  "device_brand": "samsung",
+  "device_number": "9",
+  "device_model": "SM-X710N",
+  "language_id": "6",
+  "countryCode": "ID"
+}
+
+
+Status: 200 OK
+Headers
+Access-Control-Allow-Headers:
+*
+Access-Control-Allow-Methods:
+GET,POST,OPTIONS
+Access-Control-Allow-Origin:
+*
+alt-svc:
+h3=":443"; ma=86400
+cf-cache-status:
+DYNAMIC
+CF-RAY:
+9c7b161f0d69960c-CGK
+Connection:
+keep-alive
+Content-Encoding:
+gzip
+Content-Type:
+application/json;charset=utf-8;
+Date:
+Mon, 02 Feb 2026 16:32:46 GMT
+Server:
+cloudflare
+Server-Timing:
+cfCacheStatus;desc="DYNAMIC"
+Server-Timing:
+cfEdge;dur=248,cfOrigin;dur=63
+Transfer-Encoding:
+chunked
+Vary:
+Accept-Encoding
+
+
+{
+  "status_code": 1,
+  "msg": "成功",
+  "data": {
+    "playlet_id": "457",
+    "title": "Adik lpar Memanjakanku",
+    "cover": "https://zshipubcdn.farsunpteltd.com/playlet/1738913269_RW4cbCQ7ZH.png",
+    "process_cover": "https://zshipubcdn.farsunpteltd.com/playlet/1738913269_RW4cbCQ7ZH.png?x-oss-process=image/resize,m_fill,w_180,h_234|image/sharpen,150",
+    "status": 1,
+    "list": [
+      {
+        "chapter_id": "35592",
+        "chapter_title": "Adik lpar Memanjakanku-EP.1",
+        "chapter_num": 1,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/8c767dcdee5a2792091e1399a5175390.jpg?verify=1770136366-P2%2FaUZCuOI3XKWapboekzA4YpzVe9kDe6eerPiqsiz8%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907382_1_76474.m3u8?verify=1770053566-89ie%2FvurlWUhEBLEB2suFdnqClXdnBT0Fm7sCygJu3c%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 146,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 0,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422085_35592_1_91390.mp4",
+        "down_file_size": 12150536,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35593",
+        "chapter_title": "Adik lpar Memanjakanku-EP.2",
+        "chapter_num": 2,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/84932ed2d0446a48e3093ecce2e924ed.jpg?verify=1770136366-%2FJpKvuQMHEGQuhyODCWgpEmsck4hsudauQJMFhJQOKo%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907383_2_87178.m3u8?verify=1770053566-5iIA3OlDc%2FPcS008tkSJLMuks%2B9xBZPhotsTQ3Tzs7s%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 138,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 0,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422085_35593_2_91707.mp4",
+        "down_file_size": 14110285,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35594",
+        "chapter_title": "Adik lpar Memanjakanku-EP.3",
+        "chapter_num": 3,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/46a0de1ab3438c607c2494550711f3a1.jpg?verify=1770136366-oi131OvBaVL82rj6YL84X3QJ16CPGA4Fj06OEsHZUm0%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907385_3_87165.m3u8?verify=1770053566-mUVekZVp%2BK8eYxHWetqrotE7NdRdP%2BTW930UtFdU2GQ%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 140,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 0,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422086_35594_3_56038.mp4",
+        "down_file_size": 14203536,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35595",
+        "chapter_title": "Adik lpar Memanjakanku-EP.4",
+        "chapter_num": 4,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/43c2e73ec480b30897887d9fd2c22658.jpg?verify=1770136366-oEBLbDVc%2BQ1eAolnSBI91DoZs%2FRjxfPSmJTO0o3MYRc%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907386_4_99246.m3u8?verify=1770053566-lc0Q85gK1giru%2FjCG9wXNHksxYdTlPHzfqNmRDOBp%2BE%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 106,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 0,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422087_35595_4_49781.mp4",
+        "down_file_size": 8875296,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35596",
+        "chapter_title": "Adik lpar Memanjakanku-EP.5",
+        "chapter_num": 5,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/7a56381afe5631e6ffa21457b343752d.jpg?verify=1770136366-MIWiUtJpMGpzsl598%2FPgowAtbSVT7Tq4I96gx%2FWvIjQ%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907388_5_10920.m3u8?verify=1770053566-UeakFK53%2BCxI5PuXFNgLIyiYK8y7%2BcK0EaONreh5nns%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 96,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 0,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422088_35596_5_14891.mp4",
+        "down_file_size": 10015999,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35597",
+        "chapter_title": "Adik lpar Memanjakanku-EP.6",
+        "chapter_num": 6,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/325ff0d974412e536fb2fcb12b219a1e.jpg?verify=1770136366-Ws9tFlB00daU1WURF2mtkbsHi2y11qKiFHtoVwz2iLQ%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907389_6_25346.m3u8?verify=1770053566-0fetzX0wT9YZcJwHtCPyBKRfsOzKDfzxzLWUy%2BmtXgk%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 82,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 0,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422088_35597_6_63586.mp4",
+        "down_file_size": 7528175,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35598",
+        "chapter_title": "Adik lpar Memanjakanku-EP.7",
+        "chapter_num": 7,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/65a9ffce6d7d655827d5d297ae56170f.jpg?verify=1770136366-ecMJ1Ktr0M7OFJX41KJ%2B3PrDBpgesGC9psEBBJm5Bis%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907390_7_55627.m3u8?verify=1770053566-FghH00wkWAemvJoh42Km%2B9zyqSTmsNCXZm8GZDHOMT8%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 86,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 0,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422089_35598_7_18826.mp4",
+        "down_file_size": 6153561,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35599",
+        "chapter_title": "Adik lpar Memanjakanku-EP.8",
+        "chapter_num": 8,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/e8b86402b933b3cc5a6eb4bd30e73248.jpg?verify=1770136366-6BvjIFGpCHOtRtcT%2F%2Blhx%2F%2BFneyvHPT%2BLkWwSWF3WQo%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907392_8_49204.m3u8?verify=1770053566-%2FX%2BsUhIZbcvpzNCC2TbzulP9OdcIJ%2Ff1yW85r2%2FHiaQ%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 61,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 0,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422090_35599_8_54950.mp4",
+        "down_file_size": 4767455,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35600",
+        "chapter_title": "Adik lpar Memanjakanku-EP.9",
+        "chapter_num": 9,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/694fcc5d8d942bf92c363aa5d7b4a01b.jpg?verify=1770136366-LB0sTx4gFd4W%2FblPiJG61wARc1v5zj%2F%2BORZR388Q3g8%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907393_9_17179.m3u8?verify=1770053566-nd7M3c5gGztq3quP9kvqG%2Fuw091SwzyzmKlFib6fqoE%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 107,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 0,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422090_35600_9_74374.mp4",
+        "down_file_size": 12344179,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35601",
+        "chapter_title": "Adik lpar Memanjakanku-EP.10",
+        "chapter_num": 10,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/4209ee95a3874dc85c59ceb82e69361b.jpg?verify=1770136366-67BevQhbDzvl1LVk23omh5U4PJSkLRxF534nr8VF4sg%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907395_10_19397.m3u8?verify=1770053566-qvHXD6VwZOk2v7Bniheal135a4SMMa9TMxwpLHXl7Uo%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 81,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 0,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422091_35601_10_16872.mp4",
+        "down_file_size": 8110361,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35602",
+        "chapter_title": "Adik lpar Memanjakanku-EP.11",
+        "chapter_num": 11,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/a486cd994106ee0b89c10340e82ed3d7.jpg?verify=1770136366-Y1BSfRZ0yIAIYxn9eLn%2FDP%2BMdHZ9XO%2Bb%2FCNSHYH1w8I%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907396_11_91212.m3u8?verify=1770053566-Y6tpFMI7n6O%2F98J32OrYC3vfMxWxKRtlcCvoV9S7uyg%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 116,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 0,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422092_35602_11_95740.mp4",
+        "down_file_size": 12940229,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35603",
+        "chapter_title": "Adik lpar Memanjakanku-EP.12",
+        "chapter_num": 12,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/440579d7e64a4d798592175444ed5bb4.jpg?verify=1770136366-hC8%2B%2FKQRGlK5Eyk%2BiPID1xi%2BojzOKv3%2F4UhSqnMi88U%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907398_12_78072.m3u8?verify=1770053566-31AxlwQuFGSTEYDJoQvMkyeUorqN2%2FzhS6vjvlbhXcc%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 53,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 0,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422093_35603_12_70781.mp4",
+        "down_file_size": 6100448,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35604",
+        "chapter_title": "Adik lpar Memanjakanku-EP.13",
+        "chapter_num": 13,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/e067f09a11278170c78835f3926c6ef3.jpg?verify=1770136366-dqSOgOEzcWPq%2B79HxP5qcw0wnBN%2BniaoKHu9veel66E%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907399_13_65962.m3u8?verify=1770053566-ShG2fZYI6pEVCVUWjRokiGx6lVirvI%2BF0yrcEfr61lo%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 103,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422093_35604_13_74905.mp4",
+        "down_file_size": 9433990,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35605",
+        "chapter_title": "Adik lpar Memanjakanku-EP.14",
+        "chapter_num": 14,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/4952430906fb2523a91026ce15f6aa10.jpg?verify=1770136366-%2FV2xP22NCAEj4mIKkj4Nj5e3isrV71Jf24rBVE2UmzE%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907400_14_19822.m3u8?verify=1770053566-U9MUGpNVgNfkVJcdLTtDniBwD4LflmAhBOVeYtCDlNQ%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 70,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422094_35605_14_93628.mp4",
+        "down_file_size": 5997932,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35606",
+        "chapter_title": "Adik lpar Memanjakanku-EP.15",
+        "chapter_num": 15,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/a816a5486f050b58249122c9c1b1522d.jpg?verify=1770136366-d69I%2FXUPWdfv3%2BUiY17aiIL23d%2F6TFKKSVXC0%2BjKLUU%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907402_15_51588.m3u8?verify=1770053566-HtT21Cnu74RWDeTcdYOr3vfQG35Ot3v5AM2Abx45tXM%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 77,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422095_35606_15_77961.mp4",
+        "down_file_size": 6564775,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35607",
+        "chapter_title": "Adik lpar Memanjakanku-EP.16",
+        "chapter_num": 16,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/4c90ff7a9771eed3873d2d9d1ec3482e.jpg?verify=1770136366-qc%2BC3ea6xeQDmQGTnxdchbYvtE8WnUVhsW9HOzZKg3g%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907403_16_26773.m3u8?verify=1770053566-25aS03I%2BZ5dVf%2BzedBnMfkxn9dkasc2zQnpV0B2KqFg%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 84,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422096_35607_16_68840.mp4",
+        "down_file_size": 6543982,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35608",
+        "chapter_title": "Adik lpar Memanjakanku-EP.17",
+        "chapter_num": 17,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/184f528e924cb6ca8d055f169d853171.jpg?verify=1770136366-yIvAZ%2FY2zVTq6%2FuaYJjctQqiCPkP0tD%2FuoGTdc55%2Brc%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907405_17_48574.m3u8?verify=1770053566-irCGZasbkW%2Fo%2Fb62qpI7CdT2aNPLis%2BC8yAHuDZmVog%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 110,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422096_35608_17_78431.mp4",
+        "down_file_size": 9235564,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35609",
+        "chapter_title": "Adik lpar Memanjakanku-EP.18",
+        "chapter_num": 18,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/31c7e512833a5695b4a39bb4804d434c.jpg?verify=1770136366-T19FjaVTTg0LIpcqV5A6jVuob9THVDGDnBvpRZUU7NA%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907406_18_48798.m3u8?verify=1770053566-ZWsN4EJmn1OpdaV%2FsRttsSPfumPsl%2B4twndUzX0EOZk%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 90,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422097_35609_18_69033.mp4",
+        "down_file_size": 7186464,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35610",
+        "chapter_title": "Adik lpar Memanjakanku-EP.19",
+        "chapter_num": 19,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/80f07f1b1b43bd2f0c8d2d1527786f55.jpg?verify=1770136366-qug5E9trF7qHGxnK1Dxxc6cTkzxJSTREBPut9e%2BhHc4%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907407_19_94167.m3u8?verify=1770053566-cvPqwfAnWLnIeJyjvbiPJWy3bLcifaXZRud0Xszuats%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 74,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422098_35610_19_40800.mp4",
+        "down_file_size": 5915701,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35611",
+        "chapter_title": "Adik lpar Memanjakanku-EP.20",
+        "chapter_num": 20,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/474e9009d7fcc9470c6a4ff4406c29b9.jpg?verify=1770136366-WHAcxNo8j4D32y31yd58gUwIQToJ5Yd7mqEJWDoA0uE%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907409_20_35086.m3u8?verify=1770053566-lOcK8BELwAnR487tFnay1loP7jK2oSTvdqSxAhW%2F5K0%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 109,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422098_35611_20_29082.mp4",
+        "down_file_size": 8588239,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35612",
+        "chapter_title": "Adik lpar Memanjakanku-EP.21",
+        "chapter_num": 21,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/e31fd21df912ac26b1d94418c0b971b3.jpg?verify=1770136366-Yk0QXRpruqKCvMB%2BRw7jwDRryHu9THAlf6WM7UwsG1U%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907481_21_22094.m3u8?verify=1770053566-aqb7TOUBbRXqRnaw26wiw%2BYk2%2B8XIjIKgIljy5k4cyY%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 76,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422099_35612_21_48986.mp4",
+        "down_file_size": 6161077,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35613",
+        "chapter_title": "Adik lpar Memanjakanku-EP.22",
+        "chapter_num": 22,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/c8ae53d565db9eca34aa3d0d3e3d77cd.jpg?verify=1770136366-PsbxKL2utp8kb9TsDP4Ft7TXT5XJtAQSweEV3MwpjwA%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907482_22_30106.m3u8?verify=1770053566-PSvfQY36EF02U6e9jz1MrnaMo1c9ifCzYj4zpqPwYCw%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 129,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422100_35613_22_12672.mp4",
+        "down_file_size": 10258485,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35614",
+        "chapter_title": "Adik lpar Memanjakanku-EP.23",
+        "chapter_num": 23,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/5af26732908bcd8659ca16afd65da27f.jpg?verify=1770136366-nDe7v5X0C7QC%2FhO9asGi4jdTBSXNXjeaaIxQC4cd9%2FI%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907484_23_29422.m3u8?verify=1770053566-rqgsK8bMUC8AZMehWPuJgafYl0eZx3FilZoZTcYqgRM%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 85,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422100_35614_23_46043.mp4",
+        "down_file_size": 6246440,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35615",
+        "chapter_title": "Adik lpar Memanjakanku-EP.24",
+        "chapter_num": 24,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/30d100073a7f3306f576422a891bb9f1.jpg?verify=1770136366-m2oaDyCcGWsDdoGOnyzt8RhJJfnseAmehMSMYWuELUE%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907485_24_26282.m3u8?verify=1770053566-pM9B%2FFJ1vdErtMke%2B1C3ZlEamT0ZUxGLDjIdZmttyH8%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 65,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422101_35615_24_27824.mp4",
+        "down_file_size": 4571145,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35616",
+        "chapter_title": "Adik lpar Memanjakanku-EP.25",
+        "chapter_num": 25,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/ecfd61aa2c6f28e0a387d27a4bf31860.jpg?verify=1770136366-FkDgxs6gjK3%2Brj1MiIHPZHQ9NF1VGEeAnOV4d43r8NU%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907487_25_90685.m3u8?verify=1770053566-UhMly8rmZKsCWxKHqeeqAtvw8gspYHaFGK4gT93iQIo%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 86,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422102_35616_25_28856.mp4",
+        "down_file_size": 5640853,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35617",
+        "chapter_title": "Adik lpar Memanjakanku-EP.26",
+        "chapter_num": 26,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/fae19bd44e28fccbe2acaa187c5cd9cf.jpg?verify=1770136366-Vb32RlRpY9DEndTxcUNaXIDB4EDIrLS%2F8rpwRWC4nJE%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907488_26_70258.m3u8?verify=1770053566-91sVWCGJgwvNCPljzKv0xTJFqgDc%2B3jYkxVGacuRRVE%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 118,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422103_35617_26_74585.mp4",
+        "down_file_size": 12412385,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35618",
+        "chapter_title": "Adik lpar Memanjakanku-EP.27",
+        "chapter_num": 27,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/33c44fc102bb7f976c18dd9666d6f203.jpg?verify=1770136366-dxupM0FiwlTFhjG%2BZOcZlTqtoKqWpeGcAiB71i5SlcM%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907490_27_88825.m3u8?verify=1770053566-2UHIMXuGM1%2BcSgC7DJ5OCdihnEJqREWgzFeM6DMd65Y%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 80,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422103_35618_27_24494.mp4",
+        "down_file_size": 6908120,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35619",
+        "chapter_title": "Adik lpar Memanjakanku-EP.28",
+        "chapter_num": 28,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/ce0b5d4c4feb13f23d13c9dcd492034c.jpg?verify=1770136366-x3O0QPUUHoFexx4wNR%2Fbk%2BFl9dcQ77jPzuXLP8mP8ko%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907491_28_46136.m3u8?verify=1770053566-YcJnn05%2BrP1%2Fd3lLHR8YNp2aCjgDcrOnISOYDnADwyo%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 100,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422104_35619_28_23545.mp4",
+        "down_file_size": 8754844,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35620",
+        "chapter_title": "Adik lpar Memanjakanku-EP.29",
+        "chapter_num": 29,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/6e1293b2d0b97aa57dfdc96af0b0c43e.jpg?verify=1770136366-34sci1FMnR2lwI%2Bj7g5GPI220BuJaDYFPI6oXqDHfVI%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907493_29_64256.m3u8?verify=1770053566-L0JcoIwH6S9vkpcefjzt%2BA2ia977I9OLEMlM45UrxTM%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 68,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422105_35620_29_76370.mp4",
+        "down_file_size": 6296632,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35621",
+        "chapter_title": "Adik lpar Memanjakanku-EP.30",
+        "chapter_num": 30,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/045d110984466b5fa22f1a3a6e6306ad.jpg?verify=1770136366-nE6s9eFcqje%2FZaSOv7vOCPnuAA4blZJQy4hVYPhEBy8%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907494_30_57706.m3u8?verify=1770053566-59jmys%2FErZ6mD6z82jQrBgiO5hCzpwe4ALl1SBv5WhA%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 62,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422105_35621_30_55755.mp4",
+        "down_file_size": 5327750,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35622",
+        "chapter_title": "Adik lpar Memanjakanku-EP.31",
+        "chapter_num": 31,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/5f59f27e50de299b1a43e739a896bd3d.jpg?verify=1770136366-LF3jDOFQwsxRy6GwwGsnPPdEFDWTGqPR9QZ3HNEOZNE%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907496_31_40115.m3u8?verify=1770053566-90%2F1EEcrB%2BEy2gqOuebBC%2FjuvRZww2Z2rYqviQ2BdLU%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 88,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422106_35622_31_16132.mp4",
+        "down_file_size": 6386746,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35623",
+        "chapter_title": "Adik lpar Memanjakanku-EP.32",
+        "chapter_num": 32,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/0e0f44ebeddca0ea201ce0e205a98986.jpg?verify=1770136366-GVISNWIbhL3ZS60M1UcD4TeGCM0qWCOKACOHIusUem0%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907497_32_70305.m3u8?verify=1770053566-k0wjwnTDn072zYK3YZzwIscZh2sA59GXrwdUgxf4FH0%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 50,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422107_35623_32_50801.mp4",
+        "down_file_size": 3393136,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35624",
+        "chapter_title": "Adik lpar Memanjakanku-EP.33",
+        "chapter_num": 33,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/25493e5c2adc532a9a300e7e771f1f1c.jpg?verify=1770136366-P48xCHuhKHX6aCE0LBtO%2Bt6O2OdnB45nNN%2FWnktP9zo%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907498_33_43518.m3u8?verify=1770053566-Zo1urg8RkMR3qIkGrKrg8YGod3LkaMdAd%2B3fktgd7ME%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 107,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422108_35624_33_64898.mp4",
+        "down_file_size": 8404166,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35625",
+        "chapter_title": "Adik lpar Memanjakanku-EP.34",
+        "chapter_num": 34,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/7e1a85311cb0ac208334beda216016b8.jpg?verify=1770136366-%2Bzw6vwo3oDaS2raOXyqcZNw3vo61ie8IoxXbRnlqAqk%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907500_34_89309.m3u8?verify=1770053566-cKsC8%2B4rRUkNRwqGaieKaceAbWXkOsUuQE%2BBrZ9QfFA%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 79,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422108_35625_34_73708.mp4",
+        "down_file_size": 7097786,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35626",
+        "chapter_title": "Adik lpar Memanjakanku-EP.35",
+        "chapter_num": 35,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/b20cd6dca59004ca6e5bc384e1a3ac11.jpg?verify=1770136366-IHChM2QHCoopMyEINOWgFXIgCl5hbTZM2dgmMTh5ahk%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907501_35_14059.m3u8?verify=1770053566-Fwk3tAgiGduLcp08%2BAn8CU7fC47ROCTgj%2FU6%2F42DCQM%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 105,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422109_35626_35_92362.mp4",
+        "down_file_size": 7926428,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35627",
+        "chapter_title": "Adik lpar Memanjakanku-EP.36",
+        "chapter_num": 36,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/10f17a1b2621212c3939aed45ebc99e1.jpg?verify=1770136366-zTEMC%2BlDRLGLSurZQnZ74p6m07f5RZvGh5Ua11nw8hk%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907503_36_40969.m3u8?verify=1770053566-N1iao7LC2%2FK9yIUXNCsAxuThxDg2XH7Ly05TSvT%2F158%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 72,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422110_35627_36_92139.mp4",
+        "down_file_size": 6249954,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35628",
+        "chapter_title": "Adik lpar Memanjakanku-EP.37",
+        "chapter_num": 37,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/daa6b8bb277822a2b62114a35111788c.jpg?verify=1770136366-TV9i%2BHulcJacMDiWtQFYE5ec%2BwcPX9kkr6XRpf4MrnY%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907504_37_95561.m3u8?verify=1770053566-ZLW0Ao6c%2BtU1f2e4uq4JlrcAMN1JN5JwOYcHE%2FIucwQ%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 60,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422111_35628_37_89528.mp4",
+        "down_file_size": 4116754,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35629",
+        "chapter_title": "Adik lpar Memanjakanku-EP.38",
+        "chapter_num": 38,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/c6f15284dd631e93d0653ffb5d5fe005.jpg?verify=1770136366-yW2KRFWuT%2FhpyGrdWnYpcsvLb6MwFHIoq8gRFP0zYq4%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907506_38_78841.m3u8?verify=1770053566-%2BC219lHSNDVk6sc2U7M8ieY6EUhxGv3nNM24F03nt%2BI%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 60,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422111_35629_38_87620.mp4",
+        "down_file_size": 10130177,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35630",
+        "chapter_title": "Adik lpar Memanjakanku-EP.39",
+        "chapter_num": 39,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/c50ef88f4e873b3b90031bbcdd4c022b.jpg?verify=1770136366-sqAguKZ%2BpCz3UuGeJZUucZlmvlZWa0RVdK32nYG7GVs%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907507_39_24850.m3u8?verify=1770053566-4rwutS644rui8KD78GTupIhoRqz4VgotLnCtrvHu6hE%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 66,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422112_35630_39_41819.mp4",
+        "down_file_size": 5295547,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35631",
+        "chapter_title": "Adik lpar Memanjakanku-EP.40",
+        "chapter_num": 40,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/d181ffef4c0f88717436ff4fab0311d5.jpg?verify=1770136366-xgN5QgGq2nKCmo%2BViN%2BCumfsNeokwky%2BQEwN0llN4iI%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907509_40_79037.m3u8?verify=1770053566-OElf16EVrD8RWHuJzfDpKcPntrNLVkHKX3atmHf%2B9JA%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 65,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422113_35631_40_62516.mp4",
+        "down_file_size": 5384988,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35632",
+        "chapter_title": "Adik lpar Memanjakanku-EP.41",
+        "chapter_num": 41,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/dadd37c6340edb1c86b4c0fbbb6d8358.jpg?verify=1770136366-IfyipYsbhHNDv5UGWrEmdc0%2Fjk2oOtafeob8LydRelE%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907510_41_72023.m3u8?verify=1770053566-mJc%2FztfnKTATcK8nGUC%2BQ9hbYs%2B5mf%2BfomlXIXUq6vQ%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 76,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422114_35632_41_66090.mp4",
+        "down_file_size": 6681968,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35633",
+        "chapter_title": "Adik lpar Memanjakanku-EP.42",
+        "chapter_num": 42,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/d399a32ec9826b1ad72071d65cdc457d.jpg?verify=1770136366-gcvawjfzl7sZVXgUeK8wuuuCPHSke77PktbQ9XX8Jd0%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907512_42_30896.m3u8?verify=1770053566-Xit%2BJdEKUTh%2BIzlFaNVijbnQLVJWm9IZBwCyplBGIQY%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 80,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422114_35633_42_77378.mp4",
+        "down_file_size": 7389817,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35634",
+        "chapter_title": "Adik lpar Memanjakanku-EP.43",
+        "chapter_num": 43,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/f58936758567de110726dc3e85c623c4.jpg?verify=1770136366-REScqBKXWN8VkKiricj70HoiqRa%2Bt1F5HBiNVJecLMM%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907513_43_46245.m3u8?verify=1770053566-XVFO28m24M5j0k%2Bcxh4Bt6gvwWuWzZERwW1v9NdsN%2BE%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 78,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422115_35634_43_81165.mp4",
+        "down_file_size": 6394621,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35635",
+        "chapter_title": "Adik lpar Memanjakanku-EP.44",
+        "chapter_num": 44,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/42405a8acb0472e2fe7c80fe87958003.jpg?verify=1770136366-udRexJ5ks2uilO%2FUlVOo90bRicHBE16%2FZfXzF5rSzoc%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907515_44_48999.m3u8?verify=1770053566-fwZV99eEaPkmp8JqKTJ%2F4X6tJggzmudg%2B3hLU88WWGU%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 106,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422116_35635_44_39048.mp4",
+        "down_file_size": 8936692,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35636",
+        "chapter_title": "Adik lpar Memanjakanku-EP.45",
+        "chapter_num": 45,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/a7d7aeac7cabaed3407f10043ed7d534.jpg?verify=1770136366-SSVHG342pXxAHwjXmcFgSuubv7%2BHgM7WUz5JCrcmKLU%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907516_45_89786.m3u8?verify=1770053566-0KziTJC7oLHx0MiYyqoaY%2B55qP4aBWzxeLKXKzKIAJ0%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 93,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422117_35636_45_75038.mp4",
+        "down_file_size": 7628585,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35637",
+        "chapter_title": "Adik lpar Memanjakanku-EP.46",
+        "chapter_num": 46,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/7a4321644de0a3e4a30dd70de8ccc1ee.jpg?verify=1770136366-6QuPlGYPfs%2BsL1h6hJvQgUah%2Bakv5VZ3uwBgx935peU%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907518_46_50252.m3u8?verify=1770053566-hDa%2Fnw7Dc6BAEc6f%2FrXhhYGH%2B1HUZ9FPjAylJJ8R%2B8w%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 91,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422117_35637_46_34655.mp4",
+        "down_file_size": 9814953,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35638",
+        "chapter_title": "Adik lpar Memanjakanku-EP.47",
+        "chapter_num": 47,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/22e8e9e7b63c8e68122d02707ff9cc09.jpg?verify=1770136366-eX47BLfqTn1s0WX%2Bkb75Jp2X7iZt2aelRoFOxpguA2w%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907519_47_39233.m3u8?verify=1770053566-3Ocr2CvfQil3LsCoEFyh0uUR4qJ9L%2BDYvB%2BS5hkNhXs%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 88,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422118_35638_47_63137.mp4",
+        "down_file_size": 8432020,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35639",
+        "chapter_title": "Adik lpar Memanjakanku-EP.48",
+        "chapter_num": 48,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/c1fbef0fde3f3e13bbe569e7ac4a6246.jpg?verify=1770136366-siRqOIK5OzpO6sevlFrbIx5fjJm7Utk2uvt8p%2BeYo8g%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907521_48_29829.m3u8?verify=1770053566-ivYFnylMyaIWAIygTs07XQc5wCyreJYo1n%2FAJL5qg2o%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 86,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422119_35639_48_22269.mp4",
+        "down_file_size": 7423679,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35640",
+        "chapter_title": "Adik lpar Memanjakanku-EP.49",
+        "chapter_num": 49,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/a4e6233f9b73ce699d11b177a1e4933d.jpg?verify=1770136366-jLmeBxfKHfXN%2FuZK6ApkrUEXD2qQWoy06IQgwWcw%2Fqk%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907522_49_26316.m3u8?verify=1770053566-Sh2VyDBxp1bkesXYry8pCxMP%2BVd32xiaFNVdWZCh35M%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 90,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422119_35640_49_94894.mp4",
+        "down_file_size": 7764155,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35641",
+        "chapter_title": "Adik lpar Memanjakanku-EP.50",
+        "chapter_num": 50,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/82f0db9af56858fbeb4655d1110e4eec.jpg?verify=1770136366-S4DS46E6eYBL2xoVLJbvkYktkqPJqwzla7eu%2BregsRk%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907523_50_17978.m3u8?verify=1770053566-GwrhJfIo6B4NTLhU66JMXiKhiv%2BegHDuoKePP5ZvcRE%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 78,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422120_35641_50_81794.mp4",
+        "down_file_size": 8057707,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35642",
+        "chapter_title": "Adik lpar Memanjakanku-EP.51",
+        "chapter_num": 51,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/b80deb91058c74e070072dfd84393db3.jpg?verify=1770136366-lIleGcgCpG%2BGTS5HHyjwGA1i1gSxKh7dmewnIrigzyc%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907525_51_78685.m3u8?verify=1770053566-ZhjeZwGsKmVAbGbJr7Qmz2%2BwIHsLXy7RX8rMxC61yeE%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 106,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422121_35642_51_10472.mp4",
+        "down_file_size": 11673936,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      },
+      {
+        "chapter_id": "35643",
+        "chapter_title": "Adik lpar Memanjakanku-EP.52",
+        "chapter_num": 52,
+        "chapter_cover": "https://zshipricf.farsunpteltd.com/playlet-hls-cover/5948afb1831373f47830555d7286d1ea.jpg?verify=1770136366-45OLJhnwK2gVvBwPM1SnkCgh9Hms%2FK7jNj7RZNKlw%2BE%3D",
+        "is_lock": 0,
+        "hls_url": "https://zshipricf.farsunpteltd.com/playlet-hls/hls_1738907526_52_72456.m3u8?verify=1770053566-g12RBxAFcr1Kh%2FtGDeU%2FLpJr9R8lobQfGbC7KR1i9q0%3D",
+        "is_need_pay": 0,
+        "is_pay_chapter": 2,
+        "show_unlock_popup": 0,
+        "share_text": "https://pages.farsunpteltd.com?playlet_id=457&package_id=2",
+        "hls_timeout": 1770052366,
+        "hls_time_left": 2400,
+        "duration": 78,
+        "is_own": 0,
+        "e_play_type": "",
+        "is_vip_episode": 1,
+        "origin_down_url": "/playlet-hls-ims/hls_ims_1750422122_35643_52_29307.mp4",
+        "down_file_size": 7807962,
+        "e_is_attribution_reel": false,
+        "e_is_pay_point": false,
+        "e_is_last_free_episode": false,
+        "e_is_vip_episode": true,
+        "e_VIP_level": "周卡"
+      }
+    ],
+    "is_collect": 0,
+    "start_pay_num": 0,
+    "auto_unlock": 1,
+    "finish_state": 2,
+    "current_chapter_id": "35592",
+    "has_collection": 0,
+    "collection_chapter": {},
+    "collect_num": "509.6K",
+    "chapter_type": 0,
+    "min_ratio": 1.8,
+    "max_ratio": 2
+  },
+  "extra": {},
+  "request_id": "e862613a460a1973c383e091a8e41d94",
+  "trace_id": "5ccbf29b7c2d0e3db524daeafdaf65c3"
+}

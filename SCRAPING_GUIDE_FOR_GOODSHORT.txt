@@ -1,0 +1,572 @@
+================================================================================
+         PANDUAN LENGKAP SCRAPING SHORT DRAMA APP (GoodShort/FlickReels)
+              Menggunakan LDPlayer9 + HTTP Toolkit
+              Untuk Antigravity AI Assistant
+================================================================================
+
+Dokumen ini berisi panduan lengkap untuk scraping aplikasi short drama
+menggunakan LDPlayer9 (Emulator Android) dan HTTP Toolkit (Traffic Interceptor).
+
+================================================================================
+                            BAGIAN 1: TOOLS YANG DIBUTUHKAN
+================================================================================
+
+1. LDPLAYER 9
+   - Download: https://www.ldplayer.net/
+   - Emulator Android ringan untuk Windows
+   - Versi: LDPlayer 9 (Android 9)
+
+2. HTTP TOOLKIT
+   - Download: https://httptoolkit.com/
+   - Tool untuk intercept HTTP/HTTPS traffic
+   - Gratis untuk basic features
+
+3. APK TARGET
+   - GoodShort APK (download dari APKPure/APKMirror)
+   - Atau aplikasi short drama lainnya
+
+4. TOOLS TAMBAHAN
+   - Python 3.9+ (untuk scripting)
+   - jadx-gui (opsional, untuk decompile APK)
+
+================================================================================
+                    BAGIAN 2: SETUP LDPLAYER 9
+================================================================================
+
+LANGKAH 1: INSTALL LDPLAYER 9
+------------------------------
+1. Download LDPlayer 9 dari https://www.ldplayer.net/
+2. Install dengan setting default
+3. Buka LDPlayer 9
+
+LANGKAH 2: KONFIGURASI LDPLAYER
+--------------------------------
+1. Klik ikon Settings (gear) di sidebar kanan
+2. Tab "Basic":
+   - Resolution: 720x1280 (Phone)
+   - CPU: 2 cores
+   - RAM: 2048 MB
+3. Tab "Network":
+   - Biarkan default (Bridge mode)
+4. Tab "Other":
+   - Enable Root permission: ON (penting untuk SSL bypass)
+5. Klik Save dan Restart emulator
+
+LANGKAH 3: INSTALL APK TARGET
+------------------------------
+1. Download APK GoodShort dari APKPure/APKMirror
+2. Drag & drop APK ke window LDPlayer
+3. Tunggu instalasi selesai
+4. JANGAN buka app dulu! Setup HTTP Toolkit terlebih dahulu
+
+================================================================================
+                    BAGIAN 3: SETUP HTTP TOOLKIT
+================================================================================
+
+LANGKAH 1: INSTALL HTTP TOOLKIT
+--------------------------------
+1. Download dari https://httptoolkit.com/
+2. Install dan buka HTTP Toolkit
+3. Akan muncul dashboard dengan berbagai opsi intercept
+
+LANGKAH 2: CONNECT KE LDPLAYER (adb)
+-------------------------------------
+1. Di HTTP Toolkit, klik "Android device via ADB"
+2. HTTP Toolkit akan otomatis detect LDPlayer
+3. Jika tidak detect, manual connect:
+   - Buka Command Prompt
+   - Ketik: adb connect 127.0.0.1:5555
+   - Atau cek port di LDPlayer Settings > Other > ADB debugging
+
+LANGKAH 3: INSTALL CERTIFICATE DI LDPLAYER
+-------------------------------------------
+1. HTTP Toolkit akan push certificate ke device
+2. Di LDPlayer, buka Settings > Security > Install from storage
+3. Install certificate HTTP Toolkit
+4. Atau otomatis via:
+   - HTTP Toolkit > Android via ADB > Trust certificate
+
+LANGKAH 4: AKTIFKAN INTERCEPT
+------------------------------
+1. Klik "Intercept" di HTTP Toolkit
+2. Status harus "Connected to [device]"
+3. Semua traffic dari LDPlayer akan muncul di HTTP Toolkit
+
+================================================================================
+                    BAGIAN 4: BYPASS SSL PINNING
+================================================================================
+
+Kebanyakan app menggunakan SSL Pinning. Untuk bypass:
+
+METODE 1: MENGGUNAKAN BUILT-IN HTTP TOOLKIT
+--------------------------------------------
+HTTP Toolkit versi Pro memiliki fitur automatic SSL bypass.
+Jika menggunakan versi free, gunakan metode manual.
+
+METODE 2: MENGGUNAKAN FRIDA (RECOMMENDED)
+------------------------------------------
+1. Download Frida server untuk Android:
+   https://github.com/frida/frida/releases
+   - Pilih: frida-server-xx.x.x-android-x86.xz (untuk LDPlayer)
+   
+2. Push ke LDPlayer:
+   ```
+   adb push frida-server-x86 /data/local/tmp/
+   adb shell chmod 755 /data/local/tmp/frida-server-x86
+   adb shell "/data/local/tmp/frida-server-x86 &"
+   ```
+
+3. Jalankan SSL bypass script:
+   ```
+   frida -U -f com.goodshort.app -l ssl_bypass.js
+   ```
+
+4. Contoh ssl_bypass.js:
+   ```javascript
+   Java.perform(function() {
+       var TrustManager = Java.use('javax.net.ssl.X509TrustManager');
+       var SSLContext = Java.use('javax.net.ssl.SSLContext');
+       
+       // Bypass TrustManager
+       var TrustManagerImpl = Java.registerClass({
+           name: 'com.custom.TrustManager',
+           implements: [TrustManager],
+           methods: {
+               checkClientTrusted: function(chain, authType) {},
+               checkServerTrusted: function(chain, authType) {},
+               getAcceptedIssuers: function() { return []; }
+           }
+       });
+       
+       // Replace SSLContext
+       var TrustManagers = [TrustManagerImpl.$new()];
+       var sslContext = SSLContext.getInstance("TLS");
+       sslContext.init(null, TrustManagers, null);
+   });
+   ```
+
+METODE 3: GUNAKAN MODDED APK
+-----------------------------
+1. Gunakan tool seperti "apk-mitm":
+   ```
+   npx apk-mitm target-app.apk
+   ```
+2. Install APK hasil patch ke LDPlayer
+3. APK sudah di-patch untuk trust user certificates
+
+================================================================================
+                    BAGIAN 5: CAPTURE API TRAFFIC
+================================================================================
+
+LANGKAH 1: BUKA APP DI LDPLAYER
+--------------------------------
+1. Pastikan HTTP Toolkit sudah connected
+2. Buka aplikasi GoodShort di LDPlayer
+3. Login jika diperlukan
+
+LANGKAH 2: BROWSE DRAMA
+------------------------
+1. Scroll halaman utama untuk load drama list
+2. Klik beberapa drama untuk lihat detail
+3. Play beberapa episode untuk capture HLS URLs
+4. Browse semua kategori/genre
+
+LANGKAH 3: ANALISA DI HTTP TOOLKIT
+-----------------------------------
+1. Filter request di HTTP Toolkit:
+   - Klik "Filter" dan ketik "api" atau domain API
+   
+2. Cari request penting:
+   - List drama: biasanya /api/drama/list atau /api/playlet/latest
+   - Detail drama: /api/drama/detail?id=xxx
+   - Episode: /api/chapter/detail atau /api/episode/play
+   - HLS streams: *.m3u8
+
+3. Untuk setiap request penting, catat:
+   - URL lengkap
+   - Headers (terutama Authorization, Token, Sign)
+   - Request body (jika POST)
+   - Response body (JSON dengan data drama)
+
+LANGKAH 4: EXPORT KE HAR FILE
+------------------------------
+1. Di HTTP Toolkit, pilih semua request yang relevan
+2. Klik kanan > "Export as HAR"
+3. Simpan file dengan nama descriptive:
+   - "goodshort_drama_list.har"
+   - "goodshort_api_complete.har"
+
+================================================================================
+                    BAGIAN 6: EXTRACT INFORMASI PENTING
+================================================================================
+
+DARI HTTP TOOLKIT, EXTRACT:
+
+1. API BASE URL
+   Contoh: https://api.goodshort.com
+   
+2. HEADERS PENTING
+   ```
+   Authorization: Bearer eyJxxxxxxx
+   X-Token: abc123
+   X-Device-Id: xxxx-xxxx-xxxx
+   X-Sign: md5/sha256 signature
+   User-Agent: GoodShort/1.0.0 (Android 9)
+   ```
+
+3. API ENDPOINTS
+   ```
+   GET /api/v1/drama/list?page=1&size=20
+   GET /api/v1/drama/detail?drama_id=123
+   GET /api/v1/episode/play?episode_id=456
+   GET /api/v1/category/list
+   GET /api/v1/hot/rank
+   ```
+
+4. RESPONSE FORMAT
+   ```json
+   {
+     "code": 0,
+     "message": "success",
+     "data": {
+       "drama_id": "123",
+       "title": "Drama Title",
+       "cover": "https://cdn.xxx.com/cover.jpg",
+       "episodes": [
+         {
+           "episode_id": "456",
+           "title": "Episode 1",
+           "hls_url": "https://stream.xxx.com/video.m3u8"
+         }
+       ]
+     }
+   }
+   ```
+
+5. AUTHENTICATION/SIGNING MECHANISM
+   Perhatikan apakah ada parameter:
+   - timestamp
+   - nonce  
+   - sign/signature
+   
+   Jika ada, perlu reverse engineer cara generate signature.
+
+================================================================================
+                    BAGIAN 7: REVERSE ENGINEER SIGNING (JIKA ADA)
+================================================================================
+
+Jika API menggunakan signing, perlu cari algoritmanya:
+
+LANGKAH 1: DECOMPILE APK DENGAN JADX
+-------------------------------------
+1. Download jadx-gui: https://github.com/skylot/jadx
+2. Buka APK dengan jadx-gui
+3. Search keyword: "sign", "signature", "hmac", "md5"
+
+LANGKAH 2: ANALISA SIGNING CODE
+--------------------------------
+Biasanya ditemukan di:
+- com.app.network.SignInterceptor
+- com.app.utils.SignUtils
+- com.app.api.ApiHelper
+
+Contoh pattern umum:
+```java
+public String generateSign(Map<String, String> params) {
+    // Sort parameters
+    TreeMap sorted = new TreeMap(params);
+    
+    // Build sign string
+    StringBuilder sb = new StringBuilder();
+    for (Entry entry : sorted.entrySet()) {
+        sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+    }
+    sb.append("key=").append(SECRET_KEY);
+    
+    // Generate MD5/SHA256
+    return md5(sb.toString());
+}
+```
+
+LANGKAH 3: IMPLEMENT DI PYTHON
+-------------------------------
+```python
+import hashlib
+import time
+
+SECRET_KEY = "extracted_from_apk"
+
+def generate_sign(params: dict) -> str:
+    # Sort and build string
+    sorted_params = sorted(params.items())
+    sign_str = '&'.join(f"{k}={v}" for k, v in sorted_params)
+    sign_str += f"&key={SECRET_KEY}"
+    
+    # MD5 hash
+    return hashlib.md5(sign_str.encode()).hexdigest()
+```
+
+================================================================================
+                    BAGIAN 8: BUAT SCRAPER SCRIPT
+================================================================================
+
+CONTOH SCRAPER LENGKAP:
+
+```python
+import requests
+import json
+import time
+import os
+
+# Configuration dari HTTP Toolkit capture
+BASE_URL = "https://api.goodshort.com"
+TOKEN = "Bearer eyJxxxx"  # Dari header Authorization
+DEVICE_ID = "xxxx-xxxx"    # Dari header X-Device-Id
+
+HEADERS = {
+    "Authorization": TOKEN,
+    "X-Device-Id": DEVICE_ID,
+    "User-Agent": "GoodShort/1.0.0 (Android 9)",
+    "Content-Type": "application/json"
+}
+
+def get_drama_list(page=1, size=50):
+    """Get list of dramas"""
+    url = f"{BASE_URL}/api/v1/drama/list"
+    params = {"page": page, "size": size}
+    
+    resp = requests.get(url, headers=HEADERS, params=params)
+    return resp.json()
+
+def get_drama_detail(drama_id):
+    """Get drama detail with episodes"""
+    url = f"{BASE_URL}/api/v1/drama/detail"
+    params = {"drama_id": drama_id}
+    
+    resp = requests.get(url, headers=HEADERS, params=params)
+    return resp.json()
+
+def get_episode_stream(episode_id):
+    """Get HLS URL for episode"""
+    url = f"{BASE_URL}/api/v1/episode/play"
+    params = {"episode_id": episode_id}
+    
+    resp = requests.get(url, headers=HEADERS, params=params)
+    data = resp.json()
+    return data.get('data', {}).get('hls_url')
+
+def download_hls(m3u8_url, output_folder):
+    """Download HLS stream"""
+    # Download playlist
+    resp = requests.get(m3u8_url)
+    content = resp.text
+    base_url = m3u8_url.rsplit('/', 1)[0] + '/'
+    
+    os.makedirs(output_folder, exist_ok=True)
+    
+    # Download segments
+    new_lines = []
+    seg_num = 0
+    
+    for line in content.split('\n'):
+        if '.ts' in line:
+            seg_num += 1
+            seg_url = line if line.startswith('http') else base_url + line
+            seg_name = f"seg_{seg_num:04d}.ts"
+            
+            seg_resp = requests.get(seg_url)
+            with open(f"{output_folder}/{seg_name}", 'wb') as f:
+                f.write(seg_resp.content)
+            
+            new_lines.append(seg_name)
+            print(f"Downloaded: {seg_name}")
+        else:
+            new_lines.append(line)
+    
+    # Save playlist
+    with open(f"{output_folder}/playlist.m3u8", 'w') as f:
+        f.write('\n'.join(new_lines))
+
+# Main scraping loop
+def main():
+    # Get all dramas
+    for page in range(1, 100):
+        result = get_drama_list(page=page, size=50)
+        dramas = result.get('data', {}).get('list', [])
+        
+        if not dramas:
+            break
+        
+        for drama in dramas:
+            drama_id = drama['drama_id']
+            title = drama['title']
+            
+            print(f"\nProcessing: {title}")
+            
+            # Get detail
+            detail = get_drama_detail(drama_id)
+            episodes = detail.get('data', {}).get('episodes', [])
+            
+            for ep in episodes:
+                ep_id = ep['episode_id']
+                ep_num = ep.get('episode_num', 1)
+                
+                # Get HLS URL
+                hls_url = get_episode_stream(ep_id)
+                if hls_url:
+                    output = f"downloads/{title}/ep{ep_num:02d}"
+                    download_hls(hls_url, output)
+            
+            time.sleep(1)  # Rate limiting
+
+if __name__ == "__main__":
+    main()
+```
+
+================================================================================
+                    BAGIAN 9: UPLOAD KE R2
+================================================================================
+
+```python
+import boto3
+from botocore.config import Config
+
+R2_CONFIG = {
+    "account_id": "your_cloudflare_account_id",
+    "access_key": "your_r2_access_key",
+    "secret_key": "your_r2_secret_key",
+    "bucket": "your_bucket_name",
+    "public_url": "https://pub-xxxx.r2.dev"
+}
+
+def get_r2_client():
+    return boto3.client(
+        's3',
+        endpoint_url=f"https://{R2_CONFIG['account_id']}.r2.cloudflarestorage.com",
+        aws_access_key_id=R2_CONFIG["access_key"],
+        aws_secret_access_key=R2_CONFIG["secret_key"],
+        config=Config(signature_version='s3v4')
+    )
+
+def upload_file(local_path, r2_key):
+    client = get_r2_client()
+    with open(local_path, 'rb') as f:
+        client.put_object(
+            Bucket=R2_CONFIG["bucket"],
+            Key=r2_key,
+            Body=f.read()
+        )
+    return f"{R2_CONFIG['public_url']}/{r2_key}"
+```
+
+================================================================================
+                    BAGIAN 10: SYNC KE DATABASE
+================================================================================
+
+```python
+import requests
+
+SUPABASE_URL = "https://xxxx.supabase.co"
+SUPABASE_KEY = "your_anon_key"
+
+def insert_drama(title, synopsis, thumbnail_url, total_episodes):
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Content-Type": "application/json"
+    }
+    
+    data = {
+        "title": title,
+        "synopsis": synopsis,
+        "thumbnail_url": thumbnail_url,
+        "total_episodes": total_episodes
+    }
+    
+    resp = requests.post(
+        f"{SUPABASE_URL}/rest/v1/dramas",
+        headers=headers,
+        json=data
+    )
+    return resp.json()
+```
+
+================================================================================
+                    BAGIAN 11: CHECKLIST SCRAPING GOODSHORT
+================================================================================
+
+SETUP:
+[ ] Install LDPlayer 9
+[ ] Install HTTP Toolkit
+[ ] Download GoodShort APK
+[ ] Install APK di LDPlayer
+[ ] Connect HTTP Toolkit ke LDPlayer via ADB
+[ ] Install SSL certificate di LDPlayer
+[ ] Bypass SSL pinning (Frida atau apk-mitm)
+
+CAPTURE API:
+[ ] Browse app dan capture traffic di HTTP Toolkit
+[ ] Identifikasi API Base URL
+[ ] Identifikasi endpoint list drama
+[ ] Identifikasi endpoint detail drama
+[ ] Identifikasi endpoint episode/HLS
+[ ] Export ke HAR file
+[ ] Extract token/credentials dari headers
+
+REVERSE ENGINEERING (jika perlu):
+[ ] Decompile APK dengan jadx
+[ ] Cari signing mechanism
+[ ] Extract secret key
+[ ] Implement signing di Python
+
+SCRAPING:
+[ ] Buat script Python
+[ ] Test dengan 1-2 drama
+[ ] Setup R2 bucket
+[ ] Implement upload ke R2
+[ ] Setup database schema
+[ ] Implement sync ke database
+[ ] Run full scraping
+
+================================================================================
+                    TROUBLESHOOTING
+================================================================================
+
+1. HTTP TOOLKIT TIDAK DETECT LDPLAYER
+   - Restart LDPlayer
+   - Cek ADB port: Settings > Other > ADB debugging
+   - Manual: adb connect 127.0.0.1:5555
+
+2. SSL ERROR / CERTIFICATE NOT TRUSTED
+   - Install certificate di LDPlayer Settings > Security
+   - Gunakan Frida untuk bypass SSL pinning
+   - Atau patch APK dengan apk-mitm
+
+3. API RETURN 401/403
+   - Token expired, perlu capture ulang dari app
+   - Check semua headers sudah benar
+   - Mungkin perlu signing mechanism
+
+4. HLS URL EXPIRED
+   - HLS URL biasanya ada expiry timestamp
+   - Perlu request fresh URL dari API
+   - Jangan delay terlalu lama antara get URL dan download
+
+5. RATE LIMITED
+   - Tambahkan delay 1-2 detik antara request
+   - Gunakan multiple tokens jika ada
+
+================================================================================
+                        SELAMAT MENCOBA!
+================================================================================
+
+Dengan menggunakan LDPlayer 9 + HTTP Toolkit, proses capture API menjadi
+lebih mudah karena:
+- Visual dan user-friendly
+- Tidak perlu physical Android device
+- HTTP Toolkit menampilkan request/response dengan rapi
+- Mudah export ke HAR file
+
+Good luck dengan GoodShort scraping! 🚀
+
+================================================================================

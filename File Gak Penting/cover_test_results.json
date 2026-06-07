@@ -1,0 +1,69 @@
+{
+  "working": [
+    "Adik lpar Memanjakanku（Dubbing）",
+    "Aku Ditakdirkan Milikmu",
+    "Anak Imut Turun dari Langit",
+    "Ayah Pacarku, Suamiku",
+    "Azab dari Dewi Pena",
+    "Cinta Di Ujung Senja",
+    "Cinta Di Ujung Senja（Dubbing）",
+    "Cinta Diam Jadi Nyata",
+    "Cinta Tanpa Keraguan",
+    "Cintaku Hadir Di Kehidupan Selanjutnya",
+    "Godaan Sengaja",
+    "Godaan di Malam Hari",
+    "Hari Tunangan Anakku, Kubatalkan",
+    "Istri Gemuk Dimanjakan",
+    "Istri Kesayangan Mafia",
+    "Istri Kesayangan Mafia（Dubbing）",
+    "Jangan Ganggu Nenek",
+    "Kebenaran Tak Terkubur",
+    "Kejayaanku Setelah Berpisah",
+    "Kok Nyonya Gitu Kejam?",
+    "Maaf, Anak Ini Bukan Milikmu",
+    "Makin Ditahan, Makin Penasaran",
+    "Masa Bersinarku",
+    "Menaklukkan Suami Nakal",
+    "Menikah lagi dengan Ketua Direksi(Dubbing)",
+    "Naga Emas Lahir, Takdir Berbalik",
+    "Nenek Muda: Kebangkitan Keluarga",
+    "Nenek Muda: Kebangkitan Keluarga 2",
+    "Nenek Muda: Kebangkitan Keluarga 3",
+    "Nenek Muda: Kebangkitan Keluarga(Dubbing)",
+    "Nyonya Muda Si Mulut Sial",
+    "Nyonya Muda Tak Terkalahkan 2",
+    "Nyonya Muda yang Tidak Terkalahkan",
+    "Pacarku Ternyata Dewi Kampus",
+    "Pangeran Merah Muda",
+    "Peramal Wanita",
+    "Romansa Om",
+    "Romansa di Rumah Mewah",
+    "Salah Goda",
+    "Sang Putri Dilindungi Ibu",
+    "Sayang, Aku Benaran Amnesia",
+    "Suami Miskin Jadi Bos",
+    "Tak Bisa Melepasmu",
+    "Takdir Cinta dengan Kaisar(Dubbing)"
+  ],
+  "broken": [
+    {
+      "title": "Nikah Kontrak Berujung Cinta",
+      "reason": "HTTP 404"
+    },
+    {
+      "title": "Nyonya Muda yang Tidak Terkalahkan(Dubbing)",
+      "reason": "HTTP 404"
+    },
+    {
+      "title": "Pelukan landak",
+      "reason": "HTTP 404"
+    },
+    {
+      "title": "Sekata dalam Diam",
+      "reason": "HTTP 404"
+    }
+  ],
+  "total": 48,
+  "working_count": 44,
+  "broken_count": 4
+}
