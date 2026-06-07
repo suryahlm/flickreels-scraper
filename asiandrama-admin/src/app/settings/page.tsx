@@ -1,7 +1,7 @@
 'use client';
 
 import { supabase } from '@/lib/supabase';
-import { Image as ImageIcon, Save, ToggleLeft, ToggleRight, Upload, CheckCircle2, XCircle } from 'lucide-react';
+import { Image as ImageIcon, Save, ToggleLeft, ToggleRight, Upload, CheckCircle2, XCircle, GripVertical } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 export default function SettingsPage() {
@@ -30,6 +30,19 @@ export default function SettingsPage() {
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const dragItem = useRef<number | null>(null);
+    const dragOverItem = useRef<number | null>(null);
+
+    const handleSort = () => {
+        if (dragItem.current !== null && dragOverItem.current !== null && dragItem.current !== dragOverItem.current) {
+            let _providerOrder = [...providerOrder];
+            const draggedItemContent = _providerOrder.splice(dragItem.current, 1)[0];
+            _providerOrder.splice(dragOverItem.current, 0, draggedItemContent);
+            setProviderOrder(_providerOrder);
+        }
+        dragItem.current = null;
+        dragOverItem.current = null;
+    };
 
     // Toast State
     const [toast, setToast] = useState<{ show: boolean; type: 'success' | 'error'; message: string } | null>(null);
@@ -353,7 +366,18 @@ export default function SettingsPage() {
                     </p>
                     <div className="flex flex-col gap-3">
                         {providerOrder.map((providerId, index) => (
-                            <div key={providerId} className="flex items-center gap-4 bg-gray-800 p-3 rounded-lg border border-gray-700">
+                            <div 
+                                key={providerId} 
+                                draggable
+                                onDragStart={(e) => dragItem.current = index}
+                                onDragEnter={(e) => dragOverItem.current = index}
+                                onDragEnd={handleSort}
+                                onDragOver={(e) => e.preventDefault()}
+                                className="flex items-center gap-4 bg-gray-800 p-3 rounded-lg border border-gray-700 cursor-move hover:border-gray-600 transition-colors"
+                            >
+                                <div className="text-gray-500 flex items-center justify-center cursor-grab active:cursor-grabbing">
+                                    <GripVertical size={20} />
+                                </div>
                                 <div className="flex flex-col gap-1">
                                     <button 
                                         onClick={() => moveProviderUp(index)} 
