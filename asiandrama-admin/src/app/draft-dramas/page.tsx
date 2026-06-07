@@ -144,7 +144,8 @@ export default function DraftDramasPage() {
                         
                         // Properly encode the URL so Next.js Image component doesn't fail on spaces
                         if (thumbnail) {
-                            thumbnail = encodeURI(thumbnail);
+                            // Bust cache because previous broken 302 redirects were cached
+                            thumbnail = encodeURI(thumbnail) + '?t=' + new Date().getTime();
                         }
 
                         return (
