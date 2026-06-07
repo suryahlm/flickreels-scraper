@@ -2,7 +2,7 @@
 
 import { supabase, type Drama } from '@/lib/supabase';
 import { GripVertical, Plus, Search, Star, Trash2, Save } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface FeaturedItem {
     drama_id: string;
