@@ -22,6 +22,11 @@ export default function SettingsPage() {
     const [layoutDramawave, setLayoutDramawave] = useState('10');
     const [layoutMelolo, setLayoutMelolo] = useState('10');
 
+    // Default Provider Order
+    const [providerOrder, setProviderOrder] = useState<string[]>([
+        'dramabox', 'netshort', 'flickreels', 'dramanova', 'dramawave', 'melolo'
+    ]);
+
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -60,6 +65,10 @@ export default function SettingsPage() {
                             if (parsed.dramanova !== undefined) setLayoutDramanova(String(parsed.dramanova));
                             if (parsed.dramawave !== undefined) setLayoutDramawave(String(parsed.dramawave));
                             if (parsed.melolo !== undefined) setLayoutMelolo(String(parsed.melolo));
+                            
+                            if (Array.isArray(parsed.order) && parsed.order.length > 0) {
+                                setProviderOrder(parsed.order);
+                            }
                         } catch(e) {
                             console.error('Failed to parse provider_layout', e);
                         }
@@ -126,7 +135,8 @@ export default function SettingsPage() {
                     flickreels: parseInt(layoutFlickreels) || 10,
                     dramanova: parseInt(layoutDramanova) || 10,
                     dramawave: parseInt(layoutDramawave) || 10,
-                    melolo: parseInt(layoutMelolo) || 10
+                    melolo: parseInt(layoutMelolo) || 10,
+                    order: providerOrder
                 }) 
             },
         ];
@@ -143,6 +153,51 @@ export default function SettingsPage() {
         } catch (error: any) {
             console.error('Error saving settings:', error);
             showToast(error.message, 'error');
+        }
+    };
+
+    const moveProviderUp = (index: number) => {
+        if (index === 0) return;
+        const newOrder = [...providerOrder];
+        [newOrder[index - 1], newOrder[index]] = [newOrder[index], newOrder[index - 1]];
+        setProviderOrder(newOrder);
+    };
+
+    const moveProviderDown = (index: number) => {
+        if (index === providerOrder.length - 1) return;
+        const newOrder = [...providerOrder];
+        [newOrder[index + 1], newOrder[index]] = [newOrder[index], newOrder[index + 1]];
+        setProviderOrder(newOrder);
+    };
+
+    const getProviderName = (id: string) => {
+        const names: Record<string, string> = {
+            dramabox: 'Dramabox', netshort: 'Netshort', flickreels: 'FlickReels',
+            dramanova: 'DramaNova', dramawave: 'DramaWave', melolo: 'Melolo'
+        };
+        return names[id] || id;
+    };
+
+    const getProviderLayoutState = (id: string) => {
+        switch(id) {
+            case 'dramabox': return layoutDramabox;
+            case 'netshort': return layoutNetshort;
+            case 'flickreels': return layoutFlickreels;
+            case 'dramanova': return layoutDramanova;
+            case 'dramawave': return layoutDramawave;
+            case 'melolo': return layoutMelolo;
+            default: return '10';
+        }
+    };
+
+    const setProviderLayoutState = (id: string, val: string) => {
+        switch(id) {
+            case 'dramabox': setLayoutDramabox(val); break;
+            case 'netshort': setLayoutNetshort(val); break;
+            case 'flickreels': setLayoutFlickreels(val); break;
+            case 'dramanova': setLayoutDramanova(val); break;
+            case 'dramawave': setLayoutDramawave(val); break;
+            case 'melolo': setLayoutMelolo(val); break;
         }
     };
 
@@ -296,31 +351,37 @@ export default function SettingsPage() {
                         Tentukan jumlah maksimal drama yang ditarik per giliran rotasi.<br/>
                         <b>Urutan tayang baku:</b> Dramabox → Netshort → FlickReels → DramaNova → DramaWave → Melolo.
                     </p>
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">1. Dramabox</label>
-                            <input type="number" value={layoutDramabox} onChange={e => setLayoutDramabox(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">2. Netshort</label>
-                            <input type="number" value={layoutNetshort} onChange={e => setLayoutNetshort(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">3. FlickReels</label>
-                            <input type="number" value={layoutFlickreels} onChange={e => setLayoutFlickreels(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">4. DramaNova</label>
-                            <input type="number" value={layoutDramanova} onChange={e => setLayoutDramanova(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">5. DramaWave</label>
-                            <input type="number" value={layoutDramawave} onChange={e => setLayoutDramawave(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">6. Melolo</label>
-                            <input type="number" value={layoutMelolo} onChange={e => setLayoutMelolo(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
-                        </div>
+                    <div className="flex flex-col gap-3">
+                        {providerOrder.map((providerId, index) => (
+                            <div key={providerId} className="flex items-center gap-4 bg-gray-800 p-3 rounded-lg border border-gray-700">
+                                <div className="flex flex-col gap-1">
+                                    <button 
+                                        onClick={() => moveProviderUp(index)} 
+                                        disabled={index === 0}
+                                        className={`p-1 rounded bg-gray-700 hover:bg-gray-600 ${index === 0 ? 'opacity-30 cursor-not-allowed' : ''}`}
+                                    >
+                                        ↑
+                                    </button>
+                                    <button 
+                                        onClick={() => moveProviderDown(index)} 
+                                        disabled={index === providerOrder.length - 1}
+                                        className={`p-1 rounded bg-gray-700 hover:bg-gray-600 ${index === providerOrder.length - 1 ? 'opacity-30 cursor-not-allowed' : ''}`}
+                                    >
+                                        ↓
+                                    </button>
+                                </div>
+                                <div className="flex-1">
+                                    <label className="block text-sm text-gray-400 mb-1">{index + 1}. {getProviderName(providerId)}</label>
+                                    <input 
+                                        type="number" 
+                                        value={getProviderLayoutState(providerId)} 
+                                        onChange={e => setProviderLayoutState(providerId, e.target.value)} 
+                                        min="1" 
+                                        className="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" 
+                                    />
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
