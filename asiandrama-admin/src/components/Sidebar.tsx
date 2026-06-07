@@ -10,6 +10,7 @@ import {
     LayoutDashboard,
     LogOut,
     Settings,
+    Smartphone,
     Star,
     Users
 } from 'lucide-react';
@@ -24,7 +25,8 @@ const navItems = [
     { href: '/users', label: 'Users', icon: Users },
     { href: '/categories', label: 'Kategori', icon: FolderOpen },
     { href: '/banners', label: 'Banner', icon: Image },
-    { href: '/notifications', label: 'Notifikasi', icon: Bell },
+    { href: '/notifications', label: 'Notifikasi Banner', icon: Bell },
+    { href: '/push-broadcast', label: 'Push Notif', icon: Smartphone },
     { href: '/settings', label: 'Settings', icon: Settings },
 ];
 
