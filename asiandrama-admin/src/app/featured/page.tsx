@@ -18,6 +18,21 @@ export default function FeaturedPage() {
     const [saving, setSaving] = useState(false);
     const [hasChanges, setHasChanges] = useState(false);
 
+    const dragItem = useRef<number | null>(null);
+    const dragOverItem = useRef<number | null>(null);
+
+    const handleSort = () => {
+        if (dragItem.current !== null && dragOverItem.current !== null && dragItem.current !== dragOverItem.current) {
+            let _featured = [...featured];
+            const draggedItemContent = _featured.splice(dragItem.current, 1)[0];
+            _featured.splice(dragOverItem.current, 0, draggedItemContent);
+            setFeatured(_featured);
+            setHasChanges(true);
+        }
+        dragItem.current = null;
+        dragOverItem.current = null;
+    };
+
     useEffect(() => {
         loadData();
     }, []);
@@ -171,9 +186,16 @@ export default function FeaturedPage() {
                             {featured.map((item, index) => (
                                 <div
                                     key={item.drama_id}
-                                    className="flex items-center gap-3 bg-gray-800 rounded-lg px-3 py-2.5 group hover:bg-gray-750"
+                                    draggable
+                                    onDragStart={(e) => dragItem.current = index}
+                                    onDragEnter={(e) => dragOverItem.current = index}
+                                    onDragEnd={handleSort}
+                                    onDragOver={(e) => e.preventDefault()}
+                                    className="flex items-center gap-3 bg-gray-800 rounded-lg px-3 py-2.5 group hover:bg-gray-750 cursor-move transition-colors"
                                 >
-                                    <GripVertical size={16} className="text-gray-600" />
+                                    <div className="cursor-grab active:cursor-grabbing text-gray-600 flex items-center justify-center">
+                                        <GripVertical size={16} />
+                                    </div>
                                     <span className="text-amber-500 font-bold text-sm w-6">
                                         {index + 1}
                                     </span>
