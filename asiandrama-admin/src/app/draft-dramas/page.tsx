@@ -142,7 +142,7 @@ export default function DraftDramasPage() {
                         const isActing = !!actionLoading[drama.id];
                         let thumbnail = drama.thumbnail_url || drama.cover_url;
                         if (!thumbnail && drama.r2_folder) {
-                            thumbnail = `https://asiandrama-cdn.suryahlm.com/${drama.r2_folder}/cover.jpg`;
+                            thumbnail = `https://cdn.asiandrama.cc/${drama.r2_folder}/cover.jpg`;
                         }
                         
                         // Properly encode the URL so Next.js Image component doesn't fail on spaces
