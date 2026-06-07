@@ -140,7 +140,12 @@ export default function DraftDramasPage() {
                 <div className="grid gap-4">
                     {dramas.map(drama => {
                         const isActing = !!actionLoading[drama.id];
-                        const thumbnail = drama.thumbnail_url || drama.cover_url;
+                        let thumbnail = drama.thumbnail_url || drama.cover_url;
+                        
+                        // Properly encode the URL so Next.js Image component doesn't fail on spaces
+                        if (thumbnail) {
+                            thumbnail = encodeURI(thumbnail);
+                        }
 
                         return (
                             <div
