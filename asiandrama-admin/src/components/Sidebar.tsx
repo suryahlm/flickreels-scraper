@@ -4,6 +4,7 @@ import { supabase } from '@/lib/supabase';
 import {
     BarChart3,
     Bell,
+    ClipboardList,
     Film,
     FolderOpen,
     Image,
@@ -20,6 +21,7 @@ import { usePathname, useRouter } from 'next/navigation';
 const navItems = [
     { href: '/', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/traffic', label: 'Trafik', icon: BarChart3 },
+    { href: '/draft-dramas', label: 'Review Drama', icon: ClipboardList },
     { href: '/dramas', label: 'Drama', icon: Film },
     { href: '/featured', label: 'Featured', icon: Star },
     { href: '/users', label: 'Users', icon: Users },
