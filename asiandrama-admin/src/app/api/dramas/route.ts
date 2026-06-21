@@ -136,13 +136,25 @@ export async function DELETE(request: NextRequest) {
 
         // 2. Cari tahu prefix path R2 yang akurat
         let folderPrefix = '';
-        
-        // Ekstrak dari thumbnail_url (karena thumbnail_url selalu memiliki format /api/stream/{provider}/{folder}/cover.jpg)
         if (dramaTarget.thumbnail_url) {
-            const match = dramaTarget.thumbnail_url.match(/\/api\/stream\/(.+?)\/cover\.jpg/);
-            if (match && match[1]) {
-                folderPrefix = `${match[1]}/`;
-            }
+            try {
+                let pathStr = '';
+                if (dramaTarget.thumbnail_url.startsWith('/api/stream/')) {
+                    pathStr = dramaTarget.thumbnail_url.replace('/api/stream/', '');
+                } else {
+                    const urlObj = new URL(dramaTarget.thumbnail_url);
+                    if (urlObj.pathname.startsWith('/api/stream/')) {
+                        pathStr = urlObj.pathname.replace('/api/stream/', '');
+                    } else {
+                        pathStr = urlObj.pathname.substring(1);
+                    }
+                }
+                pathStr = decodeURIComponent(pathStr);
+                const lastSlashIdx = pathStr.lastIndexOf('/');
+                if (lastSlashIdx !== -1) {
+                    folderPrefix = pathStr.substring(0, lastSlashIdx) + '/';
+                }
+            } catch (err) {}
         }
 
         // Fallback jika regex gagal, gunakan r2_folder bawaan
