@@ -123,10 +123,10 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'Drama ID required' }, { status: 400 });
         }
 
-        // 1. Ambil data r2_folder sebelum dihapus
+        // 1. Ambil data r2_folder dan thumbnail_url sebelum dihapus
         const { data: dramaTarget } = await supabaseAdmin
             .from('dramas')
-            .select('title, r2_folder')
+            .select('title, r2_folder, thumbnail_url')
             .eq('id', id)
             .single();
 
@@ -134,13 +134,28 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'Drama tidak ditemukan' }, { status: 404 });
         }
 
-        // 2. Jika punya r2_folder yang valid, hapus semua file terkait dari R2 CDN
-        if (dramaTarget.r2_folder && dramaTarget.r2_folder.length > 3) {
-            let isTruncated = true;
-            let continuationToken: string | undefined = undefined;
-            const folderPrefix = dramaTarget.r2_folder.endsWith('/') 
+        // 2. Cari tahu prefix path R2 yang akurat
+        let folderPrefix = '';
+        
+        // Ekstrak dari thumbnail_url (karena thumbnail_url selalu memiliki format /api/stream/{provider}/{folder}/cover.jpg)
+        if (dramaTarget.thumbnail_url) {
+            const match = dramaTarget.thumbnail_url.match(/\/api\/stream\/(.+?)\/cover\.jpg/);
+            if (match && match[1]) {
+                folderPrefix = `${match[1]}/`;
+            }
+        }
+
+        // Fallback jika regex gagal, gunakan r2_folder bawaan
+        if (!folderPrefix && dramaTarget.r2_folder && dramaTarget.r2_folder.length > 3) {
+            folderPrefix = dramaTarget.r2_folder.endsWith('/') 
                 ? dramaTarget.r2_folder 
                 : `${dramaTarget.r2_folder}/`;
+        }
+
+        // 3. Hapus semua file terkait dari R2 CDN
+        if (folderPrefix) {
+            let isTruncated = true;
+            let continuationToken: string | undefined = undefined;
 
             console.log(`[API/dramas] Mulai membersihkan R2 Bucket untuk folder: ${folderPrefix}`);
             let deletedCount = 0;
