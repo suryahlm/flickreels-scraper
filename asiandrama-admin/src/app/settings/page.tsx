@@ -8,7 +8,6 @@ export default function SettingsPage() {
     const [appName, setAppName] = useState('AsianDrama');
     const [appIcon, setAppIcon] = useState<string | null>(null);
     const [maintenanceMode, setMaintenanceMode] = useState(false);
-    const [coinPrice, setCoinPrice] = useState('10000');
     
     // VIP with Real Money
     const [vipMonthlyPrice, setVipMonthlyPrice] = useState('49000');
@@ -56,7 +55,6 @@ export default function SettingsPage() {
                     case 'app_name': setAppName(setting.value); break;
                     case 'app_icon': setAppIcon(setting.value); break;
                     case 'maintenance_mode': setMaintenanceMode(setting.value === 'true'); break;
-                    case 'coin_price': setCoinPrice(setting.value); break;
                     case 'vip_monthly_price': setVipMonthlyPrice(setting.value); break;
                     case 'vip_3month_price': setVip3MonthPrice(setting.value); break;
                     case 'vip_1year_price': setVip1YearPrice(setting.value); break;
@@ -128,7 +126,6 @@ export default function SettingsPage() {
             { key: 'app_name', value: appName },
             { key: 'app_icon', value: appIcon || '' },
             { key: 'maintenance_mode', value: maintenanceMode.toString() },
-            { key: 'coin_price', value: coinPrice },
             { key: 'vip_monthly_price', value: vipMonthlyPrice },
             { key: 'vip_3month_price', value: vip3MonthPrice },
             { key: 'vip_1year_price', value: vip1YearPrice },
@@ -237,16 +234,6 @@ export default function SettingsPage() {
                     <h2 className="font-semibold mb-4">Pricing</h2>
 
                     <div className="space-y-4">
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">Harga per 100 Koin (Rp)</label>
-                            <input
-                                type="number"
-                                value={coinPrice}
-                                onChange={(e) => setCoinPrice(e.target.value)}
-                                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
-                            />
-                        </div>
-
                         <div>
                             <label className="block text-sm text-gray-400 mb-2">Harga VIP 1 Bulan dengan Uang Asli (Rp)</label>
                             <input
