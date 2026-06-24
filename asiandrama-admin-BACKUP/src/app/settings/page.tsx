@@ -10,6 +10,8 @@ export default function SettingsPage() {
     const [maintenanceMode, setMaintenanceMode] = useState(false);
     const [coinPrice, setCoinPrice] = useState('10000');
     const [vipMonthlyPrice, setVipMonthlyPrice] = useState('49000');
+    const [vip3MonthPrice, setVip3MonthPrice] = useState('129000');
+    const [vip1YearPrice, setVip1YearPrice] = useState('399000');
     const [adEnabled, setAdEnabled] = useState(true);
     const [freeEpisodes, setFreeEpisodes] = useState('5');
     const [adInterval, setAdInterval] = useState('5');
@@ -48,6 +50,8 @@ export default function SettingsPage() {
                     case 'maintenance_mode': setMaintenanceMode(setting.value === 'true'); break;
                     case 'coin_price': setCoinPrice(setting.value); break;
                     case 'vip_monthly_price': setVipMonthlyPrice(setting.value); break;
+                    case 'vip_3month_price': setVip3MonthPrice(setting.value); break;
+                    case 'vip_1year_price': setVip1YearPrice(setting.value); break;
                     case 'ad_enabled': setAdEnabled(setting.value === 'true'); break;
                     case 'free_episodes': setFreeEpisodes(setting.value); break;
                     case 'ad_interval': setAdInterval(setting.value); break;
@@ -115,6 +119,8 @@ export default function SettingsPage() {
             { key: 'maintenance_mode', value: maintenanceMode.toString() },
             { key: 'coin_price', value: coinPrice },
             { key: 'vip_monthly_price', value: vipMonthlyPrice },
+            { key: 'vip_3month_price', value: vip3MonthPrice },
+            { key: 'vip_1year_price', value: vip1YearPrice },
             { key: 'ad_enabled', value: adEnabled.toString() },
             { key: 'free_episodes', value: freeEpisodes },
             { key: 'ad_interval', value: adInterval },
@@ -228,13 +234,34 @@ export default function SettingsPage() {
                         </div>
 
                         <div>
-                            <label className="block text-sm text-gray-400 mb-2">Harga VIP Bulanan (Rp)</label>
+                            <label className="block text-sm text-gray-400 mb-2">Harga VIP 1 Bulan dengan Uang Asli (Rp)</label>
                             <input
                                 type="number"
                                 value={vipMonthlyPrice}
                                 onChange={(e) => setVipMonthlyPrice(e.target.value)}
                                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
                             />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">Harga VIP 3 Bulan dengan Uang Asli (Rp)</label>
+                            <input
+                                type="number"
+                                value={vip3MonthPrice}
+                                onChange={(e) => setVip3MonthPrice(e.target.value)}
+                                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">Harga VIP 1 Tahun dengan Uang Asli (Rp)</label>
+                            <input
+                                type="number"
+                                value={vip1YearPrice}
+                                onChange={(e) => setVip1YearPrice(e.target.value)}
+                                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
+                            />
+                            <p className="text-xs text-gray-500 mt-2">Harga-harga VIP ini digunakan sebagai referensi jika koneksi Google Play tertunda.</p>
                         </div>
                     </div>
                 </div>
