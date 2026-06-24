@@ -9,9 +9,17 @@ export default function SettingsPage() {
     const [appIcon, setAppIcon] = useState<string | null>(null);
     const [maintenanceMode, setMaintenanceMode] = useState(false);
     const [coinPrice, setCoinPrice] = useState('10000');
+    
+    // VIP with Real Money
     const [vipMonthlyPrice, setVipMonthlyPrice] = useState('49000');
     const [vip3MonthPrice, setVip3MonthPrice] = useState('129000');
     const [vip1YearPrice, setVip1YearPrice] = useState('399000');
+
+    // VIP with Coins
+    const [vipCoin1Month, setVipCoin1Month] = useState('1000');
+    const [vipCoin3Month, setVipCoin3Month] = useState('2500');
+    const [vipCoin1Year, setVipCoin1Year] = useState('8000');
+
     const [adEnabled, setAdEnabled] = useState(true);
     const [freeEpisodes, setFreeEpisodes] = useState('5');
     const [adInterval, setAdInterval] = useState('5');
@@ -52,6 +60,9 @@ export default function SettingsPage() {
                     case 'vip_monthly_price': setVipMonthlyPrice(setting.value); break;
                     case 'vip_3month_price': setVip3MonthPrice(setting.value); break;
                     case 'vip_1year_price': setVip1YearPrice(setting.value); break;
+                    case 'vip_coin_1month': setVipCoin1Month(setting.value); break;
+                    case 'vip_coin_3month': setVipCoin3Month(setting.value); break;
+                    case 'vip_coin_1year': setVipCoin1Year(setting.value); break;
                     case 'ad_enabled': setAdEnabled(setting.value === 'true'); break;
                     case 'free_episodes': setFreeEpisodes(setting.value); break;
                     case 'ad_interval': setAdInterval(setting.value); break;
@@ -121,6 +132,9 @@ export default function SettingsPage() {
             { key: 'vip_monthly_price', value: vipMonthlyPrice },
             { key: 'vip_3month_price', value: vip3MonthPrice },
             { key: 'vip_1year_price', value: vip1YearPrice },
+            { key: 'vip_coin_1month', value: vipCoin1Month },
+            { key: 'vip_coin_3month', value: vipCoin3Month },
+            { key: 'vip_coin_1year', value: vipCoin1Year },
             { key: 'ad_enabled', value: adEnabled.toString() },
             { key: 'free_episodes', value: freeEpisodes },
             { key: 'ad_interval', value: adInterval },
@@ -262,6 +276,39 @@ export default function SettingsPage() {
                                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
                             />
                             <p className="text-xs text-gray-500 mt-2">Harga-harga VIP ini digunakan sebagai referensi jika koneksi Google Play tertunda.</p>
+                        </div>
+
+                        {/* Divider */}
+                        <div className="border-t border-gray-700 my-4"></div>
+
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">Harga VIP 1 Bulan dengan Koin</label>
+                            <input
+                                type="number"
+                                value={vipCoin1Month}
+                                onChange={(e) => setVipCoin1Month(e.target.value)}
+                                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">Harga VIP 3 Bulan dengan Koin</label>
+                            <input
+                                type="number"
+                                value={vipCoin3Month}
+                                onChange={(e) => setVipCoin3Month(e.target.value)}
+                                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">Harga VIP 1 Tahun dengan Koin</label>
+                            <input
+                                type="number"
+                                value={vipCoin1Year}
+                                onChange={(e) => setVipCoin1Year(e.target.value)}
+                                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
+                            />
                         </div>
                     </div>
                 </div>
