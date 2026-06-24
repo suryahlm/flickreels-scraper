@@ -149,9 +149,10 @@ export default function SettingsPage() {
         ];
 
         for (const setting of settings) {
-            await supabase
+            const { error } = await supabase
                 .from('app_settings')
-                .upsert({ key: setting.key, value: setting.value, updated_at: new Date().toISOString() });
+                .upsert({ key: setting.key, value: setting.value, updated_at: new Date().toISOString() }, { onConflict: 'key' });
+            if (error) console.error(`Error saving ${setting.key}:`, error);
         }
 
         showToast('Settings saved successfully!', 'success');
