@@ -30,7 +30,7 @@ export default function UsersPage() {
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchUsers();
-        }, 400);
+        }, 2000);
         return () => clearTimeout(timer);
     }, [page, filterVip, filterBanned, sortByCoins, search]);
 
