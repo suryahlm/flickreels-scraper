@@ -3,6 +3,7 @@
 import { supabase, type Profile } from '@/lib/supabase';
 import { Ban, CheckCircle, Coins, Crown, Key, Minus, Plus, Search, Trash2, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { cancelUserVipAdmin, grantUserVipAdmin, toggleUserBanAdmin, updateUserCoinsAdmin } from './actions';
 
 export default function UsersPage() {
     const [search, setSearch] = useState('');
@@ -40,10 +41,15 @@ export default function UsersPage() {
 
     const toggleBan = async (user: Profile) => {
         const newBanStatus = !user.is_banned;
-        await supabase.from('profiles').update({ is_banned: newBanStatus }).eq('id', user.id);
-        setUsers((prev) =>
-            prev.map((u) => (u.id === user.id ? { ...u, is_banned: newBanStatus } : u))
-        );
+        const result = await toggleUserBanAdmin(user.id, newBanStatus);
+        
+        if (result.success) {
+            setUsers((prev) =>
+                prev.map((u) => (u.id === user.id ? { ...u, is_banned: newBanStatus } : u))
+            );
+        } else {
+            alert('Gagal update: ' + result.error);
+        }
     };
 
     const updateCoins = async (add: boolean) => {
@@ -52,45 +58,17 @@ export default function UsersPage() {
         if (!amount || amount <= 0) return alert('Masukkan jumlah koin yang valid');
         if (!coinReason.trim()) return alert('Masukkan alasan');
 
-        const finalAmount = add ? amount : -amount;
-        const newBalance = Math.max(0, selectedUser.coin_balance + finalAmount);
+        const result = await updateUserCoinsAdmin(selectedUser.id, amount, coinReason, add);
 
-        // Update profiles table (for admin dashboard display)
-        await supabase.from('profiles').update({ coin_balance: newBalance }).eq('id', selectedUser.id);
-
-        // Also update user_coins table (for mobile app sync)
-        const { data: existingCoins } = await supabase
-            .from('user_coins')
-            .select('balance')
-            .eq('user_id', selectedUser.id)
-            .single();
-
-        if (existingCoins) {
-            // Update existing record
-            await supabase
-                .from('user_coins')
-                .update({ balance: newBalance })
-                .eq('user_id', selectedUser.id);
+        if (result.success) {
+            setUsers((prev) =>
+                prev.map((u) => (u.id === selectedUser.id ? { ...u, coin_balance: result.newBalance! } : u))
+            );
+            alert(`${add ? '+' : '-'}${amount} koin ${add ? 'ditambahkan' : 'dikurangi'}. Alasan: ${coinReason}`);
         } else {
-            // Create new record if doesn't exist
-            await supabase
-                .from('user_coins')
-                .insert({ user_id: selectedUser.id, balance: newBalance, total_earned: newBalance });
+            alert('Gagal update koin: ' + result.error);
         }
 
-        // Log transaction
-        await supabase.from('coin_transactions').insert({
-            user_id: selectedUser.id,
-            amount: finalAmount,
-            type: add ? 'admin_add' : 'admin_deduct',
-            description: coinReason,
-        });
-
-        setUsers((prev) =>
-            prev.map((u) => (u.id === selectedUser.id ? { ...u, coin_balance: newBalance } : u))
-        );
-
-        alert(`${add ? '+' : '-'}${amount} koin ${add ? 'ditambahkan' : 'dikurangi'}. Alasan: ${coinReason}`);
         setCoinAmount('');
         setCoinReason('');
         setSelectedUser(null);
@@ -101,29 +79,17 @@ export default function UsersPage() {
         setActionLoading(true);
 
         const days = parseInt(vipDays);
-        const expiresAt = new Date();
-        expiresAt.setDate(expiresAt.getDate() + days);
+        const result = await grantUserVipAdmin(selectedUser.id, days);
 
-        // Insert into subscriptions table
-        await supabase.from('subscriptions').insert({
-            user_id: selectedUser.id,
-            plan_type: 'admin_grant',
-            price_paid: 0,
-            status: 'active',
-            expires_at: expiresAt.toISOString(),
-        });
+        if (result.success) {
+            setUsers((prev) =>
+                prev.map((u) => (u.id === selectedUser.id ? { ...u, is_vip: true, vip_expires_at: result.expiresIso! } : u))
+            );
+            alert(`VIP diberikan untuk ${days} hari`);
+        } else {
+            alert('Gagal memberikan VIP: ' + result.error);
+        }
 
-        // Update profile
-        await supabase.from('profiles').update({
-            is_vip: true,
-            vip_expires_at: expiresAt.toISOString(),
-        }).eq('id', selectedUser.id);
-
-        setUsers((prev) =>
-            prev.map((u) => (u.id === selectedUser.id ? { ...u, is_vip: true, vip_expires_at: expiresAt.toISOString() } : u))
-        );
-
-        alert(`VIP diberikan untuk ${days} hari`);
         setActionLoading(false);
         setShowVipModal(false);
         setSelectedUser(null);
@@ -132,23 +98,16 @@ export default function UsersPage() {
     const cancelVip = async (user: Profile) => {
         if (!confirm(`Batalkan VIP untuk ${user.full_name || 'user ini'}?`)) return;
 
-        // Update subscriptions
-        await supabase.from('subscriptions')
-            .update({ status: 'cancelled' })
-            .eq('user_id', user.id)
-            .eq('status', 'active');
+        const result = await cancelUserVipAdmin(user.id);
 
-        // Update profile
-        await supabase.from('profiles').update({
-            is_vip: false,
-            vip_expires_at: null,
-        }).eq('id', user.id);
-
-        setUsers((prev) =>
-            prev.map((u) => (u.id === user.id ? { ...u, is_vip: false, vip_expires_at: null } : u))
-        );
-
-        alert('VIP dibatalkan');
+        if (result.success) {
+            setUsers((prev) =>
+                prev.map((u) => (u.id === user.id ? { ...u, is_vip: false, vip_expires_at: null } : u))
+            );
+            alert('VIP dibatalkan');
+        } else {
+            alert('Gagal membatalkan VIP: ' + result.error);
+        }
     };
 
     const resetPassword = async () => {
