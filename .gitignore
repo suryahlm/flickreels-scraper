@@ -74,6 +74,6 @@ frida/
 *.jar
 jadx-gui*
 github/
-App/
+# App/
 *.apk
 *.xapk

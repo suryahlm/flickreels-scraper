@@ -79,7 +79,6 @@ export async function grantUserVipAdmin(userId: string, days: number) {
         await supabaseAdmin.from('subscriptions').insert({
             user_id: userId,
             plan_type: 'admin_grant',
-            price_paid: 0,
             status: 'active',
             expires_at: expiresIso,
         });
