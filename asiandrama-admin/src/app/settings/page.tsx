@@ -19,6 +19,12 @@ export default function SettingsPage() {
     const [vipCoin3Month, setVipCoin3Month] = useState('2500');
     const [vipCoin1Year, setVipCoin1Year] = useState('8000');
 
+    // VIP Feature Toggles
+    const [vipMoneyEnabled, setVipMoneyEnabled] = useState(true);
+    const [vipMoneyMsg, setVipMoneyMsg] = useState('Fitur VIP sedang dalam pengembangan atau perbaikan oleh Admin.');
+    const [vipCoinEnabled, setVipCoinEnabled] = useState(true);
+    const [vipCoinMsg, setVipCoinMsg] = useState('Fitur Tukar Koin sedang dalam perbaikan oleh Admin.');
+
     const [adEnabled, setAdEnabled] = useState(true);
     const [freeEpisodes, setFreeEpisodes] = useState('5');
     const [adInterval, setAdInterval] = useState('5');
@@ -61,6 +67,10 @@ export default function SettingsPage() {
                     case 'vip_coin_1month': setVipCoin1Month(setting.value); break;
                     case 'vip_coin_3month': setVipCoin3Month(setting.value); break;
                     case 'vip_coin_1year': setVipCoin1Year(setting.value); break;
+                    case 'vip_money_enabled': setVipMoneyEnabled(setting.value !== 'false'); break;
+                    case 'vip_money_msg': setVipMoneyMsg(setting.value); break;
+                    case 'vip_coin_enabled': setVipCoinEnabled(setting.value !== 'false'); break;
+                    case 'vip_coin_msg': setVipCoinMsg(setting.value); break;
                     case 'ad_enabled': setAdEnabled(setting.value === 'true'); break;
                     case 'free_episodes': setFreeEpisodes(setting.value); break;
                     case 'ad_interval': setAdInterval(setting.value); break;
@@ -132,6 +142,10 @@ export default function SettingsPage() {
             { key: 'vip_coin_1month', value: vipCoin1Month },
             { key: 'vip_coin_3month', value: vipCoin3Month },
             { key: 'vip_coin_1year', value: vipCoin1Year },
+            { key: 'vip_money_enabled', value: vipMoneyEnabled.toString() },
+            { key: 'vip_money_msg', value: vipMoneyMsg },
+            { key: 'vip_coin_enabled', value: vipCoinEnabled.toString() },
+            { key: 'vip_coin_msg', value: vipCoinMsg },
             { key: 'ad_enabled', value: adEnabled.toString() },
             { key: 'free_episodes', value: freeEpisodes },
             { key: 'ad_interval', value: adInterval },
@@ -306,6 +320,73 @@ export default function SettingsPage() {
                                 onChange={(e) => setVipCoin1Year(e.target.value)}
                                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500"
                             />
+                        </div>
+                    </div>
+                </div>
+
+                {/* VIP Feature Toggles */}
+                <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
+                    <h2 className="font-semibold mb-4">Pengaturan Akses Fitur VIP</h2>
+
+                    <div className="space-y-6">
+                        {/* VIP Real Money */}
+                        <div className="space-y-4 pb-4 border-b border-gray-800">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="font-medium">Tombol VIP Uang Asli</p>
+                                    <p className="text-sm text-gray-500">Aktifkan atau matikan fitur bayar dengan uang asli (RevenueCat)</p>
+                                </div>
+                                <button
+                                    onClick={() => setVipMoneyEnabled(!vipMoneyEnabled)}
+                                    className={`text-3xl ${vipMoneyEnabled ? 'text-green-500' : 'text-gray-600'}`}
+                                >
+                                    {vipMoneyEnabled ? <ToggleRight /> : <ToggleLeft />}
+                                </button>
+                            </div>
+                            
+                            {!vipMoneyEnabled && (
+                                <div className="mt-2">
+                                    <label className="block text-sm text-gray-400 mb-2">Pesan Peringatan (saat dimatikan)</label>
+                                    <input
+                                        type="text"
+                                        value={vipMoneyMsg}
+                                        onChange={(e) => setVipMoneyMsg(e.target.value)}
+                                        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-red-500"
+                                        placeholder="Fitur VIP sedang dalam pengembangan."
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">Pesan ini akan muncul sebagai pop-up ketika user klik tombol Upgrade.</p>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* VIP Coin Exchange */}
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="font-medium">Tombol Tukar VIP (Koin)</p>
+                                    <p className="text-sm text-gray-500">Aktifkan atau matikan fitur tukar koin ke VIP</p>
+                                </div>
+                                <button
+                                    onClick={() => setVipCoinEnabled(!vipCoinEnabled)}
+                                    className={`text-3xl ${vipCoinEnabled ? 'text-green-500' : 'text-gray-600'}`}
+                                >
+                                    {vipCoinEnabled ? <ToggleRight /> : <ToggleLeft />}
+                                </button>
+                            </div>
+
+                            {!vipCoinEnabled && (
+                                <div className="mt-2">
+                                    <label className="block text-sm text-gray-400 mb-2">Pesan Peringatan (saat dimatikan)</label>
+                                    <input
+                                        type="text"
+                                        value={vipCoinMsg}
+                                        onChange={(e) => setVipCoinMsg(e.target.value)}
+                                        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-red-500"
+                                        placeholder="Fitur Tukar Koin sedang dalam perbaikan."
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">Pesan ini akan muncul sebagai pop-up ketika user klik tombol Tukar VIP.</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
