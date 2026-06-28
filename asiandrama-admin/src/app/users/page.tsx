@@ -9,6 +9,14 @@ export default function UsersPage() {
     const [search, setSearch] = useState('');
     const [users, setUsers] = useState<Profile[]>([]);
     const [loading, setLoading] = useState(true);
+    
+    // Pagination & Filters
+    const [page, setPage] = useState(1);
+    const [pageSize] = useState(30);
+    const [filterVip, setFilterVip] = useState(false);
+    const [filterBanned, setFilterBanned] = useState(false);
+    const [sortByCoins, setSortByCoins] = useState(false);
+    const [hasMore, setHasMore] = useState(false);
     const [selectedUser, setSelectedUser] = useState<Profile | null>(null);
     const [coinAmount, setCoinAmount] = useState('');
     const [coinReason, setCoinReason] = useState('');
@@ -20,24 +28,54 @@ export default function UsersPage() {
     const [actionLoading, setActionLoading] = useState(false);
 
     useEffect(() => {
-        fetchUsers();
-    }, []);
+        const timer = setTimeout(() => {
+            fetchUsers();
+        }, 400);
+        return () => clearTimeout(timer);
+    }, [page, filterVip, filterBanned, sortByCoins, search]);
 
     async function fetchUsers() {
         setLoading(true);
-        const { data } = await supabase
-            .from('profiles')
-            .select('*')
-            .order('created_at', { ascending: false });
-        setUsers(data || []);
+        let query = supabase.from('profiles').select('*', { count: 'exact' });
+
+        if (filterVip) {
+            query = query.eq('is_vip', true);
+        }
+        if (filterBanned) {
+            query = query.eq('is_banned', true);
+        }
+        if (search) {
+            query = query.or(`email.ilike.%${search}%,full_name.ilike.%${search}%`);
+        }
+        if (sortByCoins) {
+            query = query.order('coin_balance', { ascending: false });
+        } else {
+            query = query.order('created_at', { ascending: false });
+        }
+
+        const from = (page - 1) * pageSize;
+        const to = from + pageSize - 1;
+        query = query.range(from, to);
+
+        const { data, count, error } = await query;
+        if (error) {
+            console.error(error);
+        } else {
+            setUsers(data || []);
+            setHasMore(count ? from + (data?.length || 0) < count : false);
+        }
         setLoading(false);
     }
 
-    const filteredUsers = users.filter(
-        (u) =>
-            (u.full_name?.toLowerCase() || '').includes(search.toLowerCase()) ||
-            (u.email?.toLowerCase() || '').includes(search.toLowerCase())
-    );
+    const handleFilterChange = (setter: any, value: any) => {
+        setter(value);
+        setPage(1); // Reset to page 1 on any filter change
+    };
+
+    const handleSearchChange = (val: string) => {
+        setSearch(val);
+        setPage(1); // Reset to page 1 on search
+    };
 
     const toggleBan = async (user: Profile) => {
         const newBanStatus = !user.is_banned;
@@ -171,16 +209,38 @@ export default function UsersPage() {
         <div>
             <h1 className="text-2xl font-bold mb-6">User Management</h1>
 
-            {/* Search */}
-            <div className="relative mb-6">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={20} />
-                <input
-                    type="text"
-                    placeholder="Cari user..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full bg-gray-900 border border-gray-800 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-pink-600"
-                />
+            {/* Filters */}
+            <div className="flex flex-col md:flex-row gap-4 mb-6">
+                <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={20} />
+                    <input
+                        type="text"
+                        placeholder="Cari email atau nama..."
+                        value={search}
+                        onChange={(e) => handleSearchChange(e.target.value)}
+                        className="w-full bg-gray-900 border border-gray-800 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-pink-600"
+                    />
+                </div>
+                <div className="flex gap-2">
+                    <button 
+                        onClick={() => handleFilterChange(setFilterVip, !filterVip)} 
+                        className={`px-4 py-2 rounded-lg border whitespace-nowrap transition-colors ${filterVip ? 'bg-yellow-900/40 border-yellow-600 text-yellow-400' : 'bg-gray-900 border-gray-800 text-gray-400 hover:text-gray-300'}`}
+                    >
+                        VIP
+                    </button>
+                    <button 
+                        onClick={() => handleFilterChange(setSortByCoins, !sortByCoins)} 
+                        className={`px-4 py-2 rounded-lg border whitespace-nowrap transition-colors ${sortByCoins ? 'bg-yellow-900/40 border-yellow-600 text-yellow-400' : 'bg-gray-900 border-gray-800 text-gray-400 hover:text-gray-300'}`}
+                    >
+                        Koin Terbanyak
+                    </button>
+                    <button 
+                        onClick={() => handleFilterChange(setFilterBanned, !filterBanned)} 
+                        className={`px-4 py-2 rounded-lg border whitespace-nowrap transition-colors ${filterBanned ? 'bg-red-900/40 border-red-600 text-red-400' : 'bg-gray-900 border-gray-800 text-gray-400 hover:text-gray-300'}`}
+                    >
+                        Banned
+                    </button>
+                </div>
             </div>
 
             {/* Table */}
@@ -197,16 +257,22 @@ export default function UsersPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredUsers.length === 0 ? (
+                        {loading && users.length === 0 ? (
                             <tr>
                                 <td colSpan={6} className="text-center py-8 text-gray-500">
-                                    Belum ada user
+                                    Loading...
+                                </td>
+                            </tr>
+                        ) : users.length === 0 ? (
+                            <tr>
+                                <td colSpan={6} className="text-center py-8 text-gray-500">
+                                    Belum ada user yang sesuai kriteria
                                 </td>
                             </tr>
                         ) : (
-                            filteredUsers.map((user, index) => (
+                            users.map((user, index) => (
                                 <tr key={user.id} className="border-t border-gray-800 hover:bg-gray-800/50">
-                                    <td className="px-4 py-3 text-gray-500">{index + 1}</td>
+                                    <td className="px-4 py-3 text-gray-500">{(page - 1) * pageSize + index + 1}</td>
                                     <td className="px-4 py-3">
                                         <p className="font-medium">{user.email || 'No email'}</p>
                                         <p className="text-xs text-gray-500">{user.id.slice(0, 8)}...</p>
@@ -295,6 +361,27 @@ export default function UsersPage() {
                         )}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Pagination Controls */}
+            <div className="flex justify-between items-center mt-6">
+                <button 
+                    disabled={page === 1 || loading} 
+                    onClick={() => setPage(p => Math.max(1, p - 1))}
+                    className="px-6 py-2 bg-gray-900 border border-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                    Back
+                </button>
+                <div className="text-gray-500 text-sm">
+                    Halaman <span className="text-white font-medium">{page}</span>
+                </div>
+                <button 
+                    disabled={!hasMore || loading} 
+                    onClick={() => setPage(p => p + 1)}
+                    className="px-6 py-2 bg-gray-900 border border-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                    Next
+                </button>
             </div>
 
             {/* Coin Management Modal */}
