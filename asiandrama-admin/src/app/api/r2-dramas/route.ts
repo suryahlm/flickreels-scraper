@@ -106,6 +106,9 @@ export async function GET() {
                         folder_name: d.r2_folder || dramaId,
                         source: 'supabase',
                         created_at: d.created_at, // For sorting by newest
+                        views: d.view_count || 0,
+                        search_count: d.search_count || 0,
+                        save_count: d.save_count || 0,
                     });
                 }
             }
