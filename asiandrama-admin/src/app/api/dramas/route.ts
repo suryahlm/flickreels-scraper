@@ -95,9 +95,16 @@ export async function PATCH(request: NextRequest) {
             return NextResponse.json({ error: 'Drama ID required' }, { status: 400 });
         }
 
+        const updateData: any = { is_published };
+        
+        // Jika statusnya dipublish (termasuk dipublish ulang), perbarui created_at agar tampil paling atas di "Serial Baru"
+        if (is_published) {
+            updateData.created_at = new Date().toISOString();
+        }
+
         const { data, error } = await supabaseAdmin
             .from('dramas')
-            .update({ is_published })
+            .update(updateData)
             .eq('id', id)
             .select()
             .single();
