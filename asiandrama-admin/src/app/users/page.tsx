@@ -24,6 +24,7 @@ export default function UsersPage() {
     const [showPasswordModal, setShowPasswordModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [vipDays, setVipDays] = useState('30');
+    const [customVipDays, setCustomVipDays] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [actionLoading, setActionLoading] = useState(false);
 
@@ -116,7 +117,12 @@ export default function UsersPage() {
         if (!selectedUser) return;
         setActionLoading(true);
 
-        const days = parseInt(vipDays);
+        const days = vipDays === 'custom' ? parseInt(customVipDays) : parseInt(vipDays);
+        if (isNaN(days) || days <= 0) {
+            alert("Masukkan jumlah hari yang valid");
+            setActionLoading(false);
+            return;
+        }
         const result = await grantUserVipAdmin(selectedUser.id, days);
 
         if (result.success) {
@@ -464,7 +470,19 @@ export default function UsersPage() {
                                     <option value="30">30 hari (1 bulan)</option>
                                     <option value="90">90 hari (3 bulan)</option>
                                     <option value="365">365 hari (1 tahun)</option>
+                                    <option value="custom">Custom (isi manual)</option>
                                 </select>
+                                
+                                {vipDays === 'custom' && (
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        placeholder="Masukkan jumlah hari..."
+                                        value={customVipDays}
+                                        onChange={(e) => setCustomVipDays(e.target.value)}
+                                        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 mt-3 focus:outline-none focus:border-yellow-600 text-white"
+                                    />
+                                )}
                             </div>
 
                             <button
