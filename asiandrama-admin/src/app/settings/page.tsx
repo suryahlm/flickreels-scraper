@@ -1,7 +1,7 @@
 'use client';
 
 import { supabase } from '@/lib/supabase';
-import { Image as ImageIcon, Save, ToggleLeft, ToggleRight, Upload, CheckCircle2, XCircle } from 'lucide-react';
+import { Image as ImageIcon, Save, ToggleLeft, ToggleRight, Upload, CheckCircle2, XCircle, GripVertical } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 export default function SettingsPage() {
@@ -37,6 +37,23 @@ export default function SettingsPage() {
     const [layoutDramanova, setLayoutDramanova] = useState('10');
     const [layoutDramawave, setLayoutDramawave] = useState('10');
     const [layoutMelolo, setLayoutMelolo] = useState('10');
+    const [providerOrder, setProviderOrder] = useState<string[]>(['dramabox', 'netshort', 'flickreels', 'dramanova', 'dramawave', 'melolo']);
+    
+    // Drag and drop refs
+    const dragItem = useRef<number | null>(null);
+    const dragOverItem = useRef<number | null>(null);
+
+    const handleSort = () => {
+        if (dragItem.current === null || dragOverItem.current === null) return;
+        
+        let _providerOrder = [...providerOrder];
+        const draggedItemContent = _providerOrder.splice(dragItem.current, 1)[0];
+        _providerOrder.splice(dragOverItem.current, 0, draggedItemContent);
+        
+        dragItem.current = null;
+        dragOverItem.current = null;
+        setProviderOrder(_providerOrder);
+    };
 
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
@@ -85,6 +102,9 @@ export default function SettingsPage() {
                             if (parsed.dramanova !== undefined) setLayoutDramanova(String(parsed.dramanova));
                             if (parsed.dramawave !== undefined) setLayoutDramawave(String(parsed.dramawave));
                             if (parsed.melolo !== undefined) setLayoutMelolo(String(parsed.melolo));
+                            if (Array.isArray(parsed.order)) {
+                                setProviderOrder(parsed.order);
+                            }
                         } catch(e) {
                             console.error('Failed to parse provider_layout', e);
                         }
@@ -160,7 +180,8 @@ export default function SettingsPage() {
                     flickreels: parseInt(layoutFlickreels) || 10,
                     dramanova: parseInt(layoutDramanova) || 10,
                     dramawave: parseInt(layoutDramawave) || 10,
-                    melolo: parseInt(layoutMelolo) || 10
+                    melolo: parseInt(layoutMelolo) || 10,
+                    order: providerOrder
                 }) 
             },
         ];
@@ -454,34 +475,60 @@ export default function SettingsPage() {
                 <div className="bg-gray-900 rounded-xl border border-gray-800 p-6">
                     <h2 className="font-semibold mb-4">Urutan & Tampilan "Semua Drama"</h2>
                     <p className="text-sm text-gray-500 mb-6">
-                        Tentukan jumlah maksimal drama yang ditarik per giliran rotasi.<br/>
-                        <b>Urutan tayang baku:</b> Dramabox → Netshort → FlickReels → DramaNova → DramaWave → Melolo.
+                        Tentukan jumlah maksimal drama yang ditarik per giliran rotasi. Drag baris untuk mengubah urutan tayang.
                     </p>
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">1. Dramabox</label>
-                            <input type="number" value={layoutDramabox} onChange={e => setLayoutDramabox(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">2. Netshort</label>
-                            <input type="number" value={layoutNetshort} onChange={e => setLayoutNetshort(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">3. FlickReels</label>
-                            <input type="number" value={layoutFlickreels} onChange={e => setLayoutFlickreels(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">4. DramaNova</label>
-                            <input type="number" value={layoutDramanova} onChange={e => setLayoutDramanova(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">5. DramaWave</label>
-                            <input type="number" value={layoutDramawave} onChange={e => setLayoutDramawave(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
-                        </div>
-                        <div>
-                            <label className="block text-sm text-gray-400 mb-2">6. Melolo</label>
-                            <input type="number" value={layoutMelolo} onChange={e => setLayoutMelolo(e.target.value)} min="1" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500" />
-                        </div>
+                    <div className="space-y-3">
+                        {providerOrder.map((providerId, index) => {
+                            const labels: Record<string, string> = {
+                                dramabox: 'Dramabox',
+                                netshort: 'Netshort',
+                                flickreels: 'FlickReels',
+                                dramanova: 'DramaNova',
+                                dramawave: 'DramaWave',
+                                melolo: 'Melolo'
+                            };
+                            const stateVals: Record<string, { val: string, set: (v: string) => void }> = {
+                                dramabox: { val: layoutDramabox, set: setLayoutDramabox },
+                                netshort: { val: layoutNetshort, set: setLayoutNetshort },
+                                flickreels: { val: layoutFlickreels, set: setLayoutFlickreels },
+                                dramanova: { val: layoutDramanova, set: setLayoutDramanova },
+                                dramawave: { val: layoutDramawave, set: setLayoutDramawave },
+                                melolo: { val: layoutMelolo, set: setLayoutMelolo }
+                            };
+                            
+                            const label = labels[providerId] || providerId;
+                            const state = stateVals[providerId];
+                            if (!state) return null;
+
+                            return (
+                                <div 
+                                    key={providerId}
+                                    draggable
+                                    onDragStart={(e) => { dragItem.current = index; }}
+                                    onDragEnter={(e) => { dragOverItem.current = index; }}
+                                    onDragEnd={handleSort}
+                                    onDragOver={(e) => e.preventDefault()}
+                                    className="flex items-center gap-4 bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 cursor-grab active:cursor-grabbing hover:border-amber-500/50 transition-colors"
+                                >
+                                    <GripVertical size={20} className="text-gray-500" />
+                                    <div className="flex-1 flex items-center justify-between">
+                                        <span className="font-medium text-gray-300">
+                                            {index + 1}. {label}
+                                        </span>
+                                        <div className="flex items-center gap-3">
+                                            <label className="text-sm text-gray-500">Maks. ditarik:</label>
+                                            <input 
+                                                type="number" 
+                                                value={state.val} 
+                                                onChange={e => state.set(e.target.value)} 
+                                                min="1" 
+                                                className="w-20 bg-gray-900 border border-gray-700 rounded-md px-3 py-1.5 focus:outline-none focus:border-amber-500 text-center" 
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
 
