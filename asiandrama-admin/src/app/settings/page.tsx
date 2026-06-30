@@ -8,6 +8,7 @@ export default function SettingsPage() {
     const [appName, setAppName] = useState('AsianDrama');
     const [appIcon, setAppIcon] = useState<string | null>(null);
     const [maintenanceMode, setMaintenanceMode] = useState(false);
+    const [rewardBottomText, setRewardBottomText] = useState('Kumpulkan koinmu sekarang - Fitur VIP untuk nonton tanpa iklan & download drama telah hadir');
     
     // VIP with Real Money
     const [vipMonthlyPrice, setVipMonthlyPrice] = useState('49000');
@@ -61,6 +62,7 @@ export default function SettingsPage() {
                     case 'app_name': setAppName(setting.value); break;
                     case 'app_icon': setAppIcon(setting.value); break;
                     case 'maintenance_mode': setMaintenanceMode(setting.value === 'true'); break;
+                    case 'reward_bottom_text': setRewardBottomText(setting.value); break;
                     case 'vip_monthly_price': setVipMonthlyPrice(setting.value); break;
                     case 'vip_3month_price': setVip3MonthPrice(setting.value); break;
                     case 'vip_1year_price': setVip1YearPrice(setting.value); break;
@@ -136,6 +138,7 @@ export default function SettingsPage() {
             { key: 'app_name', value: appName },
             { key: 'app_icon', value: appIcon || '' },
             { key: 'maintenance_mode', value: maintenanceMode.toString() },
+            { key: 'reward_bottom_text', value: rewardBottomText },
             { key: 'vip_monthly_price', value: vipMonthlyPrice },
             { key: 'vip_3month_price', value: vip3MonthPrice },
             { key: 'vip_1year_price', value: vip1YearPrice },
@@ -238,7 +241,19 @@ export default function SettingsPage() {
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between py-3 border-t border-gray-800">
+                        {/* Reward Bottom Text */}
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">Teks Banner Hadiah VIP (Tab Hadiah)</label>
+                            <textarea
+                                value={rewardBottomText}
+                                onChange={(e) => setRewardBottomText(e.target.value)}
+                                rows={2}
+                                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-amber-500"
+                            />
+                        </div>
+
+                        {/* Maintenance Mode Toggle */}
+                        <div className="flex items-center justify-between pt-4 border-t border-gray-800">
                             <div>
                                 <p className="font-medium">Maintenance Mode</p>
                                 <p className="text-sm text-gray-500">Nonaktifkan akses user sementara</p>
