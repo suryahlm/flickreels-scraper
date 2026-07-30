@@ -142,13 +142,19 @@ export default function DraftDramasPage() {
                         const isActing = !!actionLoading[drama.id];
                         let thumbnail = drama.thumbnail_url || drama.cover_url;
                         if (!thumbnail && drama.r2_folder) {
-                            thumbnail = `https://cdn.asiandrama.cc/${drama.r2_folder}/cover.jpg`;
+                            // r2_folder is stored raw (unencoded) — encode it here so spaces
+                            // and parentheses don't break the Next.js Image component.
+                            thumbnail = encodeURI(`https://cdn.asiandrama.cc/${drama.r2_folder}/cover.jpg`);
                         }
-                        
-                        // Properly encode the URL so Next.js Image component doesn't fail on spaces
+
+                        // NOTE: thumbnail_url/cover_url from the DB are already valid,
+                        // correctly-encoded URLs (the publish scripts pre-encode thumbnail_url
+                        // with encodeURIComponent; cover_url is the source's own URL as-is) —
+                        // do NOT encodeURI() them again here. Doing so double-encodes existing
+                        // %20 into %2520 and breaks the image (this was the actual bug).
                         if (thumbnail) {
                             // Bust cache because previous broken 302 redirects were cached
-                            thumbnail = encodeURI(thumbnail) + '?t=' + new Date().getTime();
+                            thumbnail = thumbnail + '?t=' + new Date().getTime();
                         }
 
                         return (
