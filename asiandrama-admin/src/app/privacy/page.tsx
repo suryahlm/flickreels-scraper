@@ -7,11 +7,16 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicy() {
     return (
-        <div className="max-w-3xl mx-auto px-6 py-12">
-            <h1 className="text-3xl font-bold mb-2">Privacy Policy</h1>
-            <p className="text-gray-400 mb-8">Last updated: February 17, 2026</p>
+        <div className="max-w-4xl mx-auto px-6 py-16">
+            <div className="mb-10 pb-6 border-b border-white/[0.08]">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-4">
+                    Legal & Compliance
+                </div>
+                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">Privacy Policy</h1>
+                <p className="text-sm text-slate-400">Last updated: February 17, 2026</p>
+            </div>
 
-            <div className="space-y-8 text-gray-300 leading-relaxed">
+            <div className="space-y-8 text-slate-300 leading-relaxed text-sm">
                 <section>
                     <h2 className="text-xl font-semibold text-white mb-3">1. Introduction</h2>
                     <p>
@@ -127,12 +132,12 @@ export default function PrivacyPolicy() {
                     <p>
                         If you have any questions about this Privacy Policy, please contact us at:
                     </p>
-                    <p className="mt-2 text-purple-400">globaldigitalid01@gmail.com</p>
+                    <p className="mt-2 text-amber-400 font-semibold">globaldigitalid01@gmail.com</p>
                 </section>
             </div>
 
-            <div className="mt-12 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
-                © 2026 AsianDrama. All rights reserved.
+            <div className="mt-16 pt-8 border-t border-white/[0.08] text-center text-slate-500 text-xs">
+                © 2026 AsianDrama Streaming Infrastructure. All rights reserved.
             </div>
         </div>
     );

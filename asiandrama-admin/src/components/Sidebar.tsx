@@ -83,8 +83,8 @@ export default function Sidebar() {
         router.push('/login');
     };
 
-    // Don't show sidebar on login page
-    if (pathname === '/login') return null;
+    // Don't show sidebar on login page or privacy page
+    if (pathname === '/login' || pathname.startsWith('/privacy')) return null;
 
     return (
         <aside className="w-72 bg-[#090D15]/95 backdrop-blur-2xl border-r border-white/[0.08] min-h-screen flex flex-col flex-shrink-0 z-40 transition-all select-none">

@@ -31,7 +31,7 @@ export default function Header() {
         }).catch(() => {});
     }, []);
 
-    if (pathname === '/login') return null;
+    if (pathname === '/login' || pathname.startsWith('/privacy')) return null;
 
     const pageInfo = PAGE_TITLES[pathname] || {
         title: 'AsianDrama Console',
