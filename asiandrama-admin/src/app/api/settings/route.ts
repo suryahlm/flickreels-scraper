@@ -1,6 +1,24 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 
+export async function GET() {
+    try {
+        const { data, error } = await supabaseAdmin
+            .from('app_settings')
+            .select('*');
+        
+        if (error) {
+            console.error('Failed to fetch settings:', error);
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+
+        return NextResponse.json({ settings: data || [] });
+    } catch (error: any) {
+        console.error('Settings API GET Error:', error);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}
+
 export async function POST(req: Request) {
     try {
         const settings = await req.json();

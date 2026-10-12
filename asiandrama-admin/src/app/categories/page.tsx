@@ -2,7 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { Plus, Edit2, Trash2, FolderOpen, GripVertical, Check, X, Tag } from 'lucide-react';
-import { supabase, type Category } from '@/lib/supabase';
+import { type Category } from '@/lib/supabase';
+import { 
+    fetchCategoriesAdmin, 
+    addCategoryAdmin, 
+    updateCategoryAdmin, 
+    deleteCategoryAdmin 
+} from './actions';
 
 export default function CategoriesPage() {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -17,29 +23,17 @@ export default function CategoriesPage() {
 
     async function fetchCategories() {
         setLoading(true);
-        const { data } = await supabase
-            .from('categories')
-            .select('*')
-            .order('display_order');
-        setCategories(data || []);
+        const res = await fetchCategoriesAdmin();
+        setCategories((res.data || []) as Category[]);
         setLoading(false);
     }
 
     const addCategory = async () => {
         if (!newCategory.trim()) return;
-        const slug = newCategory.toLowerCase().trim().replace(/\s+/g, '-');
-        const { data, error } = await supabase
-            .from('categories')
-            .insert({
-                name: newCategory.trim(),
-                slug,
-                display_order: categories.length + 1,
-            })
-            .select()
-            .single();
+        const res = await addCategoryAdmin(newCategory.trim(), categories.length + 1);
 
-        if (error) return alert('Error: ' + error.message);
-        setCategories([...categories, data]);
+        if (!res.success) return alert('Error: ' + res.error);
+        if (res.data) setCategories([...categories, res.data as Category]);
         setNewCategory('');
     };
 
@@ -50,22 +44,21 @@ export default function CategoriesPage() {
 
     const handleSaveEdit = async (id: string) => {
         if (!editName.trim()) return;
-        const slug = editName.toLowerCase().trim().replace(/\s+/g, '-');
-        const { error } = await supabase
-            .from('categories')
-            .update({ name: editName.trim(), slug })
-            .eq('id', id);
+        const res = await updateCategoryAdmin(id, editName.trim());
 
-        if (error) return alert('Gagal update: ' + error.message);
+        if (!res.success) return alert('Gagal update: ' + res.error);
+        const slug = editName.toLowerCase().trim().replace(/\s+/g, '-');
         setCategories(categories.map(c => c.id === id ? { ...c, name: editName.trim(), slug } : c));
         setEditingId(null);
     };
 
     const deleteCategory = async (id: string) => {
         if (!confirm('Yakin hapus kategori ini? Drama dalam kategori ini tidak akan terhapus.')) return;
-        await supabase.from('categories').delete().eq('id', id);
+        const res = await deleteCategoryAdmin(id);
+        if (!res.success) return alert('Gagal hapus: ' + res.error);
         setCategories(categories.filter((c) => c.id !== id));
     };
+
 
     if (loading) {
         return (

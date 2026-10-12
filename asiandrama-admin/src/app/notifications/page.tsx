@@ -18,6 +18,13 @@ import {
     Radio 
 } from 'lucide-react';
 
+import { 
+    fetchNotificationsAdmin, 
+    createNotificationAdmin, 
+    deactivateNotificationAdmin, 
+    deleteNotificationAdmin 
+} from './actions';
+
 interface Notification {
     id: string;
     title: string;
@@ -40,14 +47,9 @@ export default function NotificationsPage() {
     const [type, setType] = useState<'info' | 'warning' | 'maintenance'>('info');
 
     const fetchNotifications = async () => {
-        const { data, error } = await supabaseAdmin
-            .from('admin_notifications')
-            .select('*')
-            .order('created_at', { ascending: false })
-            .limit(20);
-
-        if (!error && data) {
-            setNotifications(data);
+        const res = await fetchNotificationsAdmin();
+        if (res.success && res.data) {
+            setNotifications(res.data as Notification[]);
         }
         setLoading(false);
     };
@@ -62,17 +64,10 @@ export default function NotificationsPage() {
 
         setSubmitting(true);
         try {
-            const { error } = await supabaseAdmin
-                .from('admin_notifications')
-                .insert({
-                    title: title.trim(),
-                    message: message.trim(),
-                    type,
-                    is_active: true,
-                });
+            const res = await createNotificationAdmin(title.trim(), message.trim(), type);
 
-            if (error) {
-                alert('Gagal mengirim notifikasi: ' + error.message);
+            if (!res.success) {
+                alert('Gagal mengirim notifikasi: ' + res.error);
             } else {
                 setTitle('');
                 setMessage('');
@@ -88,13 +83,12 @@ export default function NotificationsPage() {
 
     const handleDeactivate = async (id: string) => {
         setActionId(id);
-        const { error } = await supabaseAdmin
-            .from('admin_notifications')
-            .update({ is_active: false, updated_at: new Date().toISOString() })
-            .eq('id', id);
+        const res = await deactivateNotificationAdmin(id);
 
-        if (!error) {
+        if (res.success) {
             await fetchNotifications();
+        } else {
+            alert('Gagal menonaktifkan: ' + res.error);
         }
         setActionId(null);
     };
@@ -103,16 +97,16 @@ export default function NotificationsPage() {
         if (!confirm('Hapus notifikasi ini dari arsip riwayat?')) return;
 
         setActionId(id);
-        const { error } = await supabaseAdmin
-            .from('admin_notifications')
-            .delete()
-            .eq('id', id);
+        const res = await deleteNotificationAdmin(id);
 
-        if (!error) {
+        if (res.success) {
             await fetchNotifications();
+        } else {
+            alert('Gagal menghapus: ' + res.error);
         }
         setActionId(null);
     };
+
 
     const getTypeMeta = (t: string) => {
         switch (t) {

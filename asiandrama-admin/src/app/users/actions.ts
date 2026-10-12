@@ -131,3 +131,53 @@ export async function toggleUserBanAdmin(userId: string, newBanStatus: boolean) 
         return { success: false, error: error.message };
     }
 }
+
+export async function fetchUsersAdmin(params: {
+    page?: number;
+    pageSize?: number;
+    filterVip?: boolean;
+    filterBanned?: boolean;
+    sortByCoins?: boolean;
+    search?: string;
+}) {
+    const {
+        page = 1,
+        pageSize = 25,
+        filterVip = false,
+        filterBanned = false,
+        sortByCoins = false,
+        search = ''
+    } = params;
+
+    try {
+        let query = supabaseAdmin.from('profiles').select('*', { count: 'exact' });
+
+        if (filterVip) {
+            query = query.eq('is_vip', true);
+        }
+        if (filterBanned) {
+            query = query.eq('is_banned', true);
+        }
+        if (search) {
+            query = query.or(`email.ilike.%${search}%,full_name.ilike.%${search}%`);
+        }
+        if (sortByCoins) {
+            query = query.order('coin_balance', { ascending: false });
+        } else {
+            query = query.order('created_at', { ascending: false });
+        }
+
+        const from = (page - 1) * pageSize;
+        const to = from + pageSize - 1;
+        query = query.range(from, to);
+
+        const { data, count, error } = await query;
+        if (error) {
+            return { success: false, data: [], count: 0, error: error.message };
+        }
+        return { success: true, data: data || [], count: count || 0, error: null };
+    } catch (e: any) {
+        return { success: false, data: [], count: 0, error: e.message };
+    }
+}
+

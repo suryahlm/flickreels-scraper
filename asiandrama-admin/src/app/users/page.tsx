@@ -3,7 +3,7 @@
 import { supabase, type Profile } from '@/lib/supabase';
 import { Ban, CheckCircle, Coins, Crown, Key, Minus, Plus, Search, Trash2, X, Users, ShieldAlert, ShieldCheck, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { cancelUserVipAdmin, grantUserVipAdmin, toggleUserBanAdmin, updateUserCoinsAdmin } from './actions';
+import { cancelUserVipAdmin, grantUserVipAdmin, toggleUserBanAdmin, updateUserCoinsAdmin, fetchUsersAdmin } from './actions';
 
 export default function UsersPage() {
     const [search, setSearch] = useState('');
@@ -37,36 +37,25 @@ export default function UsersPage() {
 
     async function fetchUsers() {
         setLoading(true);
-        let query = supabase.from('profiles').select('*', { count: 'exact' });
+        const res = await fetchUsersAdmin({
+            page,
+            pageSize,
+            filterVip,
+            filterBanned,
+            sortByCoins,
+            search: search.trim()
+        });
 
-        if (filterVip) {
-            query = query.eq('is_vip', true);
-        }
-        if (filterBanned) {
-            query = query.eq('is_banned', true);
-        }
-        if (search) {
-            query = query.or(`email.ilike.%${search}%,full_name.ilike.%${search}%`);
-        }
-        if (sortByCoins) {
-            query = query.order('coin_balance', { ascending: false });
+        if (res.error) {
+            console.error('Fetch users error:', res.error);
         } else {
-            query = query.order('created_at', { ascending: false });
-        }
-
-        const from = (page - 1) * pageSize;
-        const to = from + pageSize - 1;
-        query = query.range(from, to);
-
-        const { data, count, error } = await query;
-        if (error) {
-            console.error(error);
-        } else {
-            setUsers(data || []);
-            setHasMore(count ? from + (data?.length || 0) < count : false);
+            setUsers(res.data || []);
+            const from = (page - 1) * pageSize;
+            setHasMore(res.count ? from + (res.data?.length || 0) < res.count : false);
         }
         setLoading(false);
     }
+
 
     const handleFilterChange = (setter: any, value: any) => {
         setter(value);

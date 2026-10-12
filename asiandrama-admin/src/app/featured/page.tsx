@@ -43,20 +43,15 @@ export default function FeaturedPage() {
             const featuredRes = await fetch('/api/featured');
             const featuredData = await featuredRes.json();
 
-            const { data: dramas } = await supabase
-                .from('dramas')
-                .select('*')
-                .eq('is_published', true)
-                .order('title');
-
             setFeatured(featuredData.featured || []);
-            setAllDramas(dramas || []);
+            setAllDramas(featuredData.allDramas || []);
         } catch (e) {
             console.error('Failed to load:', e);
         } finally {
             setLoading(false);
         }
     }
+
 
     const featuredIds = new Set(featured.map(f => f.drama_id));
     const availableDramas = allDramas.filter(d => {

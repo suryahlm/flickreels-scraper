@@ -3,7 +3,7 @@
 import { CheckCircle, Eye, Film, Loader2, RefreshCw, Trash2, FolderCheck, Clock, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
-import { supabaseAdmin } from '@/lib/supabase';
+import { fetchDraftDramasAdmin } from './actions';
 
 interface DraftDrama {
     id: string;
@@ -31,19 +31,16 @@ export default function DraftDramasPage() {
 
     const fetchDrafts = useCallback(async () => {
         setLoading(true);
-        const { data, error } = await supabaseAdmin
-            .from('dramas')
-            .select('id, title, synopsis, thumbnail_url, cover_url, total_episodes, r2_folder, created_at, flickreels_id')
-            .eq('is_published', false)
-            .order('created_at', { ascending: false });
+        const res = await fetchDraftDramasAdmin();
 
-        if (error) {
-            showToast('Gagal memuat data: ' + error.message, 'error');
+        if (!res.success) {
+            showToast('Gagal memuat data: ' + res.error, 'error');
         } else {
-            setDramas(data || []);
+            setDramas(res.data || []);
         }
         setLoading(false);
     }, []);
+
 
     useEffect(() => { fetchDrafts(); }, [fetchDrafts]);
 

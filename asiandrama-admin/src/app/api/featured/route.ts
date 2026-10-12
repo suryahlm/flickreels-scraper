@@ -34,11 +34,18 @@ export async function GET() {
             drama: dramasMap[f.drama_id] || null,
         }));
 
-        return NextResponse.json({ featured: result });
+        const { data: allDramas } = await supabaseAdmin
+            .from('dramas')
+            .select('*')
+            .eq('is_published', true)
+            .order('title');
+
+        return NextResponse.json({ featured: result, allDramas: allDramas || [] });
     } catch (e: any) {
         return NextResponse.json({ error: e.message }, { status: 500 });
     }
 }
+
 
 // PUT — Replace entire featured list
 export async function PUT(request: NextRequest) {

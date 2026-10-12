@@ -1,6 +1,5 @@
 'use client';
 
-import { supabase } from '@/lib/supabase';
 import { 
     Settings, 
     Save, 
@@ -108,47 +107,55 @@ export default function SettingsPage() {
 
     async function fetchSettings() {
         setLoading(true);
-        const { data } = await supabase.from('app_settings').select('*');
-        if (data) {
-            data.forEach((setting) => {
-                switch (setting.key) {
-                    case 'app_name': setAppName(setting.value); break;
-                    case 'app_icon': setAppIcon(setting.value); break;
-                    case 'maintenance_mode': setMaintenanceMode(setting.value === 'true'); break;
-                    case 'reward_bottom_text': setRewardBottomText(setting.value); break;
-                    case 'vip_monthly_price': setVipMonthlyPrice(setting.value); break;
-                    case 'vip_3month_price': setVip3MonthPrice(setting.value); break;
-                    case 'vip_1year_price': setVip1YearPrice(setting.value); break;
-                    case 'vip_coin_1month': setVipCoin1Month(setting.value); break;
-                    case 'vip_coin_3month': setVipCoin3Month(setting.value); break;
-                    case 'vip_coin_1year': setVipCoin1Year(setting.value); break;
-                    case 'vip_money_enabled': setVipMoneyEnabled(setting.value !== 'false'); break;
-                    case 'vip_money_msg': setVipMoneyMsg(setting.value); break;
-                    case 'vip_coin_enabled': setVipCoinEnabled(setting.value !== 'false'); break;
-                    case 'vip_coin_msg': setVipCoinMsg(setting.value); break;
-                    case 'ad_enabled': setAdEnabled(setting.value === 'true'); break;
-                    case 'free_episodes': setFreeEpisodes(setting.value); break;
-                    case 'ad_interval': setAdInterval(setting.value); break;
-                    case 'provider_layout':
-                        try {
-                            const parsed = JSON.parse(setting.value);
-                            if (parsed.dramabox !== undefined) setLayoutDramabox(String(parsed.dramabox));
-                            if (parsed.netshort !== undefined) setLayoutNetshort(String(parsed.netshort));
-                            if (parsed.flickreels !== undefined) setLayoutFlickreels(String(parsed.flickreels));
-                            if (parsed.dramanova !== undefined) setLayoutDramanova(String(parsed.dramanova));
-                            if (parsed.dramawave !== undefined) setLayoutDramawave(String(parsed.dramawave));
-                            if (parsed.melolo !== undefined) setLayoutMelolo(String(parsed.melolo));
-                            if (Array.isArray(parsed.order)) {
-                                setProviderOrder(parsed.order);
+        try {
+            const res = await fetch('/api/settings');
+            const json = await res.json();
+            const data = json.settings;
+            if (data && Array.isArray(data)) {
+                data.forEach((setting) => {
+                    switch (setting.key) {
+                        case 'app_name': setAppName(setting.value); break;
+                        case 'app_icon': setAppIcon(setting.value); break;
+                        case 'maintenance_mode': setMaintenanceMode(setting.value === 'true'); break;
+                        case 'reward_bottom_text': setRewardBottomText(setting.value); break;
+                        case 'vip_monthly_price': setVipMonthlyPrice(setting.value); break;
+                        case 'vip_3month_price': setVip3MonthPrice(setting.value); break;
+                        case 'vip_1year_price': setVip1YearPrice(setting.value); break;
+                        case 'vip_coin_1month': setVipCoin1Month(setting.value); break;
+                        case 'vip_coin_3month': setVipCoin3Month(setting.value); break;
+                        case 'vip_coin_1year': setVipCoin1Year(setting.value); break;
+                        case 'vip_money_enabled': setVipMoneyEnabled(setting.value !== 'false'); break;
+                        case 'vip_money_msg': setVipMoneyMsg(setting.value); break;
+                        case 'vip_coin_enabled': setVipCoinEnabled(setting.value !== 'false'); break;
+                        case 'vip_coin_msg': setVipCoinMsg(setting.value); break;
+                        case 'ad_enabled': setAdEnabled(setting.value === 'true'); break;
+                        case 'free_episodes': setFreeEpisodes(setting.value); break;
+                        case 'ad_interval': setAdInterval(setting.value); break;
+                        case 'provider_layout':
+                            try {
+                                const parsed = JSON.parse(setting.value);
+                                if (parsed.dramabox !== undefined) setLayoutDramabox(String(parsed.dramabox));
+                                if (parsed.netshort !== undefined) setLayoutNetshort(String(parsed.netshort));
+                                if (parsed.flickreels !== undefined) setLayoutFlickreels(String(parsed.flickreels));
+                                if (parsed.dramanova !== undefined) setLayoutDramanova(String(parsed.dramanova));
+                                if (parsed.dramawave !== undefined) setLayoutDramawave(String(parsed.dramawave));
+                                if (parsed.melolo !== undefined) setLayoutMelolo(String(parsed.melolo));
+                                if (Array.isArray(parsed.order)) {
+                                    setProviderOrder(parsed.order);
+                                }
+                            } catch(e) {
+                                console.error('Failed to parse provider_layout', e);
                             }
-                        } catch(e) {
-                            console.error('Failed to parse provider_layout', e);
-                        }
-                        break;
-                }
-            });
+                            break;
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Failed to load settings:', error);
+            showToast('Gagal memuat pengaturan aplikasi', 'error');
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     }
 
     const handleIconUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {

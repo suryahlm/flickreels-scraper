@@ -1,8 +1,10 @@
 'use client';
 
-import { supabase, type Category, type Drama } from '@/lib/supabase';
+import { type Category, type Drama } from '@/lib/supabase';
+import { fetchDramasCatalogAdmin } from './actions';
 import { Edit, Eye, EyeOff, Filter, Plus, Search, Trash2, X, Film, FolderCheck, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+
 
 // ── Source detection from r2_folder ──
 const SOURCES = ['FlickReels', 'DramaBox', 'Melolo', 'Netshort', 'DramaNova'] as const;
@@ -43,14 +45,12 @@ export default function DramasPage() {
 
     async function fetchData() {
         setLoading(true);
-        const [dramasRes, catsRes] = await Promise.all([
-            supabase.from('dramas').select('*').order('created_at', { ascending: false }),
-            supabase.from('categories').select('*').order('display_order'),
-        ]);
-        setDramas(dramasRes.data || []);
-        setCategories(catsRes.data || []);
+        const res = await fetchDramasCatalogAdmin();
+        setDramas(res.dramas || []);
+        setCategories(res.categories || []);
         setLoading(false);
     }
+
 
     // Source counts for badges
     const sourceCounts = useMemo(() => {
