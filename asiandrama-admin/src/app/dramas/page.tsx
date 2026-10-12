@@ -1,7 +1,7 @@
 'use client';
 
 import { supabase, type Category, type Drama } from '@/lib/supabase';
-import { Edit, Eye, EyeOff, Filter, Plus, Search, Trash2, X } from 'lucide-react';
+import { Edit, Eye, EyeOff, Filter, Plus, Search, Trash2, X, Film, FolderCheck, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
 // ── Source detection from r2_folder ──
@@ -9,11 +9,11 @@ const SOURCES = ['FlickReels', 'DramaBox', 'Melolo', 'Netshort', 'DramaNova'] as
 type Source = (typeof SOURCES)[number];
 
 const SOURCE_COLORS: Record<Source, string> = {
-    FlickReels: 'bg-purple-900/60 text-purple-300 border-purple-700',
-    DramaBox: 'bg-blue-900/60 text-blue-300 border-blue-700',
-    Melolo: 'bg-emerald-900/60 text-emerald-300 border-emerald-700',
-    Netshort: 'bg-amber-900/60 text-amber-300 border-amber-700',
-    DramaNova: 'bg-rose-900/60 text-rose-300 border-rose-700',
+    FlickReels: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
+    DramaBox: 'bg-blue-500/15 text-blue-300 border-blue-500/30',
+    Melolo: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+    Netshort: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+    DramaNova: 'bg-rose-500/15 text-rose-300 border-rose-500/30',
 };
 
 function getSource(r2_folder: string | null | undefined): Source {
@@ -103,7 +103,7 @@ export default function DramasPage() {
     };
 
     const deleteDrama = async (id: string) => {
-        if (!confirm('Yakin hapus drama ini?')) return;
+        if (!confirm('Yakin hapus drama ini? Tindakan tidak dapat dibatalkan.')) return;
         const res = await fetch(`/api/dramas?id=${id}`, { method: 'DELETE' });
         const result = await res.json();
         if (!res.ok) {
@@ -132,46 +132,75 @@ export default function DramasPage() {
         return categories.find((c) => c.id === catId)?.name || '-';
     };
 
-    if (loading) return <div className="text-center py-20">Loading...</div>;
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <div className="flex flex-col items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl border border-amber-500/30 bg-amber-500/10 flex items-center justify-center p-2">
+                        <div className="w-full h-full border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
+                    </div>
+                    <p className="text-xs font-semibold text-gray-400">Memuat katalog drama...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
-        <div>
-            <div className="flex items-center justify-between mb-6">
-                <h1 className="text-2xl font-bold">Drama Management</h1>
+        <div className="space-y-6">
+            {/* Header Toolbar */}
+            <div className="flex flex-wrap items-center justify-between gap-4 p-5 rounded-2xl glass-panel border border-white/[0.08]">
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                        <Film size={20} />
+                    </div>
+                    <div>
+                        <h2 className="text-base font-bold text-white tracking-tight">Katalog Master Drama</h2>
+                        <p className="text-xs text-gray-400">Total {dramas.length} judul terdaftar di database</p>
+                    </div>
+                </div>
+
                 <button
                     onClick={() => setShowAddModal(true)}
-                    className="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg flex items-center gap-2"
+                    className="gold-btn px-4 py-2 rounded-xl text-xs flex items-center gap-2 group"
                 >
-                    <Plus size={20} />
-                    Tambah Drama
+                    <Plus size={16} className="text-[#07090E]" />
+                    <span>Tambah Drama Baru</span>
                 </button>
             </div>
 
-            {/* Search */}
-            <div className="relative mb-4">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={20} />
+            {/* Search Input Bar */}
+            <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                 <input
                     type="text"
-                    placeholder="Cari drama..."
+                    placeholder="Cari berdasarkan judul drama..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full bg-gray-900 border border-gray-800 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-amber-500"
+                    className="w-full glass-input rounded-2xl pl-12 pr-10 py-3.5 text-sm focus:border-amber-400"
                 />
+                {search && (
+                    <button
+                        onClick={() => setSearch('')}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
+                    >
+                        <X size={16} />
+                    </button>
+                )}
             </div>
 
-            {/* Filters */}
-            <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 mb-4 space-y-3">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                        <Filter size={16} />
-                        <span>Filter</span>
+            {/* Multi-Filters Box */}
+            <div className="glass-card-static rounded-2xl border border-white/[0.08] p-5 space-y-4">
+                <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+                    <div className="flex items-center gap-2 text-xs font-bold text-gray-300 uppercase tracking-wider">
+                        <Filter size={14} className="text-amber-400" />
+                        <span>Filter Katalog</span>
                     </div>
                     {hasActiveFilter && (
                         <button
                             onClick={clearFilters}
-                            className="text-xs text-gray-500 hover:text-white flex items-center gap-1"
+                            className="text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1 transition-colors"
                         >
-                            <X size={14} />
+                            <X size={13} />
                             Reset Filter
                         </button>
                     )}
@@ -179,7 +208,7 @@ export default function DramasPage() {
 
                 {/* Source Filter */}
                 <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs text-gray-500 w-16 shrink-0">Sumber:</span>
+                    <span className="text-xs font-semibold text-gray-400 w-20 shrink-0">Sumber:</span>
                     <FilterButton
                         active={filterSource === 'all'}
                         onClick={() => setFilterSource('all')}
@@ -202,7 +231,7 @@ export default function DramasPage() {
 
                 {/* Status Filter */}
                 <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs text-gray-500 w-16 shrink-0">Status:</span>
+                    <span className="text-xs font-semibold text-gray-400 w-20 shrink-0">Status:</span>
                     <FilterButton
                         active={filterStatus === 'all'}
                         onClick={() => setFilterStatus('all')}
@@ -214,7 +243,7 @@ export default function DramasPage() {
                         active={filterStatus === 'published'}
                         onClick={() => setFilterStatus('published')}
                         count={statusCounts.published}
-                        color="bg-green-900/60 text-green-300 border-green-700"
+                        color="bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
                     >
                         Published
                     </FilterButton>
@@ -222,7 +251,7 @@ export default function DramasPage() {
                         active={filterStatus === 'draft'}
                         onClick={() => setFilterStatus('draft')}
                         count={statusCounts.draft}
-                        color="bg-gray-700/60 text-gray-300 border-gray-600"
+                        color="bg-gray-500/15 text-gray-300 border-gray-500/30"
                     >
                         Draft
                     </FilterButton>
@@ -230,7 +259,7 @@ export default function DramasPage() {
 
                 {/* Category Filter */}
                 <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs text-gray-500 w-16 shrink-0">Kategori:</span>
+                    <span className="text-xs font-semibold text-gray-400 w-20 shrink-0">Kategori:</span>
                     <FilterButton
                         active={filterCategory === 'all'}
                         onClick={() => setFilterCategory('all')}
@@ -249,139 +278,178 @@ export default function DramasPage() {
                 </div>
             </div>
 
-            {/* Result count */}
-            <div className="text-sm text-gray-500 mb-3">
-                Menampilkan <span className="text-white font-medium">{filteredDramas.length}</span> dari{' '}
-                <span className="text-white font-medium">{dramas.length}</span> drama
+            {/* Result Counter */}
+            <div className="flex items-center justify-between text-xs text-gray-400 px-1 font-medium">
+                <span>
+                    Menampilkan <strong className="text-white">{filteredDramas.length}</strong> dari <strong className="text-white">{dramas.length}</strong> judul
+                </span>
             </div>
 
-            {/* Table */}
-            <div className="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden">
-                <table className="w-full">
-                    <thead className="bg-gray-800">
-                        <tr>
-                            <th className="text-left px-4 py-3 w-12">No.</th>
-                            <th className="text-left px-4 py-3">Judul</th>
-                            <th className="text-left px-4 py-3">Sumber</th>
-                            <th className="text-left px-4 py-3">Kategori</th>
-                            <th className="text-left px-4 py-3">Episode</th>
-                            <th className="text-left px-4 py-3">Views</th>
-                            <th className="text-left px-4 py-3">Status</th>
-                            <th className="text-left px-4 py-3">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredDramas.length === 0 ? (
-                            <tr>
-                                <td colSpan={8} className="text-center py-8 text-gray-500">
-                                    {hasActiveFilter ? 'Tidak ada drama yang cocok dengan filter' : 'Belum ada drama'}
-                                </td>
+            {/* Table Container */}
+            <div className="glass-card-static rounded-2xl border border-white/[0.08] overflow-hidden shadow-xl">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                        <thead>
+                            <tr className="bg-white/[0.02] border-b border-white/[0.07] text-[11px] font-bold uppercase tracking-wider text-gray-400">
+                                <th className="px-5 py-4 w-12">#</th>
+                                <th className="px-5 py-4">Judul Drama</th>
+                                <th className="px-5 py-4">Asal Sumber</th>
+                                <th className="px-5 py-4">Kategori Genre</th>
+                                <th className="px-5 py-4">Episode</th>
+                                <th className="px-5 py-4">Penayangan</th>
+                                <th className="px-5 py-4">Status</th>
+                                <th className="px-5 py-4 text-right">Aksi</th>
                             </tr>
-                        ) : (
-                            filteredDramas.map((drama, index) => {
-                                const source = getSource(drama.r2_folder);
-                                return (
-                                    <tr key={drama.id} className="border-t border-gray-800 hover:bg-gray-800/50">
-                                        <td className="px-4 py-3 text-gray-500">{index + 1}</td>
-                                        <td className="px-4 py-3 font-medium">{drama.title}</td>
-                                        <td className="px-4 py-3">
-                                            <span className={`px-2 py-0.5 rounded text-xs border ${SOURCE_COLORS[source]}`}>
-                                                {source}
-                                            </span>
-                                        </td>
-                                        <td className="px-4 py-3 text-gray-400">{getCategoryName(drama.category_id)}</td>
-                                        <td className="px-4 py-3 text-gray-400">{drama.total_episodes}</td>
-                                        <td className="px-4 py-3 text-gray-400">{drama.view_count?.toLocaleString()}</td>
-                                        <td className="px-4 py-3">
-                                            <span
-                                                className={`px-2 py-1 rounded text-xs ${drama.is_published ? 'bg-green-900 text-green-400' : 'bg-gray-700 text-gray-400'
+                        </thead>
+                        <tbody className="divide-y divide-white/[0.04]">
+                            {filteredDramas.length === 0 ? (
+                                <tr>
+                                    <td colSpan={8} className="text-center py-16 text-xs text-gray-500">
+                                        {hasActiveFilter ? 'Tidak ada drama yang cocok dengan kriteria filter' : 'Belum ada drama terdaftar'}
+                                    </td>
+                                </tr>
+                            ) : (
+                                filteredDramas.map((drama, index) => {
+                                    const source = getSource(drama.r2_folder);
+                                    return (
+                                        <tr key={drama.id} className="hover:bg-white/[0.03] transition-colors group">
+                                            <td className="px-5 py-4 text-xs font-mono text-gray-500">{index + 1}</td>
+                                            <td className="px-5 py-4">
+                                                <p className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">
+                                                    {drama.title}
+                                                </p>
+                                                <p className="text-[10px] text-gray-500 font-mono mt-0.5">
+                                                    {drama.r2_folder || drama.id.slice(0, 10)}
+                                                </p>
+                                            </td>
+                                            <td className="px-5 py-4">
+                                                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${SOURCE_COLORS[source]}`}>
+                                                    {source}
+                                                </span>
+                                            </td>
+                                            <td className="px-5 py-4 text-xs text-gray-400">
+                                                <span className="px-2 py-0.5 rounded-lg bg-white/[0.03] border border-white/[0.06] text-[11px]">
+                                                    {getCategoryName(drama.category_id)}
+                                                </span>
+                                            </td>
+                                            <td className="px-5 py-4">
+                                                <span className="px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-[10px] font-bold">
+                                                    {drama.total_episodes} eps
+                                                </span>
+                                            </td>
+                                            <td className="px-5 py-4 text-xs font-bold text-white">
+                                                {(drama.view_count || 0).toLocaleString()} <span className="text-[10px] font-normal text-gray-500">views</span>
+                                            </td>
+                                            <td className="px-5 py-4">
+                                                <span
+                                                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
+                                                        drama.is_published
+                                                            ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                                                            : 'bg-gray-500/15 text-gray-400 border-gray-500/30'
                                                     }`}
-                                            >
-                                                {drama.is_published ? 'Published' : 'Draft'}
-                                            </span>
-                                        </td>
-                                        <td className="px-4 py-3">
-                                            <div className="flex items-center gap-2">
-                                                <button
-                                                    onClick={() => togglePublish(drama.id, drama.is_published)}
-                                                    className="p-2 hover:bg-gray-700 rounded"
-                                                    title={drama.is_published ? 'Unpublish' : 'Publish'}
                                                 >
-                                                    {drama.is_published ? <EyeOff size={18} /> : <Eye size={18} />}
-                                                </button>
-                                                <button className="p-2 hover:bg-gray-700 rounded" title="Edit">
-                                                    <Edit size={18} />
-                                                </button>
-                                                <button
-                                                    onClick={() => deleteDrama(drama.id)}
-                                                    className="p-2 hover:bg-red-900 rounded text-red-400"
-                                                    title="Delete"
-                                                >
-                                                    <Trash2 size={18} />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })
-                        )}
-                    </tbody>
-                </table>
+                                                    {drama.is_published ? 'Published' : 'Draft'}
+                                                </span>
+                                            </td>
+                                            <td className="px-5 py-4 text-right">
+                                                <div className="flex items-center justify-end gap-1.5">
+                                                    <button
+                                                        onClick={() => togglePublish(drama.id, drama.is_published)}
+                                                        className={`p-2 rounded-xl border transition-all ${
+                                                            drama.is_published
+                                                                ? 'bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/20 text-emerald-400'
+                                                                : 'bg-amber-500/10 hover:bg-amber-500/20 border-amber-500/20 text-amber-400'
+                                                        }`}
+                                                        title={drama.is_published ? 'Ubah ke Draft' : 'Publikasikan Sekarang'}
+                                                    >
+                                                        {drama.is_published ? <EyeOff size={15} /> : <Eye size={15} />}
+                                                    </button>
+                                                    <button
+                                                        onClick={() => deleteDrama(drama.id)}
+                                                        className="p-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 text-rose-400 transition-all"
+                                                        title="Hapus Drama"
+                                                    >
+                                                        <Trash2 size={15} />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            {/* Add Drama Modal */}
+            {/* Add Drama Luxury Modal */}
             {showAddModal && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md border border-gray-800">
-                        <h2 className="text-xl font-bold mb-4">Tambah Drama Baru</h2>
+                <div className="fixed inset-0 bg-[#07090E]/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
+                    <div className="glass-panel border border-white/[0.1] rounded-2xl p-6 w-full max-w-lg shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+                        <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/[0.07]">
+                            <div className="flex items-center gap-2.5">
+                                <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                                    <Film size={18} />
+                                </div>
+                                <h3 className="text-base font-bold text-white tracking-tight">Tambah Drama Baru</h3>
+                            </div>
+                            <button
+                                onClick={() => setShowAddModal(false)}
+                                className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/[0.05]"
+                            >
+                                <X size={18} />
+                            </button>
+                        </div>
 
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm text-gray-400 mb-1">Judul *</label>
+                                <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Judul Drama *</label>
                                 <input
                                     type="text"
                                     value={newDrama.title}
                                     onChange={(e) => setNewDrama({ ...newDrama, title: e.target.value })}
-                                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-pink-600"
+                                    className="w-full glass-input rounded-xl px-4 py-2.5 text-sm focus:border-amber-400"
+                                    placeholder="Contoh: Sang Juara Bela Diri"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm text-gray-400 mb-1">Kategori</label>
+                                <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Kategori Genre</label>
                                 <select
                                     value={newDrama.category_id}
                                     onChange={(e) => setNewDrama({ ...newDrama, category_id: e.target.value })}
-                                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-pink-600"
+                                    className="w-full glass-input rounded-xl px-4 py-2.5 text-sm focus:border-amber-400"
                                 >
-                                    <option value="">Pilih kategori</option>
+                                    <option value="" className="bg-[#090D15]">Pilih kategori...</option>
                                     {categories.map((cat) => (
-                                        <option key={cat.id} value={cat.id}>{cat.name}</option>
+                                        <option key={cat.id} value={cat.id} className="bg-[#090D15]">{cat.name}</option>
                                     ))}
                                 </select>
                             </div>
 
                             <div>
-                                <label className="block text-sm text-gray-400 mb-1">Sinopsis</label>
+                                <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Sinopsis</label>
                                 <textarea
                                     value={newDrama.synopsis}
                                     onChange={(e) => setNewDrama({ ...newDrama, synopsis: e.target.value })}
                                     rows={3}
-                                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-pink-600"
+                                    className="w-full glass-input rounded-xl px-4 py-2.5 text-sm focus:border-amber-400"
+                                    placeholder="Ringkasan cerita drama..."
                                 />
                             </div>
 
-                            <div className="flex gap-3">
-                                <button
-                                    onClick={addDrama}
-                                    className="flex-1 bg-pink-600 hover:bg-pink-700 px-4 py-2 rounded-lg"
-                                >
-                                    Simpan
-                                </button>
+                            <div className="flex gap-3 pt-2">
                                 <button
                                     onClick={() => setShowAddModal(false)}
-                                    className="flex-1 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg"
+                                    className="flex-1 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-white text-xs font-semibold transition-all"
                                 >
                                     Batal
+                                </button>
+                                <button
+                                    onClick={addDrama}
+                                    className="flex-1 gold-btn py-2.5 rounded-xl text-xs font-bold"
+                                >
+                                    Simpan Drama
                                 </button>
                             </div>
                         </div>
@@ -409,14 +477,14 @@ function FilterButton({
     return (
         <button
             onClick={onClick}
-            className={`px-3 py-1 rounded-lg text-xs font-medium transition-all border ${active
-                ? color || 'bg-amber-600/80 text-white border-amber-500'
-                : 'bg-gray-800 text-gray-400 border-gray-700 hover:border-gray-600 hover:text-gray-300'
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border ${active
+                ? color || 'bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-[0_0_12px_rgba(229,169,60,0.15)]'
+                : 'bg-white/[0.03] text-gray-400 border-white/[0.06] hover:border-white/[0.12] hover:text-white'
                 }`}
         >
             {children}
             {count !== undefined && (
-                <span className={`ml-1.5 ${active ? 'opacity-80' : 'opacity-50'}`}>
+                <span className={`ml-1.5 px-1.5 py-0.5 rounded-full text-[10px] ${active ? 'bg-amber-400/20 text-amber-200' : 'bg-white/[0.06] text-gray-400'}`}>
                     {count}
                 </span>
             )}

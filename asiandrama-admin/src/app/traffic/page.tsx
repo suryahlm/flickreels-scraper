@@ -1,7 +1,7 @@
 'use client';
 
 import { supabase } from '@/lib/supabase';
-import { Activity, Crown, Eye, Film, TrendingUp, Users } from 'lucide-react';
+import { Activity, Crown, Eye, Film, TrendingUp, Users, Sparkles, FolderOpen } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface TrafficStats {
@@ -24,8 +24,6 @@ interface RecentUser {
     created_at: string;
 }
 
-
-
 interface CategoryCount {
     name: string;
     count: number;
@@ -46,7 +44,6 @@ export default function TrafficPage() {
     });
     const [topDramas, setTopDramas] = useState<TopDrama[]>([]);
     const [recentUsers, setRecentUsers] = useState<RecentUser[]>([]);
-    const [coinActivity, setCoinActivity] = useState<{ amount: number; reason: string | null; created_at: string; user_id: string }[]>([]);
     const [categoryData, setCategoryData] = useState<CategoryCount[]>([]);
     const [userTrend, setUserTrend] = useState<DailyData[]>([]);
     const [activeUserTrend, setActiveUserTrend] = useState<DailyData[]>([]);
@@ -58,7 +55,7 @@ export default function TrafficPage() {
 
     async function fetchTrafficData() {
         try {
-            // ---- Stat Cards ----
+            setLoading(true);
             // Total views
             const { data: viewData } = await supabase
                 .from('dramas')
@@ -92,7 +89,7 @@ export default function TrafficPage() {
                 topDramaTitle: topDrama?.[0]?.title || '-',
             });
 
-            // ---- Top 10 Drama ----
+            // Top 10 Drama
             const { data: topDramasData } = await supabase
                 .from('dramas')
                 .select('title, view_count, total_episodes, category_id')
@@ -100,7 +97,7 @@ export default function TrafficPage() {
                 .limit(10);
             setTopDramas(topDramasData || []);
 
-            // ---- Recent Users ----
+            // Recent Users
             const { data: usersData } = await supabase
                 .from('profiles')
                 .select('full_name, email, created_at')
@@ -108,15 +105,7 @@ export default function TrafficPage() {
                 .limit(10);
             setRecentUsers(usersData || []);
 
-            // ---- Coin Activity ----
-            const { data: coinData } = await supabase
-                .from('coin_transactions')
-                .select('amount, reason, created_at, user_id')
-                .order('created_at', { ascending: false })
-                .limit(10);
-            setCoinActivity(coinData || []);
-
-            // ---- Category Distribution ----
+            // Category Distribution
             const { data: categoryDramas } = await supabase
                 .from('dramas')
                 .select('category_id');
@@ -128,7 +117,7 @@ export default function TrafficPage() {
                 const catMap = new Map(categoriesRaw.map(c => [c.id, c.name]));
                 const countMap = new Map<string, number>();
                 categoryDramas.forEach(d => {
-                    const name = catMap.get(d.category_id) || 'Tanpa Kategori';
+                    const name = (d.category_id && catMap.get(d.category_id)) || 'Tanpa Kategori';
                     countMap.set(name, (countMap.get(name) || 0) + 1);
                 });
                 const sorted = [...countMap.entries()]
@@ -137,7 +126,7 @@ export default function TrafficPage() {
                 setCategoryData(sorted);
             }
 
-            // ---- User Registration Trend (30 days) ----
+            // User Registration Trend (30 days)
             const thirtyDaysAgo = new Date();
             thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
             const { data: allUsers } = await supabase
@@ -166,7 +155,7 @@ export default function TrafficPage() {
                 }))
             );
 
-            // ---- Active User Trend (30 days) ----
+            // Active User Trend (30 days)
             const { data: activityData } = await supabase
                 .from('user_activity_log')
                 .select('activity_date, user_id')
@@ -207,39 +196,41 @@ export default function TrafficPage() {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-[60vh]">
-                <div className="text-center">
-                    <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-                    <p className="text-gray-400">Memuat data trafik...</p>
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <div className="flex flex-col items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl border border-amber-500/30 bg-amber-500/10 flex items-center justify-center p-2">
+                        <div className="w-full h-full border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
+                    </div>
+                    <p className="text-xs font-semibold text-gray-400">Menganalisa lalu lintas data...</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div>
-            <h1 className="text-2xl font-bold mb-6">Trafik & Analitik</h1>
-
+        <div className="space-y-8">
             {/* Stat Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                 {[
-                    { label: 'Total Views', value: stats.totalViews.toLocaleString(), icon: Eye, color: 'bg-green-600' },
-                    { label: 'Total Users', value: stats.totalUsers.toLocaleString(), icon: Users, color: 'bg-blue-600' },
-                    { label: 'User Baru (7 hari)', value: `+${stats.newUsersWeek}`, icon: TrendingUp, color: 'bg-purple-600' },
-                    { label: 'Drama Terpopuler', value: stats.topDramaTitle, icon: Crown, color: 'bg-amber-500', small: stats.topDramaTitle.length > 20 },
+                    { label: 'Total Penayangan', value: stats.totalViews.toLocaleString(), sub: 'Akumulasi streaming', icon: Eye, color: 'text-emerald-400', border: 'border-emerald-500/30', bg: 'from-emerald-500/20 to-teal-500/5' },
+                    { label: 'Total Pengguna', value: stats.totalUsers.toLocaleString(), sub: 'Akun terdaftar', icon: Users, color: 'text-blue-400', border: 'border-blue-500/30', bg: 'from-blue-500/20 to-indigo-500/5' },
+                    { label: 'User Baru (7 Hari)', value: `+${stats.newUsersWeek}`, sub: 'Pertumbuhan mingguan', icon: TrendingUp, color: 'text-amber-400', border: 'border-amber-500/30', bg: 'from-amber-500/20 to-yellow-500/5' },
+                    { label: 'Top Drama Saat Ini', value: stats.topDramaTitle, sub: 'Paling sering ditonton', icon: Crown, color: 'text-purple-400', border: 'border-purple-500/30', bg: 'from-purple-500/20 to-pink-500/5', small: true },
                 ].map((stat) => {
                     const Icon = stat.icon;
                     return (
-                        <div key={stat.label} className="bg-gray-900 rounded-xl p-5 border border-gray-800">
-                            <div className="flex items-center justify-between">
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-gray-400 text-sm">{stat.label}</p>
-                                    <p className={`font-bold mt-1 truncate ${stat.small ? 'text-lg' : 'text-2xl'}`}>
+                        <div key={stat.label} className={`glass-card rounded-2xl p-6 border ${stat.border} relative overflow-hidden group`}>
+                            <div className={`absolute top-0 right-0 w-28 h-28 bg-gradient-to-br ${stat.bg} rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform`} />
+                            <div className="relative z-10 flex items-start justify-between">
+                                <div className="min-w-0 flex-1 pr-2">
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">{stat.label}</p>
+                                    <p className={`font-extrabold text-white mt-1.5 tracking-tight truncate ${stat.small ? 'text-lg' : 'text-3xl'}`}>
                                         {stat.value}
                                     </p>
+                                    <p className="text-[11px] text-gray-500 mt-1">{stat.sub}</p>
                                 </div>
-                                <div className={`${stat.color} p-3 rounded-lg ml-3 flex-shrink-0`}>
-                                    <Icon size={24} />
+                                <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${stat.bg} border ${stat.border} flex items-center justify-center ${stat.color} flex-shrink-0 shadow-lg`}>
+                                    <Icon size={20} />
                                 </div>
                             </div>
                         </div>
@@ -247,32 +238,41 @@ export default function TrafficPage() {
                 })}
             </div>
 
-            {/* User Registration & Coin Activity Trend Charts */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            {/* User Registration & Active Users Trend Charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* User Registration Trend */}
-                <div className="bg-gray-900 rounded-xl border border-gray-800">
-                    <div className="p-4 border-b border-gray-800">
-                        <h2 className="font-semibold flex items-center gap-2">
-                            <Users size={18} className="text-blue-400" />
-                            Pendaftaran User (30 hari)
-                        </h2>
+                <div className="glass-card-static rounded-2xl border border-white/[0.08] p-6">
+                    <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/[0.07]">
+                        <div className="flex items-center gap-2.5">
+                            <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                                <Users size={16} />
+                            </div>
+                            <div>
+                                <h2 className="text-sm font-bold text-white tracking-tight">Pendaftaran User (30 Hari)</h2>
+                                <p className="text-[11px] text-gray-400">Tren registrasi akun baru per hari</p>
+                            </div>
+                        </div>
+                        <span className="px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold">
+                            30D Range
+                        </span>
                     </div>
-                    <div className="p-4">
-                        <div className="flex items-end gap-[2px] h-40">
-                            {userTrend.map((d, i) => (
+
+                    <div className="pt-2">
+                        <div className="flex items-end gap-[3px] h-44">
+                            {userTrend.map((d) => (
                                 <div key={d.date} className="flex-1 flex flex-col items-center justify-end h-full group relative">
                                     <div
-                                        className="w-full bg-blue-500 rounded-t-sm min-h-[2px] transition-all hover:bg-blue-400"
-                                        style={{ height: `${Math.max((d.count / maxUserTrend) * 100, 2)}%` }}
-                                    ></div>
-                                    {/* Tooltip */}
-                                    <div className="absolute bottom-full mb-2 hidden group-hover:block bg-gray-700 text-white text-xs px-2 py-1 rounded whitespace-nowrap z-10">
-                                        {d.label}: {d.count} user
+                                        className="w-full bg-gradient-to-t from-blue-600 to-cyan-400 rounded-t-sm min-h-[3px] transition-all group-hover:from-blue-500 group-hover:to-cyan-300 shadow-[0_0_8px_rgba(59,130,246,0.2)]"
+                                        style={{ height: `${Math.max((d.count / maxUserTrend) * 100, 3)}%` }}
+                                    />
+                                    <div className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-[#090D15] border border-blue-500/40 text-white text-[10px] px-2.5 py-1.5 rounded-lg whitespace-nowrap z-20 shadow-xl pointer-events-none">
+                                        <span className="text-gray-400">{d.label}</span>
+                                        <span className="font-bold text-blue-400">+{d.count} akun baru</span>
                                     </div>
                                 </div>
                             ))}
                         </div>
-                        <div className="flex justify-between mt-2 text-xs text-gray-500">
+                        <div className="flex justify-between mt-3 text-[11px] text-gray-500 font-medium">
                             <span>{userTrend[0]?.label}</span>
                             <span>{userTrend[Math.floor(userTrend.length / 2)]?.label}</span>
                             <span>{userTrend[userTrend.length - 1]?.label}</span>
@@ -281,28 +281,38 @@ export default function TrafficPage() {
                 </div>
 
                 {/* Active Users Trend */}
-                <div className="bg-gray-900 rounded-xl border border-gray-800">
-                    <div className="p-4 border-b border-gray-800">
-                        <h2 className="font-semibold flex items-center gap-2">
-                            <Activity size={18} className="text-green-400" />
-                            User Aktif (30 hari)
-                        </h2>
+                <div className="glass-card-static rounded-2xl border border-white/[0.08] p-6">
+                    <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/[0.07]">
+                        <div className="flex items-center gap-2.5">
+                            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                                <Activity size={16} />
+                            </div>
+                            <div>
+                                <h2 className="text-sm font-bold text-white tracking-tight">Aktivitas Pemirsa (30 Hari)</h2>
+                                <p className="text-[11px] text-gray-400">Jumlah pengguna unik aktif per hari</p>
+                            </div>
+                        </div>
+                        <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold">
+                            Live Stream
+                        </span>
                     </div>
-                    <div className="p-4">
-                        <div className="flex items-end gap-[2px] h-40">
-                            {activeUserTrend.map((d, i) => (
+
+                    <div className="pt-2">
+                        <div className="flex items-end gap-[3px] h-44">
+                            {activeUserTrend.map((d) => (
                                 <div key={d.date} className="flex-1 flex flex-col items-center justify-end h-full group relative">
                                     <div
-                                        className="w-full bg-green-500 rounded-t-sm min-h-[2px] transition-all hover:bg-green-400"
-                                        style={{ height: `${Math.max((d.count / maxActiveUserTrend) * 100, 2)}%` }}
-                                    ></div>
-                                    <div className="absolute bottom-full mb-2 hidden group-hover:block bg-gray-700 text-white text-xs px-2 py-1 rounded whitespace-nowrap z-10">
-                                        {d.label}: {d.count} user aktif
+                                        className="w-full bg-gradient-to-t from-emerald-600 to-teal-400 rounded-t-sm min-h-[3px] transition-all group-hover:from-emerald-500 group-hover:to-teal-300 shadow-[0_0_8px_rgba(16,185,129,0.2)]"
+                                        style={{ height: `${Math.max((d.count / maxActiveUserTrend) * 100, 3)}%` }}
+                                    />
+                                    <div className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center bg-[#090D15] border border-emerald-500/40 text-white text-[10px] px-2.5 py-1.5 rounded-lg whitespace-nowrap z-20 shadow-xl pointer-events-none">
+                                        <span className="text-gray-400">{d.label}</span>
+                                        <span className="font-bold text-emerald-400">{d.count} user aktif</span>
                                     </div>
                                 </div>
                             ))}
                         </div>
-                        <div className="flex justify-between mt-2 text-xs text-gray-500">
+                        <div className="flex justify-between mt-3 text-[11px] text-gray-500 font-medium">
                             <span>{activeUserTrend[0]?.label}</span>
                             <span>{activeUserTrend[Math.floor(activeUserTrend.length / 2)]?.label}</span>
                             <span>{activeUserTrend[activeUserTrend.length - 1]?.label}</span>
@@ -311,40 +321,100 @@ export default function TrafficPage() {
                 </div>
             </div>
 
-            {/* Top 10 Drama */}
-            <div className="bg-gray-900 rounded-xl border border-gray-800 mb-8">
-                <div className="p-4 border-b border-gray-800">
-                    <h2 className="font-semibold flex items-center gap-2">
-                        <Film size={18} className="text-pink-400" />
-                        Top 10 Drama Terpopuler
-                    </h2>
+            {/* Top 10 Drama Podium Rankings */}
+            <div className="glass-card-static rounded-2xl border border-white/[0.08] p-6">
+                <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/[0.07]">
+                    <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                            <Film size={16} />
+                        </div>
+                        <div>
+                            <h2 className="text-sm font-bold text-white tracking-tight">Top 10 Drama Terfavorit Audiens</h2>
+                            <p className="text-[11px] text-gray-400">Peringkat penayangan tertinggi sepanjang masa</p>
+                        </div>
+                    </div>
                 </div>
-                <div className="p-4">
-                    {topDramas.length === 0 ? (
-                        <p className="text-gray-500 text-center py-4">Belum ada data views</p>
-                    ) : (
-                        <div className="space-y-3">
-                            {topDramas.map((drama, idx) => (
-                                <div key={idx} className="flex items-center gap-3">
-                                    <span className={`text-lg font-bold w-8 text-center ${idx < 3 ? 'text-amber-400' : 'text-gray-500'}`}>
+
+                {topDramas.length === 0 ? (
+                    <div className="text-center py-12 text-xs text-gray-500">Belum ada statistik penayangan</div>
+                ) : (
+                    <div className="space-y-4">
+                        {topDramas.map((drama, idx) => {
+                            const isGold = idx === 0;
+                            const isSilver = idx === 1;
+                            const isBronze = idx === 2;
+                            return (
+                                <div key={idx} className="flex items-center gap-4 group">
+                                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold text-xs flex-shrink-0 border ${
+                                        isGold
+                                            ? 'bg-amber-500/20 border-amber-500/40 text-amber-300 shadow-[0_0_12px_rgba(229,169,60,0.3)]'
+                                            : isSilver
+                                            ? 'bg-slate-300/20 border-slate-300/40 text-slate-200'
+                                            : isBronze
+                                            ? 'bg-amber-700/20 border-amber-700/40 text-amber-400'
+                                            : 'bg-white/[0.03] border-white/[0.06] text-gray-500'
+                                    }`}>
                                         {idx + 1}
-                                    </span>
+                                    </div>
+
                                     <div className="flex-1 min-w-0">
-                                        <div className="flex items-center justify-between mb-1">
-                                            <span className="font-medium truncate">{drama.title}</span>
-                                            <span className="text-sm text-gray-400 ml-2 flex-shrink-0">
-                                                {(drama.view_count || 0).toLocaleString()} views · {drama.total_episodes} eps
+                                        <div className="flex items-center justify-between mb-1.5">
+                                            <span className="text-xs font-bold text-white truncate group-hover:text-amber-300 transition-colors">
+                                                {drama.title}
+                                            </span>
+                                            <span className="text-[11px] font-semibold text-gray-400 ml-3 flex-shrink-0">
+                                                {(drama.view_count || 0).toLocaleString()} <span className="text-gray-500">views</span> · {drama.total_episodes} eps
                                             </span>
                                         </div>
-                                        <div className="w-full bg-gray-800 rounded-full h-2">
+                                        <div className="w-full bg-white/[0.04] rounded-full h-2 overflow-hidden border border-white/[0.05]">
                                             <div
-                                                className={`h-2 rounded-full transition-all ${idx === 0 ? 'bg-gradient-to-r from-amber-500 to-yellow-400' :
-                                                    idx === 1 ? 'bg-gradient-to-r from-gray-300 to-gray-400' :
-                                                        idx === 2 ? 'bg-gradient-to-r from-amber-700 to-amber-600' :
-                                                            'bg-gray-600'
-                                                    }`}
-                                                style={{ width: `${Math.max((drama.view_count || 0) / maxViews * 100, 3)}%` }}
-                                            ></div>
+                                                className={`h-full rounded-full transition-all ${
+                                                    isGold
+                                                        ? 'bg-gradient-to-r from-amber-500 to-yellow-300 shadow-[0_0_8px_rgba(229,169,60,0.4)]'
+                                                        : isSilver
+                                                        ? 'bg-gradient-to-r from-slate-400 to-slate-200'
+                                                        : isBronze
+                                                        ? 'bg-gradient-to-r from-amber-700 to-amber-500'
+                                                        : 'bg-gradient-to-r from-blue-500 to-cyan-400'
+                                                }`}
+                                                style={{ width: `${Math.max(((drama.view_count || 0) / maxViews) * 100, 3)}%` }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
+            </div>
+
+            {/* Category Breakdown & Recent Users Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Category Distribution */}
+                <div className="glass-card-static rounded-2xl border border-white/[0.08] p-6">
+                    <div className="flex items-center gap-2.5 pb-4 mb-4 border-b border-white/[0.07]">
+                        <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                            <FolderOpen size={16} />
+                        </div>
+                        <div>
+                            <h2 className="text-sm font-bold text-white tracking-tight">Distribusi Genre & Kategori</h2>
+                            <p className="text-[11px] text-gray-400">Proporsi judul drama yang terdaftar per genre</p>
+                        </div>
+                    </div>
+
+                    {categoryData.length === 0 ? (
+                        <div className="text-center py-10 text-xs text-gray-500">Belum ada data kategori</div>
+                    ) : (
+                        <div className="space-y-3 pt-1">
+                            {categoryData.slice(0, 8).map((cat) => (
+                                <div key={cat.name} className="flex items-center gap-3">
+                                    <span className="text-xs font-semibold text-gray-300 w-32 truncate">{cat.name}</span>
+                                    <div className="flex-1 bg-white/[0.04] rounded-full h-5 overflow-hidden border border-white/[0.05] p-0.5">
+                                        <div
+                                            className="h-full bg-gradient-to-r from-purple-500 to-amber-400 rounded-full flex items-center justify-end px-2 transition-all shadow-[0_0_10px_rgba(168,85,247,0.2)]"
+                                            style={{ width: `${Math.max((cat.count / maxCategoryCount) * 100, 10)}%` }}
+                                        >
+                                            <span className="text-[10px] font-bold text-[#07090E]">{cat.count}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -352,107 +422,32 @@ export default function TrafficPage() {
                         </div>
                     )}
                 </div>
-            </div>
 
-            {/* User Terbaru & Coin Activity */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 {/* Recent Users */}
-                <div className="bg-gray-900 rounded-xl border border-gray-800">
-                    <div className="p-4 border-b border-gray-800">
-                        <h2 className="font-semibold">User Terbaru</h2>
+                <div className="glass-card-static rounded-2xl border border-white/[0.08] p-6">
+                    <div className="flex items-center gap-2.5 pb-4 mb-4 border-b border-white/[0.07]">
+                        <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                            <Users size={16} />
+                        </div>
+                        <div>
+                            <h2 className="text-sm font-bold text-white tracking-tight">Registrasi Terakhir</h2>
+                            <p className="text-[11px] text-gray-400">Daftar pengguna yang baru bergabung</p>
+                        </div>
                     </div>
-                    <div className="p-4">
-                        {recentUsers.length === 0 ? (
-                            <p className="text-gray-500 text-center py-4">Belum ada user</p>
-                        ) : (
-                            <table className="w-full">
-                                <thead>
-                                    <tr className="text-gray-400 text-sm">
-                                        <th className="text-left pb-3">Nama</th>
-                                        <th className="text-left pb-3">Tanggal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {recentUsers.map((user, idx) => (
-                                        <tr key={idx} className="border-t border-gray-800">
-                                            <td className="py-2.5">
-                                                <p className="font-medium text-sm">{user.full_name || 'Anonymous'}</p>
-                                                <p className="text-xs text-gray-500 truncate max-w-[200px]">{user.email}</p>
-                                            </td>
-                                            <td className="py-2.5 text-sm text-gray-400">
-                                                {new Date(user.created_at).toLocaleDateString('id-ID', {
-                                                    day: '2-digit', month: 'short', year: 'numeric'
-                                                })}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        )}
-                    </div>
-                </div>
 
-                {/* Coin Activity */}
-                <div className="bg-gray-900 rounded-xl border border-gray-800">
-                    <div className="p-4 border-b border-gray-800">
-                        <h2 className="font-semibold">Aktivitas Koin Terbaru</h2>
-                    </div>
-                    <div className="p-4">
-                        {coinActivity.length === 0 ? (
-                            <p className="text-gray-500 text-center py-4">Belum ada aktivitas</p>
-                        ) : (
-                            <table className="w-full">
-                                <thead>
-                                    <tr className="text-gray-400 text-sm">
-                                        <th className="text-left pb-3">Jumlah</th>
-                                        <th className="text-left pb-3">Alasan</th>
-                                        <th className="text-left pb-3">Tanggal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {coinActivity.map((coin, idx) => (
-                                        <tr key={idx} className="border-t border-gray-800">
-                                            <td className={`py-2.5 font-bold text-sm ${coin.amount > 0 ? 'text-green-400' : 'text-red-400'}`}>
-                                                {coin.amount > 0 ? '+' : ''}{coin.amount}
-                                            </td>
-                                            <td className="py-2.5 text-sm text-gray-300 truncate max-w-[180px]">
-                                                {coin.reason || '-'}
-                                            </td>
-                                            <td className="py-2.5 text-sm text-gray-400">
-                                                {new Date(coin.created_at).toLocaleDateString('id-ID', {
-                                                    day: '2-digit', month: 'short'
-                                                })}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        )}
-                    </div>
-                </div>
-            </div>
-
-            {/* Drama per Kategori */}
-            <div className="bg-gray-900 rounded-xl border border-gray-800">
-                <div className="p-4 border-b border-gray-800">
-                    <h2 className="font-semibold">Drama per Kategori</h2>
-                </div>
-                <div className="p-4">
-                    {categoryData.length === 0 ? (
-                        <p className="text-gray-500 text-center py-4">Belum ada data</p>
+                    {recentUsers.length === 0 ? (
+                        <div className="text-center py-10 text-xs text-gray-500">Belum ada pengguna</div>
                     ) : (
-                        <div className="space-y-3">
-                            {categoryData.map((cat) => (
-                                <div key={cat.name} className="flex items-center gap-3">
-                                    <span className="text-sm text-gray-300 w-32 truncate">{cat.name}</span>
-                                    <div className="flex-1 bg-gray-800 rounded-full h-6 overflow-hidden">
-                                        <div
-                                            className="h-full bg-gradient-to-r from-amber-600 to-amber-400 rounded-full flex items-center px-2 transition-all"
-                                            style={{ width: `${Math.max((cat.count / maxCategoryCount) * 100, 8)}%` }}
-                                        >
-                                            <span className="text-xs font-bold text-gray-900">{cat.count}</span>
-                                        </div>
+                        <div className="space-y-2.5">
+                            {recentUsers.slice(0, 6).map((u, i) => (
+                                <div key={i} className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                                    <div className="min-w-0 pr-2">
+                                        <p className="text-xs font-semibold text-white truncate">{u.full_name || 'Anonymous'}</p>
+                                        <p className="text-[10px] text-gray-500 truncate">{u.email || '-'}</p>
                                     </div>
+                                    <span className="text-[11px] font-medium text-gray-400 flex-shrink-0">
+                                        {new Date(u.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' })}
+                                    </span>
                                 </div>
                             ))}
                         </div>

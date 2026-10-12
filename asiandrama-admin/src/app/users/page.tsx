@@ -1,7 +1,7 @@
 'use client';
 
 import { supabase, type Profile } from '@/lib/supabase';
-import { Ban, CheckCircle, Coins, Crown, Key, Minus, Plus, Search, Trash2, X } from 'lucide-react';
+import { Ban, CheckCircle, Coins, Crown, Key, Minus, Plus, Search, Trash2, X, Users, ShieldAlert, ShieldCheck, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { cancelUserVipAdmin, grantUserVipAdmin, toggleUserBanAdmin, updateUserCoinsAdmin } from './actions';
 
@@ -31,7 +31,7 @@ export default function UsersPage() {
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchUsers();
-        }, 2000);
+        }, 300);
         return () => clearTimeout(timer);
     }, [page, filterVip, filterBanned, sortByCoins, search]);
 
@@ -70,12 +70,12 @@ export default function UsersPage() {
 
     const handleFilterChange = (setter: any, value: any) => {
         setter(value);
-        setPage(1); // Reset to page 1 on any filter change
+        setPage(1);
     };
 
     const handleSearchChange = (val: string) => {
         setSearch(val);
-        setPage(1); // Reset to page 1 on search
+        setPage(1);
     };
 
     const toggleBan = async (user: Profile) => {
@@ -103,7 +103,7 @@ export default function UsersPage() {
             setUsers((prev) =>
                 prev.map((u) => (u.id === selectedUser.id ? { ...u, coin_balance: result.newBalance! } : u))
             );
-            alert(`${add ? '+' : '-'}${amount} koin ${add ? 'ditambahkan' : 'dikurangi'}. Alasan: ${coinReason}`);
+            alert(`${add ? '+' : '-'}${amount} koin ${add ? 'ditambahkan' : 'dikurangi'}.`);
         } else {
             alert('Gagal update koin: ' + result.error);
         }
@@ -159,8 +159,6 @@ export default function UsersPage() {
         if (newPassword.length < 6) return alert('Password minimal 6 karakter');
 
         setActionLoading(true);
-
-        // Call API route to reset password (uses service role key on server)
         const response = await fetch('/api/reset-password', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -171,7 +169,6 @@ export default function UsersPage() {
         });
 
         const result = await response.json();
-
         if (!response.ok) {
             alert('Gagal reset password: ' + result.error);
         } else {
@@ -195,11 +192,9 @@ export default function UsersPage() {
         });
 
         const result = await response.json();
-
         if (!response.ok) {
             alert('Gagal hapus user: ' + result.error);
         } else {
-            // Remove user from local state
             setUsers((prev) => prev.filter((u) => u.id !== selectedUser.id));
             alert(`User ${selectedUser.email || selectedUser.full_name || 'ini'} berhasil dihapus`);
         }
@@ -209,232 +204,294 @@ export default function UsersPage() {
         setSelectedUser(null);
     };
 
-    if (loading) return <div className="text-center py-20">Loading...</div>;
-
     return (
-        <div>
-            <h1 className="text-2xl font-bold mb-6">User Management</h1>
+        <div className="space-y-6">
+            {/* Header Toolbar */}
+            <div className="flex flex-wrap items-center justify-between gap-4 p-5 rounded-2xl glass-panel border border-white/[0.08]">
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                        <Users size={20} />
+                    </div>
+                    <div>
+                        <h2 className="text-base font-bold text-white tracking-tight">Direktori Pengguna Platform</h2>
+                        <p className="text-xs text-gray-400">Kelola akun terdaftar, status VIP, saldo koin, dan moderasi akses</p>
+                    </div>
+                </div>
+            </div>
 
-            {/* Filters */}
-            <div className="flex flex-col md:flex-row gap-4 mb-6">
+            {/* Search & Filters */}
+            <div className="flex flex-col md:flex-row gap-4">
                 <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={20} />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <input
                         type="text"
-                        placeholder="Cari email atau nama..."
+                        placeholder="Cari berdasarkan email atau nama pengguna..."
                         value={search}
                         onChange={(e) => handleSearchChange(e.target.value)}
-                        className="w-full bg-gray-900 border border-gray-800 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-pink-600"
+                        className="w-full glass-input rounded-2xl pl-12 pr-4 py-3 text-xs focus:border-amber-400"
                     />
                 </div>
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                     <button 
                         onClick={() => handleFilterChange(setFilterVip, !filterVip)} 
-                        className={`px-4 py-2 rounded-lg border whitespace-nowrap transition-colors ${filterVip ? 'bg-yellow-900/40 border-yellow-600 text-yellow-400' : 'bg-gray-900 border-gray-800 text-gray-400 hover:text-gray-300'}`}
+                        className={`px-3.5 py-2.5 rounded-xl border text-xs font-semibold whitespace-nowrap transition-all ${
+                            filterVip
+                                ? 'bg-amber-500/20 border-amber-500/40 text-amber-300 shadow-[0_0_12px_rgba(229,169,60,0.2)]'
+                                : 'bg-white/[0.03] border-white/[0.06] text-gray-400 hover:text-white'
+                        }`}
                     >
                         VIP
                     </button>
                     <button 
                         onClick={() => handleFilterChange(setSortByCoins, !sortByCoins)} 
-                        className={`px-4 py-2 rounded-lg border whitespace-nowrap transition-colors ${sortByCoins ? 'bg-yellow-900/40 border-yellow-600 text-yellow-400' : 'bg-gray-900 border-gray-800 text-gray-400 hover:text-gray-300'}`}
+                        className={`px-3.5 py-2.5 rounded-xl border text-xs font-semibold whitespace-nowrap transition-all ${
+                            sortByCoins
+                                ? 'bg-amber-500/20 border-amber-500/40 text-amber-300 shadow-[0_0_12px_rgba(229,169,60,0.2)]'
+                                : 'bg-white/[0.03] border-white/[0.06] text-gray-400 hover:text-white'
+                        }`}
                     >
                         Koin Terbanyak
                     </button>
                     <button 
                         onClick={() => handleFilterChange(setFilterBanned, !filterBanned)} 
-                        className={`px-4 py-2 rounded-lg border whitespace-nowrap transition-colors ${filterBanned ? 'bg-red-900/40 border-red-600 text-red-400' : 'bg-gray-900 border-gray-800 text-gray-400 hover:text-gray-300'}`}
+                        className={`px-3.5 py-2.5 rounded-xl border text-xs font-semibold whitespace-nowrap transition-all ${
+                            filterBanned
+                                ? 'bg-rose-500/20 border-rose-500/40 text-rose-300 shadow-[0_0_12px_rgba(239,68,68,0.2)]'
+                                : 'bg-white/[0.03] border-white/[0.06] text-gray-400 hover:text-white'
+                        }`}
                     >
                         Banned
                     </button>
                 </div>
             </div>
 
-            {/* Table */}
-            <div className="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden">
-                <table className="w-full">
-                    <thead className="bg-gray-800">
-                        <tr>
-                            <th className="text-left px-4 py-3 w-12">#</th>
-                            <th className="text-left px-4 py-3">User</th>
-                            <th className="text-left px-4 py-3">Koin</th>
-                            <th className="text-left px-4 py-3">VIP</th>
-                            <th className="text-left px-4 py-3">Status</th>
-                            <th className="text-left px-4 py-3">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {loading && users.length === 0 ? (
-                            <tr>
-                                <td colSpan={6} className="text-center py-8 text-gray-500">
-                                    Loading...
-                                </td>
+            {/* Users Data Table */}
+            <div className="glass-card-static rounded-2xl border border-white/[0.08] overflow-hidden shadow-xl">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                        <thead>
+                            <tr className="bg-white/[0.02] border-b border-white/[0.07] text-[11px] font-bold uppercase tracking-wider text-gray-400">
+                                <th className="px-5 py-4 w-12">#</th>
+                                <th className="px-5 py-4">Pengguna</th>
+                                <th className="px-5 py-4">Saldo Koin</th>
+                                <th className="px-5 py-4">Status VIP</th>
+                                <th className="px-5 py-4">Akun Status</th>
+                                <th className="px-5 py-4 text-right">Tindakan Moderasi</th>
                             </tr>
-                        ) : users.length === 0 ? (
-                            <tr>
-                                <td colSpan={6} className="text-center py-8 text-gray-500">
-                                    Belum ada user yang sesuai kriteria
-                                </td>
-                            </tr>
-                        ) : (
-                            users.map((user, index) => (
-                                <tr key={user.id} className="border-t border-gray-800 hover:bg-gray-800/50">
-                                    <td className="px-4 py-3 text-gray-500">{(page - 1) * pageSize + index + 1}</td>
-                                    <td className="px-4 py-3">
-                                        <p className="font-medium">{user.email || 'No email'}</p>
-                                        <p className="text-xs text-gray-500">{user.id.slice(0, 8)}...</p>
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        <span className="text-yellow-500 font-bold">{user.coin_balance || 0}</span>
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        {user.is_vip ? (
-                                            <div>
-                                                <span className="bg-yellow-900 text-yellow-400 px-2 py-1 rounded text-xs">VIP</span>
-                                                {user.vip_expires_at && (
-                                                    <p className="text-xs text-gray-500 mt-1">
-                                                        {new Date(user.vip_expires_at).toLocaleDateString('id-ID')}
-                                                    </p>
-                                                )}
-                                            </div>
-                                        ) : (
-                                            <span className="text-gray-500">-</span>
-                                        )}
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        <span
-                                            className={`px-2 py-1 rounded text-xs ${user.is_banned ? 'bg-red-900 text-red-400' : 'bg-green-900 text-green-400'
-                                                }`}
-                                        >
-                                            {user.is_banned ? 'Banned' : 'Active'}
-                                        </span>
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        <div className="flex items-center gap-2">
-                                            {/* Manage Coins */}
-                                            <button
-                                                onClick={() => setSelectedUser(user)}
-                                                className="p-2 hover:bg-yellow-900 rounded text-yellow-400"
-                                                title="Manage Coins"
-                                            >
-                                                <Coins size={18} />
-                                            </button>
-                                            {/* VIP Toggle */}
-                                            {user.is_vip ? (
-                                                <button
-                                                    onClick={() => cancelVip(user)}
-                                                    className="p-2 hover:bg-gray-700 rounded text-gray-400"
-                                                    title="Cancel VIP"
-                                                >
-                                                    <Crown size={18} />
-                                                </button>
-                                            ) : (
-                                                <button
-                                                    onClick={() => { setSelectedUser(user); setShowVipModal(true); }}
-                                                    className="p-2 hover:bg-yellow-900 rounded text-yellow-600"
-                                                    title="Grant VIP"
-                                                >
-                                                    <Crown size={18} />
-                                                </button>
-                                            )}
-                                            {/* Reset Password */}
-                                            <button
-                                                onClick={() => { setSelectedUser(user); setShowPasswordModal(true); }}
-                                                className="p-2 hover:bg-blue-900 rounded text-blue-400"
-                                                title="Reset Password"
-                                            >
-                                                <Key size={18} />
-                                            </button>
-                                            {/* Ban/Unban */}
-                                            <button
-                                                onClick={() => toggleBan(user)}
-                                                className={`p-2 rounded ${user.is_banned ? 'hover:bg-green-900 text-green-400' : 'hover:bg-red-900 text-red-400'}`}
-                                                title={user.is_banned ? 'Unban' : 'Ban'}
-                                            >
-                                                {user.is_banned ? <CheckCircle size={18} /> : <Ban size={18} />}
-                                            </button>
-                                            {/* Delete User */}
-                                            <button
-                                                onClick={() => { setSelectedUser(user); setShowDeleteModal(true); }}
-                                                className="p-2 hover:bg-red-900 rounded text-red-500"
-                                                title="Hapus User"
-                                            >
-                                                <Trash2 size={18} />
-                                            </button>
-                                        </div>
+                        </thead>
+                        <tbody className="divide-y divide-white/[0.04]">
+                            {loading && users.length === 0 ? (
+                                <tr>
+                                    <td colSpan={6} className="text-center py-16 text-xs text-gray-500">
+                                        Memuat data pengguna...
                                     </td>
                                 </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
+                            ) : users.length === 0 ? (
+                                <tr>
+                                    <td colSpan={6} className="text-center py-16 text-xs text-gray-500">
+                                        Belum ada user yang cocok dengan kriteria pencarian
+                                    </td>
+                                </tr>
+                            ) : (
+                                users.map((user, index) => {
+                                    const initial = (user.full_name || user.email || 'U').charAt(0).toUpperCase();
+                                    return (
+                                        <tr key={user.id} className="hover:bg-white/[0.03] transition-colors group">
+                                            <td className="px-5 py-4 text-xs font-mono text-gray-500">
+                                                {(page - 1) * pageSize + index + 1}
+                                            </td>
+                                            <td className="px-5 py-4">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500/20 to-yellow-500/10 border border-amber-500/30 flex items-center justify-center font-bold text-xs text-amber-400 flex-shrink-0">
+                                                        {initial}
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <p className="text-xs font-bold text-white truncate group-hover:text-amber-300 transition-colors">
+                                                            {user.full_name || 'Anonymous User'}
+                                                        </p>
+                                                        <p className="text-[11px] text-gray-400 truncate max-w-[220px]">
+                                                            {user.email || 'Tanpa Email'}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-5 py-4">
+                                                <span className="text-xs font-bold text-amber-400">
+                                                    {(user.coin_balance || 0).toLocaleString()} <span className="text-[10px] font-normal text-gray-500">koin</span>
+                                                </span>
+                                            </td>
+                                            <td className="px-5 py-4">
+                                                {user.is_vip ? (
+                                                    <div>
+                                                        <span className="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[10px] font-bold flex items-center gap-1 w-max shadow-[0_0_8px_rgba(229,169,60,0.15)]">
+                                                            <Crown size={10} /> VIP
+                                                        </span>
+                                                        {user.vip_expires_at && (
+                                                            <p className="text-[10px] text-gray-500 mt-1">
+                                                                Exp: {new Date(user.vip_expires_at).toLocaleDateString('id-ID')}
+                                                            </p>
+                                                        )}
+                                                    </div>
+                                                ) : (
+                                                    <span className="text-xs text-gray-600">-</span>
+                                                )}
+                                            </td>
+                                            <td className="px-5 py-4">
+                                                <span
+                                                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
+                                                        user.is_banned
+                                                            ? 'bg-rose-500/15 text-rose-300 border-rose-500/30'
+                                                            : 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                                                    }`}
+                                                >
+                                                    {user.is_banned ? 'Banned' : 'Active'}
+                                                </span>
+                                            </td>
+                                            <td className="px-5 py-4 text-right">
+                                                <div className="flex items-center justify-end gap-1.5">
+                                                    {/* Manage Coins */}
+                                                    <button
+                                                        onClick={() => setSelectedUser(user)}
+                                                        className="p-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/20 transition-all"
+                                                        title="Kelola Saldo Koin"
+                                                    >
+                                                        <Coins size={14} />
+                                                    </button>
+
+                                                    {/* VIP Toggle */}
+                                                    {user.is_vip ? (
+                                                        <button
+                                                            onClick={() => cancelVip(user)}
+                                                            className="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-gray-400 hover:text-white border border-white/[0.06] transition-all"
+                                                            title="Batalkan Akses VIP"
+                                                        >
+                                                            <Crown size={14} />
+                                                        </button>
+                                                    ) : (
+                                                        <button
+                                                            onClick={() => { setSelectedUser(user); setShowVipModal(true); }}
+                                                            className="p-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/20 transition-all"
+                                                            title="Berikan Akses VIP"
+                                                        >
+                                                            <Crown size={14} />
+                                                        </button>
+                                                    )}
+
+                                                    {/* Reset Password */}
+                                                    <button
+                                                        onClick={() => { setSelectedUser(user); setShowPasswordModal(true); }}
+                                                        className="p-2 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/20 transition-all"
+                                                        title="Reset Kata Sandi"
+                                                    >
+                                                        <Key size={14} />
+                                                    </button>
+
+                                                    {/* Ban / Unban */}
+                                                    <button
+                                                        onClick={() => toggleBan(user)}
+                                                        className={`p-2 rounded-xl border transition-all ${
+                                                            user.is_banned
+                                                                ? 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border-emerald-500/20'
+                                                                : 'bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border-rose-500/20'
+                                                        }`}
+                                                        title={user.is_banned ? 'Buka Blokir (Unban)' : 'Blokir Akun (Ban)'}
+                                                    >
+                                                        {user.is_banned ? <CheckCircle size={14} /> : <Ban size={14} />}
+                                                    </button>
+
+                                                    {/* Delete User */}
+                                                    <button
+                                                        onClick={() => { setSelectedUser(user); setShowDeleteModal(true); }}
+                                                        className="p-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 transition-all"
+                                                        title="Hapus Akun Permanen"
+                                                    >
+                                                        <Trash2 size={14} />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             {/* Pagination Controls */}
-            <div className="flex justify-between items-center mt-6">
+            <div className="flex justify-between items-center px-1">
                 <button 
                     disabled={page === 1 || loading} 
                     onClick={() => setPage(p => Math.max(1, p - 1))}
-                    className="px-6 py-2 bg-gray-900 border border-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-xs font-semibold text-gray-300 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                 >
-                    Back
+                    <ChevronLeft size={14} /> Sebelumnya
                 </button>
-                <div className="text-gray-500 text-sm">
-                    Halaman <span className="text-white font-medium">{page}</span>
+                <div className="text-xs text-gray-400 font-medium">
+                    Halaman <strong className="text-white">{page}</strong>
                 </div>
                 <button 
                     disabled={!hasMore || loading} 
                     onClick={() => setPage(p => p + 1)}
-                    className="px-6 py-2 bg-gray-900 border border-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-xs font-semibold text-gray-300 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                 >
-                    Next
+                    Berikutnya <ChevronRight size={14} />
                 </button>
             </div>
 
-            {/* Coin Management Modal */}
+            {/* Coin Management Luxury Modal */}
             {selectedUser && !showVipModal && !showPasswordModal && !showDeleteModal && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md border border-gray-800">
-                        <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-xl font-bold">Manage Koin</h2>
+                <div className="fixed inset-0 bg-[#07090E]/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
+                    <div className="glass-panel border border-white/[0.1] rounded-2xl p-6 w-full max-w-md shadow-2xl">
+                        <div className="flex justify-between items-center pb-4 mb-4 border-b border-white/[0.07]">
+                            <div className="flex items-center gap-2">
+                                <Coins className="text-amber-400" size={20} />
+                                <h3 className="text-base font-bold text-white tracking-tight">Kelola Saldo Koin</h3>
+                            </div>
                             <button onClick={() => setSelectedUser(null)} className="text-gray-500 hover:text-white">
-                                <X size={24} />
+                                <X size={18} />
                             </button>
                         </div>
-                        <p className="text-gray-400 mb-2">
-                            User: {selectedUser.full_name || 'Anonymous'}
-                        </p>
-                        <p className="text-yellow-500 font-bold mb-4">
-                            Saldo: {selectedUser.coin_balance || 0} Koin
-                        </p>
+
+                        <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06] mb-4">
+                            <p className="text-xs text-gray-400">Pengguna: <strong className="text-white">{selectedUser.full_name || 'Anonymous'}</strong></p>
+                            <p className="text-xs font-bold text-amber-400 mt-1">Saldo Saat Ini: {(selectedUser.coin_balance || 0).toLocaleString()} Koin</p>
+                        </div>
 
                         <div className="space-y-4">
-                            <input
-                                type="number"
-                                placeholder="Jumlah koin"
-                                value={coinAmount}
-                                onChange={(e) => setCoinAmount(e.target.value)}
-                                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-pink-600"
-                            />
-                            <input
-                                type="text"
-                                placeholder="Alasan (wajib)"
-                                value={coinReason}
-                                onChange={(e) => setCoinReason(e.target.value)}
-                                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-pink-600"
-                            />
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Jumlah Koin</label>
+                                <input
+                                    type="number"
+                                    placeholder="Contoh: 100"
+                                    value={coinAmount}
+                                    onChange={(e) => setCoinAmount(e.target.value)}
+                                    className="w-full glass-input rounded-xl px-4 py-2.5 text-xs focus:border-amber-400"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Alasan (Wajib)</label>
+                                <input
+                                    type="text"
+                                    placeholder="Alasan penyesuaian koin..."
+                                    value={coinReason}
+                                    onChange={(e) => setCoinReason(e.target.value)}
+                                    className="w-full glass-input rounded-xl px-4 py-2.5 text-xs focus:border-amber-400"
+                                />
+                            </div>
 
-                            <div className="flex gap-3">
+                            <div className="flex gap-3 pt-2">
                                 <button
                                     onClick={() => updateCoins(true)}
-                                    className="flex-1 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+                                    className="flex-1 py-2.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 text-xs font-bold flex items-center justify-center gap-2"
                                 >
-                                    <Plus size={18} /> Tambah
+                                    <Plus size={16} /> Tambah Koin
                                 </button>
                                 <button
                                     onClick={() => updateCoins(false)}
-                                    className="flex-1 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+                                    className="flex-1 py-2.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-300 text-xs font-bold flex items-center justify-center gap-2"
                                 >
-                                    <Minus size={18} /> Kurangi
+                                    <Minus size={16} /> Kurangi Koin
                                 </button>
                             </div>
                         </div>
@@ -444,43 +501,45 @@ export default function UsersPage() {
 
             {/* VIP Grant Modal */}
             {showVipModal && selectedUser && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md border border-gray-800">
-                        <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-xl font-bold flex items-center gap-2">
-                                <Crown className="text-yellow-500" size={24} /> Grant VIP
-                            </h2>
+                <div className="fixed inset-0 bg-[#07090E]/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
+                    <div className="glass-panel border border-white/[0.1] rounded-2xl p-6 w-full max-w-md shadow-2xl">
+                        <div className="flex justify-between items-center pb-4 mb-4 border-b border-white/[0.07]">
+                            <div className="flex items-center gap-2">
+                                <Crown className="text-amber-400" size={20} />
+                                <h3 className="text-base font-bold text-white tracking-tight">Berikan Akses VIP</h3>
+                            </div>
                             <button onClick={() => { setShowVipModal(false); setSelectedUser(null); }} className="text-gray-500 hover:text-white">
-                                <X size={24} />
+                                <X size={18} />
                             </button>
                         </div>
-                        <p className="text-gray-400 mb-4">
-                            User: {selectedUser.full_name || 'Anonymous'}
-                        </p>
+
+                        <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] mb-4">
+                            <p className="text-xs text-gray-400">Pengguna: <strong className="text-white">{selectedUser.full_name || selectedUser.email}</strong></p>
+                        </div>
 
                         <div className="space-y-4">
                             <div>
-                                <label className="text-sm text-gray-400">Durasi VIP (hari)</label>
+                                <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Durasi VIP (Hari)</label>
                                 <select
                                     value={vipDays}
                                     onChange={(e) => setVipDays(e.target.value)}
-                                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:border-yellow-600"
+                                    className="w-full glass-input rounded-xl px-4 py-2.5 text-xs focus:border-amber-400"
                                 >
-                                    <option value="7">7 hari</option>
-                                    <option value="30">30 hari (1 bulan)</option>
-                                    <option value="90">90 hari (3 bulan)</option>
-                                    <option value="365">365 hari (1 tahun)</option>
-                                    <option value="custom">Custom (isi manual)</option>
+                                    <option value="7" className="bg-[#090D15]">7 Hari</option>
+                                    <option value="30" className="bg-[#090D15]">30 Hari (1 Bulan)</option>
+                                    <option value="90" className="bg-[#090D15]">90 Hari (3 Bulan)</option>
+                                    <option value="365" className="bg-[#090D15]">365 Hari (1 Tahun)</option>
+                                    <option value="custom" className="bg-[#090D15]">Custom (Isi Manual)</option>
                                 </select>
                                 
                                 {vipDays === 'custom' && (
                                     <input
                                         type="number"
                                         min="1"
-                                        placeholder="Masukkan jumlah hari..."
+                                        placeholder="Ketik jumlah hari..."
                                         value={customVipDays}
                                         onChange={(e) => setCustomVipDays(e.target.value)}
-                                        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 mt-3 focus:outline-none focus:border-yellow-600 text-white"
+                                        className="w-full glass-input rounded-xl px-4 py-2.5 text-xs focus:border-amber-400 mt-2"
                                     />
                                 )}
                             </div>
@@ -488,9 +547,9 @@ export default function UsersPage() {
                             <button
                                 onClick={grantVip}
                                 disabled={actionLoading}
-                                className="w-full bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50"
+                                className="w-full gold-btn py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 disabled:opacity-50"
                             >
-                                {actionLoading ? 'Loading...' : <><Crown size={18} /> Berikan VIP</>}
+                                {actionLoading ? 'Memproses...' : <><Crown size={15} /> Berikan VIP Sekarang</>}
                             </button>
                         </div>
                     </div>
@@ -499,38 +558,40 @@ export default function UsersPage() {
 
             {/* Password Reset Modal */}
             {showPasswordModal && selectedUser && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md border border-gray-800">
-                        <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-xl font-bold flex items-center gap-2">
-                                <Key className="text-blue-500" size={24} /> Reset Password
-                            </h2>
+                <div className="fixed inset-0 bg-[#07090E]/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
+                    <div className="glass-panel border border-white/[0.1] rounded-2xl p-6 w-full max-w-md shadow-2xl">
+                        <div className="flex justify-between items-center pb-4 mb-4 border-b border-white/[0.07]">
+                            <div className="flex items-center gap-2">
+                                <Key className="text-blue-400" size={20} />
+                                <h3 className="text-base font-bold text-white tracking-tight">Reset Kata Sandi User</h3>
+                            </div>
                             <button onClick={() => { setShowPasswordModal(false); setSelectedUser(null); }} className="text-gray-500 hover:text-white">
-                                <X size={24} />
+                                <X size={18} />
                             </button>
                         </div>
-                        <p className="text-gray-400 mb-4">
-                            User: {selectedUser.full_name || 'Anonymous'}
-                        </p>
+
+                        <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] mb-4">
+                            <p className="text-xs text-gray-400">Pengguna: <strong className="text-white">{selectedUser.full_name || selectedUser.email}</strong></p>
+                        </div>
 
                         <div className="space-y-4">
                             <div>
-                                <label className="text-sm text-gray-400">Password Baru</label>
+                                <label className="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Password Baru</label>
                                 <input
                                     type="password"
                                     placeholder="Minimal 6 karakter"
                                     value={newPassword}
                                     onChange={(e) => setNewPassword(e.target.value)}
-                                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:border-blue-600"
+                                    className="w-full glass-input rounded-xl px-4 py-2.5 text-xs focus:border-blue-400"
                                 />
                             </div>
 
                             <button
                                 onClick={resetPassword}
                                 disabled={actionLoading || newPassword.length < 6}
-                                className="w-full bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50"
+                                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center justify-center gap-2 disabled:opacity-50 transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)]"
                             >
-                                {actionLoading ? 'Loading...' : <><Key size={18} /> Reset Password</>}
+                                {actionLoading ? 'Memproses...' : <><Key size={15} /> Setel Password Baru</>}
                             </button>
                         </div>
                     </div>
@@ -539,50 +600,40 @@ export default function UsersPage() {
 
             {/* Delete User Modal */}
             {showDeleteModal && selectedUser && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className="bg-gray-900 rounded-xl p-6 w-full max-w-md border border-red-800">
-                        <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-xl font-bold flex items-center gap-2 text-red-500">
-                                <Trash2 size={24} /> Hapus User
-                            </h2>
+                <div className="fixed inset-0 bg-[#07090E]/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
+                    <div className="glass-panel border border-rose-500/30 rounded-2xl p-6 w-full max-w-md shadow-2xl">
+                        <div className="flex justify-between items-center pb-4 mb-4 border-b border-white/[0.07]">
+                            <div className="flex items-center gap-2 text-rose-400 font-bold">
+                                <Trash2 size={20} />
+                                <h3 className="text-base text-white tracking-tight">Hapus Akun Pengguna</h3>
+                            </div>
                             <button onClick={() => { setShowDeleteModal(false); setSelectedUser(null); }} className="text-gray-500 hover:text-white">
-                                <X size={24} />
+                                <X size={18} />
                             </button>
                         </div>
 
-                        <div className="bg-red-900/20 border border-red-800 rounded-lg p-4 mb-4">
-                            <p className="text-red-400 text-sm font-medium mb-2">⚠️ Peringatan!</p>
-                            <p className="text-gray-300 text-sm">
-                                Tindakan ini akan menghapus user secara <strong>permanen</strong> beserta semua data terkait:
-                            </p>
-                            <ul className="text-gray-400 text-xs mt-2 list-disc list-inside space-y-1">
-                                <li>Profil dan akun login</li>
-                                <li>Saldo koin dan riwayat transaksi</li>
-                                <li>Status VIP dan langganan</li>
-                                <li>Episode yang sudah di-unlock</li>
-                                <li>Riwayat check-in harian</li>
-                            </ul>
+                        <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs mb-4 leading-relaxed">
+                            ⚠️ Tindakan ini akan menghapus akun user secara permanen beserta riwayat tontonan dan saldonya.
                         </div>
 
-                        <div className="bg-gray-800 rounded-lg p-3 mb-4">
-                            <p className="text-sm text-gray-400">User yang akan dihapus:</p>
-                            <p className="font-medium text-white">{selectedUser.email || 'No email'}</p>
-                            <p className="text-xs text-gray-500">{selectedUser.full_name || 'Anonymous'} • ID: {selectedUser.id.slice(0, 8)}...</p>
+                        <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] mb-6">
+                            <p className="text-xs text-gray-400">Akun: <strong className="text-white">{selectedUser.email || 'Tanpa Email'}</strong></p>
+                            <p className="text-[11px] text-gray-500 mt-0.5 font-mono">ID: {selectedUser.id}</p>
                         </div>
 
                         <div className="flex gap-3">
                             <button
                                 onClick={() => { setShowDeleteModal(false); setSelectedUser(null); }}
-                                className="flex-1 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg"
+                                className="flex-1 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-white text-xs font-semibold"
                             >
                                 Batal
                             </button>
                             <button
                                 onClick={deleteUser}
                                 disabled={actionLoading}
-                                className="flex-1 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50"
+                                className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold shadow-[0_0_15px_rgba(239,68,68,0.3)] disabled:opacity-50"
                             >
-                                {actionLoading ? 'Menghapus...' : <><Trash2 size={18} /> Hapus Permanen</>}
+                                {actionLoading ? 'Menghapus...' : 'Ya, Hapus Akun'}
                             </button>
                         </div>
                     </div>
