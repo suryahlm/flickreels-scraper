@@ -294,14 +294,14 @@ export default function DramasPage() {
                     <table className="w-full text-left">
                         <thead>
                             <tr className="bg-white/[0.02] border-b border-white/[0.07] text-[11px] font-bold uppercase tracking-wider text-gray-400">
-                                <th className="px-5 py-4 w-12">#</th>
-                                <th className="px-5 py-4">Judul Drama</th>
-                                <th className="px-5 py-4">Asal Sumber</th>
-                                <th className="px-5 py-4">Kategori Genre</th>
-                                <th className="px-5 py-4">Episode</th>
-                                <th className="px-5 py-4">Penayangan</th>
-                                <th className="px-5 py-4">Status</th>
-                                <th className="px-5 py-4 text-right">Aksi</th>
+                                <th className="px-5 py-4 w-12 text-center">#</th>
+                                <th className="px-5 py-4 min-w-[240px]">Judul Drama</th>
+                                <th className="px-5 py-4 whitespace-nowrap">Asal Sumber</th>
+                                <th className="px-5 py-4 whitespace-nowrap">Kategori Genre</th>
+                                <th className="px-5 py-4 text-center whitespace-nowrap">Episode</th>
+                                <th className="px-5 py-4 text-center whitespace-nowrap">Penayangan</th>
+                                <th className="px-5 py-4 text-center whitespace-nowrap">Status</th>
+                                <th className="px-5 py-4 text-right whitespace-nowrap">Aksi</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/[0.04]">
@@ -316,7 +316,7 @@ export default function DramasPage() {
                                     const source = getSource(drama.r2_folder);
                                     return (
                                         <tr key={drama.id} className="hover:bg-white/[0.03] transition-colors group">
-                                            <td className="px-5 py-4 text-xs font-mono text-gray-500">{index + 1}</td>
+                                            <td className="px-5 py-4 text-xs font-mono text-gray-500 text-center">{index + 1}</td>
                                             <td className="px-5 py-4">
                                                 <p className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">
                                                     {drama.title}
@@ -325,36 +325,36 @@ export default function DramasPage() {
                                                     {drama.r2_folder || drama.id.slice(0, 10)}
                                                 </p>
                                             </td>
-                                            <td className="px-5 py-4">
-                                                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${SOURCE_COLORS[source]}`}>
+                                            <td className="px-5 py-4 whitespace-nowrap">
+                                                <span className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold border ${SOURCE_COLORS[source]}`}>
                                                     {source}
                                                 </span>
                                             </td>
-                                            <td className="px-5 py-4 text-xs text-gray-400">
-                                                <span className="px-2 py-0.5 rounded-lg bg-white/[0.03] border border-white/[0.06] text-[11px]">
+                                            <td className="px-5 py-4 text-xs text-gray-400 whitespace-nowrap">
+                                                <span className="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06] text-[11px] font-medium">
                                                     {getCategoryName(drama.category_id)}
                                                 </span>
                                             </td>
-                                            <td className="px-5 py-4">
-                                                <span className="px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-[10px] font-bold">
+                                            <td className="px-5 py-4 text-center whitespace-nowrap">
+                                                <span className="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-bold whitespace-nowrap">
                                                     {drama.total_episodes} eps
                                                 </span>
                                             </td>
-                                            <td className="px-5 py-4 text-xs font-bold text-white">
-                                                {(drama.view_count || 0).toLocaleString()} <span className="text-[10px] font-normal text-gray-500">views</span>
+                                            <td className="px-5 py-4 text-center whitespace-nowrap text-xs font-bold text-white">
+                                                {(drama.view_count || 0).toLocaleString()} <span className="text-[11px] font-normal text-gray-500">views</span>
                                             </td>
-                                            <td className="px-5 py-4">
+                                            <td className="px-5 py-4 text-center whitespace-nowrap">
                                                 <span
-                                                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
+                                                    className={`inline-flex items-center justify-center px-3 py-1 rounded-lg text-xs font-bold border whitespace-nowrap ${
                                                         drama.is_published
                                                             ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
-                                                            : 'bg-gray-500/15 text-gray-400 border-gray-500/30'
+                                                            : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
                                                     }`}
                                                 >
                                                     {drama.is_published ? 'Published' : 'Draft'}
                                                 </span>
                                             </td>
-                                            <td className="px-5 py-4 text-right">
+                                            <td className="px-5 py-4 text-right whitespace-nowrap">
                                                 <div className="flex items-center justify-end gap-1.5">
                                                     <button
                                                         onClick={() => togglePublish(drama.id, drama.is_published)}
