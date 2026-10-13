@@ -36,7 +36,7 @@ export default function DramasPage() {
 
     // Filter states
     const [filterSource, setFilterSource] = useState<string>('all');
-    const [filterStatus, setFilterStatus] = useState<string>('all');
+    const [filterStatus, setFilterStatus] = useState<string>('published');
     const [filterCategory, setFilterCategory] = useState<string>('all');
 
     useEffect(() => {
@@ -78,11 +78,11 @@ export default function DramasPage() {
         return matchSearch && matchSource && matchStatus && matchCategory;
     }), [dramas, search, filterSource, filterStatus, filterCategory]);
 
-    const hasActiveFilter = filterSource !== 'all' || filterStatus !== 'all' || filterCategory !== 'all';
+    const hasActiveFilter = filterSource !== 'all' || filterStatus !== 'published' || filterCategory !== 'all';
 
     const clearFilters = () => {
         setFilterSource('all');
-        setFilterStatus('all');
+        setFilterStatus('published');
         setFilterCategory('all');
     };
 
@@ -155,7 +155,7 @@ export default function DramasPage() {
                     </div>
                     <div>
                         <h2 className="text-base font-bold text-white tracking-tight">Katalog Master Drama</h2>
-                        <p className="text-xs text-gray-400">Total {dramas.length} judul terdaftar di database</p>
+                        <p className="text-xs text-gray-400">Total {statusCounts.published} judul aktif dipublikasikan ({dramas.length} di database)</p>
                     </div>
                 </div>
 
@@ -233,13 +233,6 @@ export default function DramasPage() {
                 <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-xs font-semibold text-gray-400 w-20 shrink-0">Status:</span>
                     <FilterButton
-                        active={filterStatus === 'all'}
-                        onClick={() => setFilterStatus('all')}
-                        count={statusCounts.all}
-                    >
-                        Semua
-                    </FilterButton>
-                    <FilterButton
                         active={filterStatus === 'published'}
                         onClick={() => setFilterStatus('published')}
                         count={statusCounts.published}
@@ -251,9 +244,16 @@ export default function DramasPage() {
                         active={filterStatus === 'draft'}
                         onClick={() => setFilterStatus('draft')}
                         count={statusCounts.draft}
-                        color="bg-gray-500/15 text-gray-300 border-gray-500/30"
+                        color="bg-amber-500/15 text-amber-300 border-amber-500/30"
                     >
                         Draft
+                    </FilterButton>
+                    <FilterButton
+                        active={filterStatus === 'all'}
+                        onClick={() => setFilterStatus('all')}
+                        count={statusCounts.all}
+                    >
+                        Semua
                     </FilterButton>
                 </div>
 
@@ -281,7 +281,10 @@ export default function DramasPage() {
             {/* Result Counter */}
             <div className="flex items-center justify-between text-xs text-gray-400 px-1 font-medium">
                 <span>
-                    Menampilkan <strong className="text-white">{filteredDramas.length}</strong> dari <strong className="text-white">{dramas.length}</strong> judul
+                    Menampilkan <strong className="text-white">{filteredDramas.length}</strong> judul
+                    {filterStatus === 'published' && <span className="text-emerald-400/90 ml-1.5 font-semibold">● Dipublikasikan ({statusCounts.published})</span>}
+                    {filterStatus === 'draft' && <span className="text-amber-400/90 ml-1.5 font-semibold">● Masih Draft ({statusCounts.draft})</span>}
+                    {filterStatus === 'all' && <span className="text-gray-400 ml-1.5 font-semibold">● Semua Status ({statusCounts.all})</span>}
                 </span>
             </div>
 
