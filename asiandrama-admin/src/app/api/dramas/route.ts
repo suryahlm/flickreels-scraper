@@ -1,16 +1,23 @@
 import { supabaseAdmin } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
-import { S3Client, ListObjectsV2Command, DeleteObjectsCommand } from '@aws-sdk/client-s3';
-
-// Setup Cloudflare R2 Client
-const r2Client = new S3Client({
-    region: 'auto',
-    endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-    credentials: {
-        accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
-        secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
-    },
-});
+// Setup Cloudflare R2 Client (lazily & dynamically imported only when DELETE is called)
+async function getR2Client() {
+    try {
+        const { S3Client, ListObjectsV2Command, DeleteObjectsCommand } = await import('@aws-sdk/client-s3');
+        const client = new S3Client({
+            region: 'auto',
+            endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+            credentials: {
+                accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
+                secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
+            },
+        });
+        return { client, ListObjectsV2Command, DeleteObjectsCommand };
+    } catch (err) {
+        console.warn('[API/dramas] S3 client unavailable:', err);
+        return null;
+    }
+}
 const BUCKET_NAME = process.env.R2_BUCKET_NAME || 'asiandrama-cdn';
 
 // R2 Public URL
@@ -173,41 +180,44 @@ export async function DELETE(request: NextRequest) {
 
         // 3. Hapus semua file terkait dari R2 CDN
         if (folderPrefix) {
-            let isTruncated = true;
-            let continuationToken: string | undefined = undefined;
-
-            console.log(`[API/dramas] Mulai membersihkan R2 Bucket untuk folder: ${folderPrefix}`);
-            let deletedCount = 0;
-
             try {
-                // Loop untuk paginasi (jika file > 1000)
-                while (isTruncated) {
-                    const listCmd: any = new ListObjectsV2Command({
-                        Bucket: BUCKET_NAME,
-                        Prefix: folderPrefix,
-                        ContinuationToken: continuationToken,
-                    });
-                    
-                    const listRes: any = await r2Client.send(listCmd);
-                    const objects = listRes.Contents;
+                const r2 = await getR2Client();
+                if (r2) {
+                    let isTruncated = true;
+                    let continuationToken: string | undefined = undefined;
 
-                    if (objects && objects.length > 0) {
-                        const deleteCmd: any = new DeleteObjectsCommand({
+                    console.log(`[API/dramas] Mulai membersihkan R2 Bucket untuk folder: ${folderPrefix}`);
+                    let deletedCount = 0;
+
+                    // Loop untuk paginasi (jika file > 1000)
+                    while (isTruncated) {
+                        const listCmd: any = new r2.ListObjectsV2Command({
                             Bucket: BUCKET_NAME,
-                            Delete: {
-                                Objects: objects.map((obj: any) => ({ Key: obj.Key })),
-                                Quiet: true, // Tidak perlu mengembalikan data file persatu-persatu
-                            }
+                            Prefix: folderPrefix,
+                            ContinuationToken: continuationToken,
                         });
                         
-                        await r2Client.send(deleteCmd);
-                        deletedCount += objects.length;
+                        const listRes: any = await r2.client.send(listCmd);
+                        const objects = listRes.Contents;
+
+                        if (objects && objects.length > 0) {
+                            const deleteCmd: any = new r2.DeleteObjectsCommand({
+                                Bucket: BUCKET_NAME,
+                                Delete: {
+                                    Objects: objects.map((obj: any) => ({ Key: obj.Key })),
+                                    Quiet: true, // Tidak perlu mengembalikan data file persatu-persatu
+                                }
+                            });
+                            
+                            await r2.client.send(deleteCmd);
+                            deletedCount += objects.length;
+                        }
+                        
+                        isTruncated = listRes.IsTruncated ?? false;
+                        continuationToken = listRes.NextContinuationToken;
                     }
-                    
-                    isTruncated = listRes.IsTruncated ?? false;
-                    continuationToken = listRes.NextContinuationToken;
+                    console.log(`[API/dramas] Berhasil menghapus total ${deletedCount} file dari CDN R2.`);
                 }
-                console.log(`[API/dramas] Berhasil menghapus total ${deletedCount} file dari CDN R2.`);
             } catch (r2Error) {
                 console.error('[API/dramas] Gagal membersihkan Cloudflare R2:', r2Error);
                 // Kita TIDAK me-return error di sini, biarkan lanjut menghapus dari DB.

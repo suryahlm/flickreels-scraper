@@ -23,6 +23,8 @@ export interface Drama {
     category_id: string | null;
     total_episodes: number;
     view_count: number;
+    real_view_count?: number;
+    release_status?: 'ongoing' | 'completed';
     is_published: boolean;
     created_at: string;
     r2_folder: string | null;

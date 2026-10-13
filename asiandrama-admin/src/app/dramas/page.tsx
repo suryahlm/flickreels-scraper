@@ -37,6 +37,7 @@ export default function DramasPage() {
     // Filter states
     const [filterSource, setFilterSource] = useState<string>('all');
     const [filterStatus, setFilterStatus] = useState<string>('published');
+    const [filterReleaseStatus, setFilterReleaseStatus] = useState<string>('all');
     const [filterCategory, setFilterCategory] = useState<string>('all');
 
     useEffect(() => {
@@ -67,6 +68,13 @@ export default function DramasPage() {
         draft: dramas.filter((d) => !d.is_published).length,
     }), [dramas]);
 
+    // Release status counts
+    const releaseStatusCounts = useMemo(() => ({
+        all: dramas.length,
+        ongoing: dramas.filter((d) => d.release_status === 'ongoing').length,
+        completed: dramas.filter((d) => d.release_status !== 'ongoing').length,
+    }), [dramas]);
+
     // Multi-filter
     const filteredDramas = useMemo(() => dramas.filter((d) => {
         const matchSearch = d.title.toLowerCase().includes(search.toLowerCase());
@@ -74,15 +82,19 @@ export default function DramasPage() {
         const matchStatus = filterStatus === 'all'
             || (filterStatus === 'published' && d.is_published)
             || (filterStatus === 'draft' && !d.is_published);
+        const matchRelease = filterReleaseStatus === 'all'
+            || (filterReleaseStatus === 'ongoing' && d.release_status === 'ongoing')
+            || (filterReleaseStatus === 'completed' && d.release_status !== 'ongoing');
         const matchCategory = filterCategory === 'all' || d.category_id === filterCategory;
-        return matchSearch && matchSource && matchStatus && matchCategory;
-    }), [dramas, search, filterSource, filterStatus, filterCategory]);
+        return matchSearch && matchSource && matchStatus && matchRelease && matchCategory;
+    }), [dramas, search, filterSource, filterStatus, filterReleaseStatus, filterCategory]);
 
-    const hasActiveFilter = filterSource !== 'all' || filterStatus !== 'published' || filterCategory !== 'all';
+    const hasActiveFilter = filterSource !== 'all' || filterStatus !== 'published' || filterReleaseStatus !== 'all' || filterCategory !== 'all';
 
     const clearFilters = () => {
         setFilterSource('all');
         setFilterStatus('published');
+        setFilterReleaseStatus('all');
         setFilterCategory('all');
     };
 
@@ -257,6 +269,34 @@ export default function DramasPage() {
                     </FilterButton>
                 </div>
 
+                {/* Release Status Filter (Ongoing vs Tamat) */}
+                <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs font-semibold text-gray-400 w-20 shrink-0">Status Rilis:</span>
+                    <FilterButton
+                        active={filterReleaseStatus === 'all'}
+                        onClick={() => setFilterReleaseStatus('all')}
+                        count={releaseStatusCounts.all}
+                    >
+                        Semua
+                    </FilterButton>
+                    <FilterButton
+                        active={filterReleaseStatus === 'ongoing'}
+                        onClick={() => setFilterReleaseStatus('ongoing')}
+                        count={releaseStatusCounts.ongoing}
+                        color="bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
+                    >
+                        ● Ongoing
+                    </FilterButton>
+                    <FilterButton
+                        active={filterReleaseStatus === 'completed'}
+                        onClick={() => setFilterReleaseStatus('completed')}
+                        count={releaseStatusCounts.completed}
+                        color="bg-gray-500/15 text-gray-300 border-gray-500/30"
+                    >
+                        Tamat
+                    </FilterButton>
+                </div>
+
                 {/* Category Filter */}
                 <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-xs font-semibold text-gray-400 w-20 shrink-0">Kategori:</span>
@@ -336,12 +376,35 @@ export default function DramasPage() {
                                                 </span>
                                             </td>
                                             <td className="px-5 py-4 text-center whitespace-nowrap">
-                                                <span className="inline-flex items-center justify-center px-3 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-bold whitespace-nowrap">
-                                                    {drama.total_episodes} eps
-                                                </span>
+                                                <div className="flex flex-col items-center gap-1">
+                                                    <span className="inline-flex items-center justify-center px-2.5 py-0.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-bold whitespace-nowrap">
+                                                        {drama.total_episodes} eps
+                                                    </span>
+                                                    {drama.release_status === 'ongoing' ? (
+                                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold">
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                                            Ongoing
+                                                        </span>
+                                                    ) : (
+                                                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-gray-400 text-[10px] font-medium">
+                                                            Tamat
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </td>
-                                            <td className="px-5 py-4 text-center whitespace-nowrap text-xs font-bold text-white">
-                                                {(drama.view_count || 0).toLocaleString()} <span className="text-[11px] font-normal text-gray-500">views</span>
+                                            <td className="px-5 py-4 text-center whitespace-nowrap">
+                                                <div className="flex flex-col items-center gap-1">
+                                                    <div className="flex items-center gap-1 text-xs font-bold text-amber-300" title="Views di Aplikasi (Public Heat Score)">
+                                                        <Sparkles size={12} className="text-amber-400 shrink-0" />
+                                                        <span>{(drama.view_count || 0).toLocaleString()}</span>
+                                                        <span className="text-[10px] font-normal text-gray-400">app</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-1 text-[11px] font-semibold text-emerald-400/90" title="Views Real Organik (Tontonan Pengguna Real)">
+                                                        <Eye size={11} className="text-emerald-400 shrink-0" />
+                                                        <span>{(drama.real_view_count || 0).toLocaleString()}</span>
+                                                        <span className="text-[10px] font-normal text-gray-400">real</span>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td className="px-5 py-4 text-center whitespace-nowrap">
                                                 <span
