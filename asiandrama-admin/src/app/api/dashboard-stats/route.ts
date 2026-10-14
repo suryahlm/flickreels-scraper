@@ -101,6 +101,10 @@ export async function GET() {
             },
             recentUsers,
             topDramas: topDramasResult.data || [],
+        }, {
+            headers: {
+                'Cache-Control': 'public, s-maxage=15, stale-while-revalidate=30'
+            }
         });
     } catch (error) {
         console.error('[Dashboard API] Error:', error);

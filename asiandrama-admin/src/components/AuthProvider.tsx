@@ -3,7 +3,23 @@
 import { supabase } from '@/lib/supabase';
 import type { User } from '@supabase/supabase-js';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+
+interface AuthContextType {
+    user: User | null;
+    adminEmail: string;
+    loading: boolean;
+    logout: () => Promise<void>;
+}
+
+const AuthContext = createContext<AuthContextType>({
+    user: null,
+    adminEmail: 'admin@asiandrama.cc',
+    loading: true,
+    logout: async () => {},
+});
+
+export const useAuth = () => useContext(AuthContext);
 
 interface AuthProviderProps {
     children: React.ReactNode;
@@ -13,13 +29,16 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     const router = useRouter();
     const pathname = usePathname();
     const [user, setUser] = useState<User | null>(null);
+    const [adminEmail, setAdminEmail] = useState<string>('admin@asiandrama.cc');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Check current session with safe error fallback
         supabase.auth.getSession()
             .then(({ data: { session } }) => {
-                setUser(session?.user ?? null);
+                const currentUser = session?.user ?? null;
+                setUser(currentUser);
+                if (currentUser?.email) setAdminEmail(currentUser.email);
                 setLoading(false);
             })
             .catch(() => {
@@ -29,7 +48,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
         // Listen for auth changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            setUser(session?.user ?? null);
+            const currentUser = session?.user ?? null;
+            setUser(currentUser);
+            if (currentUser?.email) setAdminEmail(currentUser.email);
         });
 
         return () => subscription.unsubscribe();
@@ -44,6 +65,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             }
         }
     }, [user, loading, pathname, router]);
+
+    const logout = async () => {
+        await supabase.auth.signOut();
+        setUser(null);
+        router.push('/login');
+    };
 
     if (loading) {
         return (
@@ -65,7 +92,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
     // Show login page without sidebar
     if (pathname === '/login') {
-        return <>{children}</>;
+        return (
+            <AuthContext.Provider value={{ user, adminEmail, loading, logout }}>
+                {children}
+            </AuthContext.Provider>
+        );
     }
 
     // Show protected content
@@ -73,5 +104,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         return null;
     }
 
-    return <>{children}</>;
+    return (
+        <AuthContext.Provider value={{ user, adminEmail, loading, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
 }

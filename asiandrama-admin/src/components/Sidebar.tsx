@@ -18,8 +18,8 @@ import {
     Shield
 } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useAuth } from './AuthProvider';
 
 interface NavGroup {
     groupLabel: string;
@@ -67,21 +67,7 @@ const navGroups: NavGroup[] = [
 
 export default function Sidebar() {
     const pathname = usePathname();
-    const router = useRouter();
-    const [adminEmail, setAdminEmail] = useState<string>('admin@asiandrama.cc');
-
-    useEffect(() => {
-        supabase.auth.getUser().then(({ data: { user } }) => {
-            if (user?.email) {
-                setAdminEmail(user.email);
-            }
-        }).catch(() => {});
-    }, []);
-
-    const handleLogout = async () => {
-        await supabase.auth.signOut();
-        router.push('/login');
-    };
+    const { adminEmail, logout } = useAuth();
 
     // Don't show sidebar on login page or privacy page
     if (pathname === '/login' || pathname.startsWith('/privacy')) return null;
@@ -169,7 +155,7 @@ export default function Sidebar() {
                 </div>
 
                 <button
-                    onClick={handleLogout}
+                    onClick={logout}
                     className="flex items-center justify-center gap-2 px-3 py-2 text-xs font-semibold text-rose-400/90 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 rounded-xl w-full transition-all"
                 >
                     <LogOut size={14} />

@@ -18,7 +18,7 @@ export const supabaseAdmin: SupabaseClient = supabaseServiceKey
 export interface Drama {
     id: string;
     title: string;
-    synopsis: string | null;
+    synopsis?: string | null;
     thumbnail_url: string | null;
     category_id: string | null;
     total_episodes: number;

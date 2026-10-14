@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckCircle, Eye, Film, Loader2, RefreshCw, Trash2, FolderCheck, Clock, Sparkles } from 'lucide-react';
+import { CheckCircle, Eye, Film, Loader2, RefreshCw, Trash2, FolderCheck, Clock, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { fetchDraftDramasAdmin } from './actions';
@@ -23,6 +23,10 @@ export default function DraftDramasPage() {
     const [actionLoading, setActionLoading] = useState<Record<string, 'publish' | 'delete' | null>>({});
     const [confirmDelete, setConfirmDelete] = useState<DraftDrama | null>(null);
     const [toast, setToast] = useState<{ msg: string; type: 'success' | 'error' } | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 20;
+    const totalPages = Math.max(1, Math.ceil(dramas.length / pageSize));
+    const paginatedDramas = dramas.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
     const showToast = (msg: string, type: 'success' | 'error') => {
         setToast({ msg, type });
@@ -145,7 +149,7 @@ export default function DraftDramasPage() {
             {/* Drama Grid */}
             {!loading && dramas.length > 0 && (
                 <div className="grid gap-4">
-                    {dramas.map(drama => {
+                    {paginatedDramas.map(drama => {
                         const isActing = !!actionLoading[drama.id];
                         let thumbnail = drama.thumbnail_url || drama.cover_url;
                         if (!thumbnail && drama.r2_folder) {
@@ -261,6 +265,38 @@ export default function DraftDramasPage() {
                             </div>
                         );
                     })}
+                </div>
+            )}
+
+            {/* Pagination Controls */}
+            {!loading && totalPages > 1 && (
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl glass-panel border border-white/[0.08]">
+                    <span className="text-xs text-gray-400">
+                        Menampilkan <strong className="text-white">{(currentPage - 1) * pageSize + 1}</strong>–<strong className="text-white">{Math.min(currentPage * pageSize, dramas.length)}</strong> dari <strong className="text-white">{dramas.length}</strong> draft
+                    </span>
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                            disabled={currentPage === 1}
+                            className="flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-gray-300 disabled:opacity-30 disabled:pointer-events-none transition-all"
+                        >
+                            <ChevronLeft size={14} />
+                            <span>Sebelumnya</span>
+                        </button>
+
+                        <div className="px-3 py-1 text-xs font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+                            Hal {currentPage} / {totalPages}
+                        </div>
+
+                        <button
+                            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                            disabled={currentPage === totalPages}
+                            className="flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-gray-300 disabled:opacity-30 disabled:pointer-events-none transition-all"
+                        >
+                            <span>Berikutnya</span>
+                            <ChevronRight size={14} />
+                        </button>
+                    </div>
                 </div>
             )}
 

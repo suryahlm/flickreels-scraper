@@ -36,7 +36,7 @@ export async function GET() {
 
         const { data: allDramas } = await supabaseAdmin
             .from('dramas')
-            .select('*')
+            .select('id, flickreels_id, title, total_episodes, r2_folder')
             .eq('is_published', true)
             .order('title');
 

@@ -2,7 +2,7 @@
 
 import { type Category, type Drama } from '@/lib/supabase';
 import { fetchDramasCatalogAdmin } from './actions';
-import { Edit, Eye, EyeOff, Filter, Plus, Search, Trash2, X, Film, FolderCheck, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
+import { Edit, Eye, EyeOff, Filter, Plus, Search, Trash2, X, Film, FolderCheck, CheckCircle2, AlertCircle, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
 
@@ -89,6 +89,20 @@ export default function DramasPage() {
         return matchSearch && matchSource && matchStatus && matchRelease && matchCategory;
     }), [dramas, search, filterSource, filterStatus, filterReleaseStatus, filterCategory]);
 
+    // Pagination
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [pageSize, setPageSize] = useState<number>(25);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [search, filterSource, filterStatus, filterReleaseStatus, filterCategory]);
+
+    const totalPages = Math.max(1, Math.ceil(filteredDramas.length / pageSize));
+    const paginatedDramas = useMemo(() => {
+        const start = (currentPage - 1) * pageSize;
+        return filteredDramas.slice(start, start + pageSize);
+    }, [filteredDramas, currentPage, pageSize]);
+
     const hasActiveFilter = filterSource !== 'all' || filterStatus !== 'published' || filterReleaseStatus !== 'all' || filterCategory !== 'all';
 
     const clearFilters = () => {
@@ -96,6 +110,7 @@ export default function DramasPage() {
         setFilterStatus('published');
         setFilterReleaseStatus('all');
         setFilterCategory('all');
+        setCurrentPage(1);
     };
 
     const togglePublish = async (id: string, currentStatus: boolean) => {
@@ -352,11 +367,12 @@ export default function DramasPage() {
                                     </td>
                                 </tr>
                             ) : (
-                                filteredDramas.map((drama, index) => {
+                                paginatedDramas.map((drama, index) => {
                                     const source = getSource(drama.r2_folder);
+                                    const rowNum = (currentPage - 1) * pageSize + index + 1;
                                     return (
                                         <tr key={drama.id} className="hover:bg-white/[0.03] transition-colors group">
-                                            <td className="px-5 py-4 text-xs font-mono text-gray-500 text-center">{index + 1}</td>
+                                            <td className="px-5 py-4 text-xs font-mono text-gray-500 text-center">{rowNum}</td>
                                             <td className="px-5 py-4">
                                                 <p className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">
                                                     {drama.title}
@@ -446,6 +462,59 @@ export default function DramasPage() {
                         </tbody>
                     </table>
                 </div>
+
+                {/* Luxury Pagination Bar */}
+                {filteredDramas.length > 0 && (
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-5 py-4 border-t border-white/[0.06] bg-white/[0.01]">
+                        <div className="flex items-center gap-3 text-xs text-gray-400">
+                            <span>
+                                Menampilkan <strong className="text-white">{(currentPage - 1) * pageSize + 1}</strong>–<strong className="text-white">{Math.min(currentPage * pageSize, filteredDramas.length)}</strong> dari <strong className="text-white">{filteredDramas.length}</strong> judul
+                            </span>
+                            <span className="text-white/20">|</span>
+                            <div className="flex items-center gap-1.5">
+                                <span className="text-[11px] text-gray-500">Per hal:</span>
+                                <select
+                                    value={pageSize}
+                                    onChange={(e) => {
+                                        setPageSize(Number(e.target.value));
+                                        setCurrentPage(1);
+                                    }}
+                                    className="bg-[#0e131f] text-gray-300 text-xs rounded-lg px-2 py-1 border border-white/[0.1] focus:border-amber-400 outline-none cursor-pointer"
+                                >
+                                    <option value={25}>25</option>
+                                    <option value={50}>50</option>
+                                    <option value={100}>100</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {totalPages > 1 && (
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                                    disabled={currentPage === 1}
+                                    className="flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-gray-300 disabled:opacity-30 disabled:pointer-events-none transition-all"
+                                >
+                                    <ChevronLeft size={14} />
+                                    <span>Sebelumnya</span>
+                                </button>
+
+                                <div className="px-3 py-1 text-xs font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+                                    Hal {currentPage} / {totalPages}
+                                </div>
+
+                                <button
+                                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                                    disabled={currentPage === totalPages}
+                                    className="flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-gray-300 disabled:opacity-30 disabled:pointer-events-none transition-all"
+                                >
+                                    <span>Berikutnya</span>
+                                    <ChevronRight size={14} />
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* Add Drama Luxury Modal */}

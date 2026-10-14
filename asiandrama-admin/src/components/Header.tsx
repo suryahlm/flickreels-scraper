@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
+import { useAuth } from './AuthProvider';
 import { ExternalLink, ShieldCheck, Sparkles, Activity } from 'lucide-react';
 
 const PAGE_TITLES: Record<string, { title: string; subtitle: string; category: string }> = {
@@ -21,15 +20,7 @@ const PAGE_TITLES: Record<string, { title: string; subtitle: string; category: s
 
 export default function Header() {
     const pathname = usePathname();
-    const [adminEmail, setAdminEmail] = useState<string>('admin@asiandrama.cc');
-
-    useEffect(() => {
-        supabase.auth.getUser().then(({ data: { user } }) => {
-            if (user?.email) {
-                setAdminEmail(user.email);
-            }
-        }).catch(() => {});
-    }, []);
+    const { adminEmail } = useAuth();
 
     if (pathname === '/login' || pathname.startsWith('/privacy')) return null;
 
