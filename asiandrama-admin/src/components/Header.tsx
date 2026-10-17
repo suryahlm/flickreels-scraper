@@ -24,14 +24,25 @@ export default function Header() {
 
     if (pathname === '/login' || pathname.startsWith('/privacy')) return null;
 
-    const pageInfo = PAGE_TITLES[pathname] || {
-        title: 'AsianDrama Console',
-        subtitle: 'Sistem Manajemen Streaming Asia',
-        category: 'Portal'
-    };
+    let pageInfo = PAGE_TITLES[pathname];
+    if (!pageInfo) {
+        if (pathname.startsWith('/dramas/') && pathname.endsWith('/edit')) {
+            pageInfo = {
+                title: 'Editor Drama',
+                subtitle: 'Manajemen poster cover, taksonomi genre, sinopsis, dan metrik tayang',
+                category: 'Content',
+            };
+        } else {
+            pageInfo = {
+                title: 'FreeDrama Console',
+                subtitle: 'Sistem Manajemen Streaming Asia',
+                category: 'Portal',
+            };
+        }
+    }
 
     return (
-        <header className="sticky top-0 z-30 mb-8 backdrop-blur-xl bg-[#07090E]/80 border-b border-white/[0.07] px-8 py-4 transition-all">
+        <header className="flex-shrink-0 z-30 backdrop-blur-xl bg-[#07090E]/85 border-b border-white/[0.07] px-8 py-4 transition-all">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 {/* Title & Breadcrumb */}
                 <div>

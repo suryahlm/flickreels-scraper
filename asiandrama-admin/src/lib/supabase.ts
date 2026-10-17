@@ -28,6 +28,7 @@ export interface Drama {
     is_published: boolean;
     created_at: string;
     r2_folder: string | null;
+    source_data?: any;
 }
 
 export interface Episode {

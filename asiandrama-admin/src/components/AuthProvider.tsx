@@ -82,7 +82,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
                         <div className="w-full h-full border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
                     </div>
                     <div className="text-center">
-                        <p className="text-sm font-semibold text-white tracking-wide">AsianDrama</p>
+                        <p className="text-sm font-semibold text-white tracking-wide">FreeDrama</p>
                         <p className="text-xs text-amber-500/70 font-medium mt-0.5">Memuat konsol admin...</p>
                     </div>
                 </div>

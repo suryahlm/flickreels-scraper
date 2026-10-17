@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import { Lock, Mail, Sparkles, ShieldCheck, ArrowRight, Loader2 } from 'lucide-react';
 
@@ -43,12 +44,19 @@ export default function LoginPage() {
                 {/* Brand Header */}
                 <div className="text-center mb-8">
                     <div className="inline-flex w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 p-0.5 shadow-[0_0_30px_rgba(229,169,60,0.35)] mb-4">
-                        <div className="w-full h-full bg-[#090D15] rounded-[14px] flex items-center justify-center">
-                            <Sparkles className="text-amber-400" size={30} />
+                        <div className="w-full h-full bg-[#090D15] rounded-[14px] overflow-hidden flex items-center justify-center">
+                            <Image
+                                src="/freedrama-icon-full.png"
+                                alt="FreeDrama"
+                                width={64}
+                                height={64}
+                                className="w-full h-full object-cover"
+                                priority
+                            />
                         </div>
                     </div>
                     <h1 className="text-3xl font-extrabold tracking-tight gold-gradient-text">
-                        AsianDrama
+                        FreeDrama
                     </h1>
                     <p className="text-xs font-medium tracking-wider uppercase text-gray-400 mt-1">
                         Executive Management Console
@@ -133,7 +141,7 @@ export default function LoginPage() {
                 {/* Security Footer Badge */}
                 <div className="flex items-center justify-center gap-2 text-[11px] text-gray-400 mt-6 font-medium">
                     <ShieldCheck size={14} className="text-amber-500/80" />
-                    <span>Secure Gateway • AsianDrama Standalone Architecture</span>
+                    <span>Secure Gateway • FreeDrama Standalone Architecture</span>
                 </div>
             </div>
         </div>

@@ -1,7 +1,8 @@
 'use client';
 
-import { CheckCircle, Eye, Film, Loader2, RefreshCw, Trash2, FolderCheck, Clock, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CheckCircle, Eye, Film, Loader2, RefreshCw, Trash2, FolderCheck, Clock, Sparkles, ChevronLeft, ChevronRight, Edit } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { fetchDraftDramasAdmin } from './actions';
 
@@ -56,8 +57,13 @@ export default function DraftDramasPage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: drama.id, is_published: true }),
             });
-            const result = await res.json();
-            if (!res.ok) throw new Error(result.error);
+            let result: any = {};
+            try {
+                result = await res.json();
+            } catch (_) {
+                throw new Error(`Server mengembalikan status ${res.status}`);
+            }
+            if (!res.ok) throw new Error(result.error || `HTTP ${res.status}`);
             showToast(`✅ "${drama.title}" berhasil dipublikasikan!`, 'success');
             setDramas(prev => prev.filter(d => d.id !== drama.id));
         } catch (err: any) {
@@ -74,9 +80,14 @@ export default function DraftDramasPage() {
         setActionLoading(prev => ({ ...prev, [drama.id]: 'delete' }));
         try {
             const res = await fetch(`/api/dramas?id=${drama.id}`, { method: 'DELETE' });
-            const result = await res.json();
-            if (!res.ok) throw new Error(result.error);
-            showToast(`🗑️ "${drama.title}" berhasil dihapus dari DB & R2.`, 'success');
+            let result: any = {};
+            try {
+                result = await res.json();
+            } catch (_) {
+                throw new Error(`Server mengembalikan status ${res.status}`);
+            }
+            if (!res.ok) throw new Error(result.error || `HTTP ${res.status}`);
+            showToast(`🗑️ "${drama.title}" berhasil dihapus dari DB & B2 (${result.deletedB2Files ?? 0} berkas).`, 'success');
             setDramas(prev => prev.filter(d => d.id !== drama.id));
         } catch (err: any) {
             showToast('Gagal hapus: ' + err.message, 'error');
@@ -235,6 +246,15 @@ export default function DraftDramasPage() {
                                             </a>
                                         )}
 
+                                        <Link
+                                            href={`/dramas/${drama.id}/edit`}
+                                            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 text-amber-300 text-xs font-bold transition-all"
+                                            title="Edit Metadata (Cover, Genre, Sinopsis)"
+                                        >
+                                            <Edit size={13} />
+                                            <span>Edit</span>
+                                        </Link>
+
                                         <button
                                             onClick={() => handlePublish(drama)}
                                             disabled={isActing}
@@ -319,7 +339,7 @@ export default function DraftDramasPage() {
                             <p className="text-gray-400 text-xs mt-1">{confirmDelete.total_episodes} episode</p>
                             {confirmDelete.r2_folder && (
                                 <p className="text-amber-400 text-xs mt-2 bg-amber-500/10 border border-amber-500/20 p-2 rounded-lg">
-                                    ⚠️ File Cloudflare R2 di folder <code className="font-mono text-white">{confirmDelete.r2_folder}</code> akan ikut dibersihkan.
+                                    ⚠️ Seluruh file di Backblaze B2 folder <code className="font-mono text-white">{confirmDelete.r2_folder}</code> akan ikut dibersihkan permanen.
                                 </p>
                             )}
                         </div>

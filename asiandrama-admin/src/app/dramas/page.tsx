@@ -2,28 +2,106 @@
 
 import { type Category, type Drama } from '@/lib/supabase';
 import { fetchDramasCatalogAdmin } from './actions';
-import { Edit, Eye, EyeOff, Filter, Plus, Search, Trash2, X, Film, FolderCheck, CheckCircle2, AlertCircle, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Edit, Eye, EyeOff, Filter, Plus, Search, Trash2, X, Film, FolderCheck, CheckCircle2, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 
 
 // ── Source detection from r2_folder ──
-const SOURCES = ['FlickReels', 'DramaBox', 'Melolo', 'Netshort', 'DramaNova'] as const;
+const SOURCES = ['ReelShort', 'Netshort', 'DramaBox', 'Melolo', 'DramaNova', 'FlickReels'] as const;
 type Source = (typeof SOURCES)[number];
 
 const SOURCE_COLORS: Record<Source, string> = {
-    FlickReels: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
+    ReelShort: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
+    Netshort: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
     DramaBox: 'bg-blue-500/15 text-blue-300 border-blue-500/30',
     Melolo: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
-    Netshort: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
     DramaNova: 'bg-rose-500/15 text-rose-300 border-rose-500/30',
+    FlickReels: 'bg-indigo-500/15 text-indigo-300 border-indigo-500/30',
+};
+
+const SOURCE_TEXT_COLORS: Record<Source, string> = {
+    ReelShort: 'text-purple-400',
+    Netshort: 'text-amber-400',
+    DramaBox: 'text-blue-400',
+    Melolo: 'text-emerald-400',
+    DramaNova: 'text-rose-400',
+    FlickReels: 'text-indigo-400',
 };
 
 function getSource(r2_folder: string | null | undefined): Source {
-    if (r2_folder?.startsWith('dramanova/')) return 'DramaNova';
+    if (r2_folder?.startsWith('reelshort/')) return 'ReelShort';
     if (r2_folder?.startsWith('netshort/')) return 'Netshort';
     if (r2_folder?.startsWith('dramabox/')) return 'DramaBox';
     if (r2_folder?.startsWith('melolo/')) return 'Melolo';
-    return 'FlickReels';
+    if (r2_folder?.startsWith('dramanova/')) return 'DramaNova';
+    if (r2_folder?.startsWith('flickreels/')) return 'FlickReels';
+    return 'ReelShort';
+}
+
+// ── Language detection (Bahasa Indonesia vs English) ──
+const ID_WORDS_REGEX = new RegExp(
+    "\\b(" + [
+        // Prepositions, pronouns, conjunctions, particles
+        "dan", "di", "ke", "dari", "yang", "untuk", "dengan", "pada", "adalah", "ini", "itu",
+        "si", "sang", "para", "kaum", "tak", "tidak", "bukan", "belum", "sudah", "telah",
+        "akan", "bisa", "dapat", "harus", "boleh", "hanya", "saja", "juga", "lagi", "pun",
+        "tapi", "tetapi", "namun", "karena", "sebab", "jika", "kalau", "bila", "atau", "serta",
+        "oleh", "tentang", "demi", "tanpa", "setelah", "sebelum", "saat", "ketika", "hingga",
+        "sampai", "sambil", "lalu", "kemudian", "maka", "bahwa", "agar", "supaya",
+        // Numbers
+        "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh",
+        // Specific Indonesian words and stems (with common affixes: -ku, -mu, -nya, -an)
+        "sulih suara", "anak(ku|mu|nya)?", "ibu(ku|mu|nya)?", "ayah(ku|mu|nya)?", "bunda(ku|mu|nya)?",
+        "wanita", "pria", "gadis", "suami(ku|mu|nya)?", "istri(ku|mu|nya)?", "tuan", "nona",
+        "pangeran", "putri", "raja", "ratu", "bos", "presdir", "cinta(ku|mu|nya)?", "hati(ku|mu|nya)?",
+        "kasih(ku|mu|nya)?", "sayang(ku|mu|nya)?", "benci", "dendam", "balas", "bahagia", "rahasia",
+        "takdir", "hidup", "mati", "kembali(nya)?", "pulang", "pergi", "datang", "hilang", "selamat",
+        "kaya", "miskin", "uang", "harta", "nikah", "menikah", "kawin", "cerai", "mantan(ku|mu|nya)?",
+        "mertua(ku|mu|nya)?", "ipar(ku|mu|nya)?", "menantu(ku|mu|nya)?", "jodoh(ku|mu|nya)?", "hamil",
+        "bayi(ku|mu|nya)?", "kandung(nya)?", "malam", "hari", "dunia", "langit", "bumi", "dewa", "dewi",
+        "iblis", "setan", "hantu", "naga", "silat", "pendekar", "pedang", "sihir", "penyihir",
+        "jurus", "kuasa", "sakti", "lemah", "kuat", "hancur", "perang", "serang(an)?", "menyerang",
+        "kalah", "menang", "terpaksa", "jebak(an)?", "khianat", "selingkuh", "boneka", "pelayan",
+        "pembantu", "majikan", "warisan", "konglomerat", "penjara", "hukum(an)?", "menghukum",
+        "tangis(an)?", "kehilangan", "penyesalan", "leluhur", "keserakahan", "pemburu", "pemberontak",
+        "titisan", "tembok", "zaman", "kuno", "ajaib", "pesona", "godaan", "kejayaan", "amarah",
+        "kejam", "dingin", "anggun", "cantik", "tampan", "muda", "tua", "buta", "lumpuh", "bisu",
+        "cacat", "dokter", "pasien", "guru", "murid", "kekasih(ku|mu|nya)?", "gaspol", "pembalap",
+        "hebat", "makhluk", "bebas(kan)?", "tiran", "bodoh", "penguasa", "guncang", "kematian",
+        "musuh(ku|mu|nya)?", "ditakuti", "dipuja", "legenda", "putus", "tunangan(ku|mu|nya)?",
+        "mencari", "cari", "sultan", "miliarder", "tahta", "bocah", "jenius", "masa depan",
+        "takhta", "lautan", "samudra", "tertidur", "tendang", "sampah", "budak", "menggilas",
+        "bersayap", "neraka", "berdosa", "panduan", "bisnis", "dominasi", "saudara", "saudari",
+        "terpikat", "terbuang", "terhebat", "terkuat", "terkaya", "menolak", "dihina", "dijebak",
+        "pilihan(ku|mu|nya)?", "anggurku", "kembalinya"
+    ].join("|") + ")\\b",
+    "i"
+);
+
+function getDramaLanguage(drama: Drama): 'id' | 'en' {
+    if (drama.source_data?.lang === 'id' || drama.source_data?.language === 'id') return 'id';
+    if (drama.source_data?.lang === 'en' || drama.source_data?.language === 'en') return 'en';
+
+    // Prioritas 1: Memiliki subtitle ID atau locale Bahasa Indonesia
+    if (Array.isArray(drama.source_data?.subtitles) && drama.source_data.subtitles.includes('id')) {
+        return 'id';
+    }
+    if (drama.source_data?.locales?.id) {
+        return 'id';
+    }
+
+    const tags = (drama.source_data?.tags || drama.source_data?.netshort_genres || []);
+    const tagStr = Array.isArray(tags) ? tags.join(' ') : String(tags || '');
+    if (/balas dendam|menghukum|bangkit kembali|reinkarnasi|perjalanan waktu|wanita mandiri|kehidupan urban/i.test(tagStr)) {
+        return 'id';
+    }
+
+    if (ID_WORDS_REGEX.test(drama.title)) {
+        return 'id';
+    }
+
+    return 'en';
 }
 
 export default function DramasPage() {
@@ -39,6 +117,7 @@ export default function DramasPage() {
     const [filterStatus, setFilterStatus] = useState<string>('published');
     const [filterReleaseStatus, setFilterReleaseStatus] = useState<string>('all');
     const [filterCategory, setFilterCategory] = useState<string>('all');
+    const [filterLanguage, setFilterLanguage] = useState<'all' | 'id' | 'en'>('all');
 
     useEffect(() => {
         fetchData();
@@ -75,6 +154,13 @@ export default function DramasPage() {
         completed: dramas.filter((d) => d.release_status !== 'ongoing').length,
     }), [dramas]);
 
+    // Language counts
+    const languageCounts = useMemo(() => ({
+        all: dramas.length,
+        id: dramas.filter((d) => getDramaLanguage(d) === 'id').length,
+        en: dramas.filter((d) => getDramaLanguage(d) === 'en').length,
+    }), [dramas]);
+
     // Multi-filter
     const filteredDramas = useMemo(() => dramas.filter((d) => {
         const matchSearch = d.title.toLowerCase().includes(search.toLowerCase());
@@ -86,8 +172,10 @@ export default function DramasPage() {
             || (filterReleaseStatus === 'ongoing' && d.release_status === 'ongoing')
             || (filterReleaseStatus === 'completed' && d.release_status !== 'ongoing');
         const matchCategory = filterCategory === 'all' || d.category_id === filterCategory;
-        return matchSearch && matchSource && matchStatus && matchRelease && matchCategory;
-    }), [dramas, search, filterSource, filterStatus, filterReleaseStatus, filterCategory]);
+        const matchLanguage = filterLanguage === 'all' || getDramaLanguage(d) === filterLanguage;
+
+        return matchSearch && matchSource && matchStatus && matchRelease && matchCategory && matchLanguage;
+    }), [dramas, search, filterSource, filterStatus, filterReleaseStatus, filterCategory, filterLanguage]);
 
     // Pagination
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -95,7 +183,7 @@ export default function DramasPage() {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [search, filterSource, filterStatus, filterReleaseStatus, filterCategory]);
+    }, [search, filterSource, filterStatus, filterReleaseStatus, filterCategory, filterLanguage]);
 
     const totalPages = Math.max(1, Math.ceil(filteredDramas.length / pageSize));
     const paginatedDramas = useMemo(() => {
@@ -103,13 +191,14 @@ export default function DramasPage() {
         return filteredDramas.slice(start, start + pageSize);
     }, [filteredDramas, currentPage, pageSize]);
 
-    const hasActiveFilter = filterSource !== 'all' || filterStatus !== 'published' || filterReleaseStatus !== 'all' || filterCategory !== 'all';
+    const hasActiveFilter = filterSource !== 'all' || filterStatus !== 'published' || filterReleaseStatus !== 'all' || filterCategory !== 'all' || filterLanguage !== 'all';
 
     const clearFilters = () => {
         setFilterSource('all');
         setFilterStatus('published');
         setFilterReleaseStatus('all');
         setFilterCategory('all');
+        setFilterLanguage('all');
         setCurrentPage(1);
     };
 
@@ -312,6 +401,34 @@ export default function DramasPage() {
                     </FilterButton>
                 </div>
 
+                {/* Language Filter */}
+                <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs font-semibold text-gray-400 w-20 shrink-0">Bahasa:</span>
+                    <FilterButton
+                        active={filterLanguage === 'all'}
+                        onClick={() => setFilterLanguage('all')}
+                        count={languageCounts.all}
+                    >
+                        Semua
+                    </FilterButton>
+                    <FilterButton
+                        active={filterLanguage === 'id'}
+                        onClick={() => setFilterLanguage('id')}
+                        count={languageCounts.id}
+                        color="bg-rose-500/15 text-rose-300 border-rose-500/30"
+                    >
+                        🇮🇩 Bahasa Indonesia
+                    </FilterButton>
+                    <FilterButton
+                        active={filterLanguage === 'en'}
+                        onClick={() => setFilterLanguage('en')}
+                        count={languageCounts.en}
+                        color="bg-sky-500/15 text-sky-300 border-sky-500/30"
+                    >
+                        🇬🇧 English
+                    </FilterButton>
+                </div>
+
                 {/* Category Filter */}
                 <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-xs font-semibold text-gray-400 w-20 shrink-0">Kategori:</span>
@@ -333,14 +450,63 @@ export default function DramasPage() {
                 </div>
             </div>
 
-            {/* Result Counter */}
-            <div className="flex items-center justify-between text-xs text-gray-400 px-1 font-medium">
+            {/* Result Counter & Quick Language Switcher */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-gray-400 px-1 font-medium">
                 <span>
                     Menampilkan <strong className="text-white">{filteredDramas.length}</strong> judul
                     {filterStatus === 'published' && <span className="text-emerald-400/90 ml-1.5 font-semibold">● Dipublikasikan ({statusCounts.published})</span>}
                     {filterStatus === 'draft' && <span className="text-amber-400/90 ml-1.5 font-semibold">● Masih Draft ({statusCounts.draft})</span>}
                     {filterStatus === 'all' && <span className="text-gray-400 ml-1.5 font-semibold">● Semua Status ({statusCounts.all})</span>}
+                    {filterLanguage === 'id' && <span className="text-rose-400 ml-1.5 font-semibold">● Bahasa Indonesia ({languageCounts.id})</span>}
+                    {filterLanguage === 'en' && <span className="text-sky-400 ml-1.5 font-semibold">● English ({languageCounts.en})</span>}
                 </span>
+
+                {/* Quick Language Filter Pills (Exact Position from Screenshot) */}
+                <div className="flex items-center gap-2">
+                    <button
+                        onClick={() => setFilterLanguage(filterLanguage === 'id' ? 'all' : 'id')}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border flex items-center gap-1.5 ${
+                            filterLanguage === 'id'
+                                ? 'bg-rose-500/25 text-rose-300 border-rose-500/50 shadow-[0_0_14px_rgba(244,63,94,0.25)] ring-1 ring-rose-500/30'
+                                : 'bg-white/[0.04] text-gray-300 border-white/[0.08] hover:border-white/[0.18] hover:text-white hover:bg-white/[0.07]'
+                        }`}
+                        title="Filter hanya Drama Bahasa Indonesia"
+                    >
+                        <span>🇮🇩 Bahasa Indonesia</span>
+                        <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                            filterLanguage === 'id' ? 'bg-rose-400/30 text-rose-100' : 'bg-white/[0.08] text-gray-400'
+                        }`}>
+                            {languageCounts.id}
+                        </span>
+                    </button>
+
+                    <button
+                        onClick={() => setFilterLanguage(filterLanguage === 'en' ? 'all' : 'en')}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all border flex items-center gap-1.5 ${
+                            filterLanguage === 'en'
+                                ? 'bg-sky-500/25 text-sky-300 border-sky-500/50 shadow-[0_0_14px_rgba(14,165,233,0.25)] ring-1 ring-sky-500/30'
+                                : 'bg-white/[0.04] text-gray-300 border-white/[0.08] hover:border-white/[0.18] hover:text-white hover:bg-white/[0.07]'
+                        }`}
+                        title="Filter hanya Drama English"
+                    >
+                        <span>🇬🇧 English</span>
+                        <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                            filterLanguage === 'en' ? 'bg-sky-400/30 text-sky-100' : 'bg-white/[0.08] text-gray-400'
+                        }`}>
+                            {languageCounts.en}
+                        </span>
+                    </button>
+
+                    {filterLanguage !== 'all' && (
+                        <button
+                            onClick={() => setFilterLanguage('all')}
+                            className="px-2 py-1 rounded-lg text-[11px] text-gray-400 hover:text-amber-300 hover:bg-white/[0.05] transition-all"
+                            title="Tampilkan Semua Bahasa"
+                        >
+                            Reset
+                        </button>
+                    )}
+                </div>
             </div>
 
             {/* Table Container */}
@@ -370,71 +536,102 @@ export default function DramasPage() {
                                 paginatedDramas.map((drama, index) => {
                                     const source = getSource(drama.r2_folder);
                                     const rowNum = (currentPage - 1) * pageSize + index + 1;
+                                    const lang = getDramaLanguage(drama);
                                     return (
-                                        <tr key={drama.id} className="hover:bg-white/[0.03] transition-colors group">
+                                        <tr key={drama.id} className="hover:bg-white/[0.02] transition-colors group">
                                             <td className="px-5 py-4 text-xs font-mono text-gray-500 text-center">{rowNum}</td>
                                             <td className="px-5 py-4">
-                                                <p className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">
-                                                    {drama.title}
-                                                </p>
+                                                <div className="flex items-center gap-2 flex-wrap">
+                                                    <Link
+                                                        href={`/dramas/${drama.id}/edit`}
+                                                        className="text-xs font-bold text-white hover:text-amber-300 transition-colors inline-block"
+                                                        title="Klik untuk Edit Drama"
+                                                    >
+                                                        {drama.title}
+                                                    </Link>
+                                                    {lang === 'id' ? (
+                                                        <span className="text-[10px] font-bold text-rose-400 font-mono shrink-0">
+                                                            ID
+                                                        </span>
+                                                    ) : (
+                                                        <span className="text-[10px] font-bold text-sky-400 font-mono shrink-0">
+                                                            EN
+                                                        </span>
+                                                    )}
+                                                </div>
                                                 <p className="text-[10px] text-gray-500 font-mono mt-0.5">
                                                     {drama.r2_folder || drama.id.slice(0, 10)}
                                                 </p>
                                             </td>
                                             <td className="px-5 py-4 whitespace-nowrap">
-                                                <span className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold border ${SOURCE_COLORS[source]}`}>
+                                                <span className={`text-xs font-semibold ${SOURCE_TEXT_COLORS[source]}`}>
                                                     {source}
                                                 </span>
                                             </td>
-                                            <td className="px-5 py-4 text-xs text-gray-400 whitespace-nowrap">
-                                                <span className="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06] text-[11px] font-medium">
-                                                    {getCategoryName(drama.category_id)}
-                                                </span>
+                                            <td className="px-5 py-4 whitespace-nowrap">
+                                                {drama.category_id ? (
+                                                    <span className="text-xs font-medium text-gray-300">
+                                                        {getCategoryName(drama.category_id)}
+                                                    </span>
+                                                ) : (
+                                                    <span className="text-xs text-gray-600 font-mono">
+                                                        —
+                                                    </span>
+                                                )}
                                             </td>
                                             <td className="px-5 py-4 text-center whitespace-nowrap">
-                                                <div className="flex flex-col items-center gap-1">
-                                                    <span className="inline-flex items-center justify-center px-2.5 py-0.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-bold whitespace-nowrap">
-                                                        {drama.total_episodes} eps
+                                                <div className="flex flex-col items-center gap-0.5">
+                                                    <span className="text-xs font-bold text-white font-mono">
+                                                        {drama.total_episodes} <span className="text-[10px] text-gray-400 font-normal font-sans">eps</span>
                                                     </span>
                                                     {drama.release_status === 'ongoing' ? (
-                                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold">
+                                                        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-400">
                                                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                                                             Ongoing
                                                         </span>
                                                     ) : (
-                                                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-gray-400 text-[10px] font-medium">
+                                                        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-gray-400">
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-gray-500" />
                                                             Tamat
                                                         </span>
                                                     )}
                                                 </div>
                                             </td>
                                             <td className="px-5 py-4 text-center whitespace-nowrap">
-                                                <div className="flex flex-col items-center gap-1">
-                                                    <div className="flex items-center gap-1 text-xs font-bold text-amber-300" title="Views di Aplikasi (Public Heat Score)">
-                                                        <Sparkles size={12} className="text-amber-400 shrink-0" />
+                                                <div className="flex flex-col items-center gap-0.5">
+                                                    <div className="text-xs font-bold text-amber-300 font-mono" title="Views di Aplikasi (Public Heat Score)">
                                                         <span>{(drama.view_count || 0).toLocaleString()}</span>
-                                                        <span className="text-[10px] font-normal text-gray-400">app</span>
+                                                        <span className="text-[10px] font-normal text-gray-400 font-sans ml-1">app</span>
                                                     </div>
-                                                    <div className="flex items-center gap-1 text-[11px] font-semibold text-emerald-400/90" title="Views Real Organik (Tontonan Pengguna Real)">
-                                                        <Eye size={11} className="text-emerald-400 shrink-0" />
+                                                    <div className="flex items-center gap-1 text-[11px] font-medium text-emerald-400/80 font-mono" title="Views Real Organik (Tontonan Pengguna Real)">
+                                                        <Eye size={11} className="text-emerald-500 shrink-0" />
                                                         <span>{(drama.real_view_count || 0).toLocaleString()}</span>
-                                                        <span className="text-[10px] font-normal text-gray-400">real</span>
+                                                        <span className="text-[10px] font-normal text-gray-400 font-sans">real</span>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="px-5 py-4 text-center whitespace-nowrap">
-                                                <span
-                                                    className={`inline-flex items-center justify-center px-3 py-1 rounded-lg text-xs font-bold border whitespace-nowrap ${
-                                                        drama.is_published
-                                                            ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
-                                                            : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
-                                                    }`}
-                                                >
-                                                    {drama.is_published ? 'Published' : 'Draft'}
-                                                </span>
+                                                {drama.is_published ? (
+                                                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                                                        Published
+                                                    </span>
+                                                ) : (
+                                                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-400">
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                                                        Draft
+                                                    </span>
+                                                )}
                                             </td>
                                             <td className="px-5 py-4 text-right whitespace-nowrap">
                                                 <div className="flex items-center justify-end gap-1.5">
+                                                    <Link
+                                                        href={`/dramas/${drama.id}/edit`}
+                                                        className="p-2 rounded-xl bg-white/[0.04] hover:bg-amber-500/15 border border-white/[0.08] hover:border-amber-500/30 text-gray-400 hover:text-amber-400 transition-all"
+                                                        title="Edit Drama (Cover, Genre, Sinopsis)"
+                                                    >
+                                                        <Edit size={15} />
+                                                    </Link>
                                                     <button
                                                         onClick={() => togglePublish(drama.id, drama.is_published)}
                                                         className={`p-2 rounded-xl border transition-all ${

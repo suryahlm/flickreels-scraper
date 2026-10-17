@@ -18,6 +18,7 @@ import {
     Shield
 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useAuth } from './AuthProvider';
 
@@ -73,17 +74,24 @@ export default function Sidebar() {
     if (pathname === '/login' || pathname.startsWith('/privacy')) return null;
 
     return (
-        <aside className="w-72 bg-[#090D15]/95 backdrop-blur-2xl border-r border-white/[0.08] min-h-screen flex flex-col flex-shrink-0 z-40 transition-all select-none">
+        <aside className="w-72 h-screen max-h-screen bg-[#090D15]/95 backdrop-blur-2xl border-r border-white/[0.08] flex flex-col flex-shrink-0 z-40 select-none overflow-hidden">
             {/* Logo Brand Header */}
-            <div className="p-6 border-b border-white/[0.07] flex items-center gap-3.5">
+            <div className="p-6 border-b border-white/[0.07] flex items-center gap-3.5 flex-shrink-0">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-300 p-0.5 shadow-[0_0_20px_rgba(229,169,60,0.3)] flex-shrink-0">
-                    <div className="w-full h-full bg-[#090D15] rounded-[10px] flex items-center justify-center">
-                        <Sparkles className="text-amber-400" size={20} />
+                    <div className="w-full h-full bg-[#090D15] rounded-[10px] overflow-hidden flex items-center justify-center">
+                        <Image
+                            src="/freedrama-icon-full.png"
+                            alt="FreeDrama"
+                            width={40}
+                            height={40}
+                            className="w-full h-full object-cover"
+                            priority
+                        />
                     </div>
                 </div>
                 <div>
                     <h1 className="text-lg font-bold tracking-tight gold-gradient-text leading-tight">
-                        AsianDrama
+                        FreeDrama
                     </h1>
                     <div className="flex items-center gap-1.5 mt-0.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
@@ -95,7 +103,7 @@ export default function Sidebar() {
             </div>
 
             {/* Navigation Menus with Group Hierarchy */}
-            <nav className="flex-1 px-3 py-5 space-y-6 overflow-y-auto">
+            <nav className="flex-1 px-3 py-5 space-y-6 overflow-y-auto overscroll-contain">
                 {navGroups.map((group) => (
                     <div key={group.groupLabel} className="space-y-1">
                         <p className="px-4 text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-2">
@@ -139,7 +147,7 @@ export default function Sidebar() {
             </nav>
 
             {/* User Profile & Logout Bottom Card */}
-            <div className="p-4 border-t border-white/[0.07] bg-[#07090E]/60">
+            <div className="p-4 border-t border-white/[0.07] bg-[#07090E]/60 flex-shrink-0">
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] mb-3 flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 p-[1px] flex-shrink-0 shadow-[0_0_12px_rgba(229,169,60,0.25)]">
                         <div className="w-full h-full bg-[#090D15] rounded-[11px] flex items-center justify-center font-bold text-xs text-amber-400">
